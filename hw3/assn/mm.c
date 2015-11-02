@@ -108,6 +108,30 @@ int log_hash(int key)
     return val;
 }
 
+void print_segList(){
+    int i;
+    
+    for(i = 0; i < HASH_SIZE; i++){
+        printf("Hash index:%d\n================\n", i);
+        if(segList[i] != NULL){
+            //Traverse through linked list
+            int count = 0;
+            void *currHeader = segList[i];
+            while(currHeader){
+                printf("Block: %d\n", count);
+                printf("Size: %d\n\n",GET_SIZE(currHeader));
+                currHeader = (void*)GET_NEXT_PTR(currHeader);
+                count++;
+            }
+
+            printf("\n");
+        }
+        else{
+            printf("Index is empty!\n\n\n");
+        }
+    }
+}
+
 void add_to_seglist(void * free_block)
 {
 	assert (free_block != NULL);
@@ -150,6 +174,9 @@ void remove_from_seglist(void * free_block)
 	assert (!GET_ALLOC(free_block));
 	assert (is_block_in_free_list(free_block));
 
+
+    printf("Invoking remove from seglist\n");
+
 	uintptr_t next = GET_NEXT_PTR(free_block); // next pointer
 	uintptr_t prev = GET_PREV_PTR(free_block); // prev pointer
 
@@ -164,7 +191,7 @@ void remove_from_seglist(void * free_block)
  * Initialize the heap, including "allocation" of the
  * prologue and epilogue
  **********************************************************/
-int mm_init(void)
+/*int mm_init(void)
 {
     if ((heap_listp = mem_sbrk(4*WSIZE)) == (void *)-1)
         {return -1;}
@@ -182,33 +209,7 @@ int mm_init(void)
 
     return 0;
 }
-
-//int mm_init(void)
-//{
-//    if ((heap_listp = mem_sbrk(20*WSIZE)) == (void *)-1)
-//        {return -1;}
-//    PUT(heap_listp, PACK(4 * WSIZE, 0));
-//    PUT(heap_listp + (1 * WSIZE), 0xaa00aa);
-//    add_to_seglist(heap_listp);
-//
-//    PUT(heap_listp + (4 * WSIZE), PACK(4 * WSIZE, 0));
-//    PUT(heap_listp + (5 * WSIZE), 0xbb00bb);
-//    add_to_seglist(heap_listp + (4 * WSIZE));
-//
-//    PUT(heap_listp + (8 * WSIZE), PACK(4 * WSIZE, 0));
-//    PUT(heap_listp + (9 * WSIZE), 0xcc00cc);
-//    add_to_seglist(heap_listp + (8 * WSIZE));
-//
-//    PUT(heap_listp + (12 * WSIZE), PACK(4 * WSIZE, 0));
-//    PUT(heap_listp + (13 * WSIZE), 0xdd00dd);
-//    add_to_seglist(heap_listp + (12 * WSIZE));
-//
-//    PUT(heap_listp + (16 * WSIZE), PACK(4 * WSIZE, 0));
-//    PUT(heap_listp + (17 * WSIZE), 0xdd00ee);
-//    add_to_seglist(heap_listp + (16 * WSIZE));
-//
-//    return 0;
-//}
+*/
 
 /**********************************************************
  * coalesce
@@ -251,13 +252,15 @@ void *coalesce(void *bp)
     void *prev_footer = FTRP(PREV_BLKP(bp));
     void *curr_footer = FTRP(bp);
     void *next_footer = FTRP(NEXT_BLKP(bp));
-
-    
+ 
     if (prev_alloc && next_alloc) {       /* Case 1 */
+        printf("Case 1 tripped.\n");
+        
         return bp;
     }
 
     else if (prev_alloc && !next_alloc) { /* Case 2 */
+        printf("Case 2 tripped.\n");
         // Remove next block from the appropriate free list
         remove_from_seglist(next_header);
 
@@ -274,7 +277,7 @@ void *coalesce(void *bp)
     }
 
     else if (!prev_alloc && next_alloc) { /* Case 3 */
-
+        printf("Case 3 tripped.\n");
         // Remove next block from the appropriate free list
         remove_from_seglist(prev_header);
         
@@ -290,6 +293,7 @@ void *coalesce(void *bp)
     }
 
     else {            /* Case 4 */
+        printf("Case 4 tripped.\n");
         // Remove the prev and next block from the appropriate free lists
         remove_from_seglist(prev_header);
         remove_from_seglist(next_header);
@@ -305,6 +309,46 @@ void *coalesce(void *bp)
 
         return (PREV_BLKP(bp));
     }
+}
+
+int mm_init(void)
+{
+    if ((heap_listp = mem_sbrk(20*WSIZE)) == (void *)-1)
+        {return -1;}
+    PUT(heap_listp, PACK(4 * WSIZE, 0));
+    PUT(heap_listp + (1 * WSIZE), 0xaa00aa);
+    add_to_seglist(heap_listp);
+
+    print_segList();
+
+    PUT(heap_listp + (4 * WSIZE), PACK(4 * WSIZE, 0));
+    PUT(heap_listp + (5 * WSIZE), 0xbb00bb);
+    add_to_seglist(heap_listp + (4 * WSIZE));
+
+    print_segList();
+
+    PUT(heap_listp + (8 * WSIZE), PACK(4 * WSIZE, 0));
+    PUT(heap_listp + (9 * WSIZE), 0xcc00cc);
+    add_to_seglist(heap_listp + (8 * WSIZE));
+
+    print_segList();
+
+    PUT(heap_listp + (12 * WSIZE), PACK(4 * WSIZE, 0));
+    PUT(heap_listp + (13 * WSIZE), 0xdd00dd);
+    add_to_seglist(heap_listp + (12 * WSIZE));
+
+    print_segList();
+
+    PUT(heap_listp + (16 * WSIZE), PACK(4 * WSIZE, 0));
+    PUT(heap_listp + (17 * WSIZE), 0xdd00ee);
+    add_to_seglist(heap_listp + (16 * WSIZE));
+    
+    print_segList();
+   
+    remove_from_seglist(heap_listp);
+    coalesce(heap_listp);
+
+    return 0;
 }
 
 /**********************************************************
