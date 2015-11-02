@@ -133,22 +133,26 @@ int is_block_in_free_list(void * block)
 	assert (block != NULL);
 
 	int index = log_hash(GET_SIZE(block));
+	int true = 0;
 	void * curr_ptr = segList[index];
 
 	while (curr_ptr!=NULL)
 	{
-		if (block == curr_ptr) {return 1;}
+		if (block == curr_ptr)
+		{
+			true = 1;
+		}
 		curr_ptr = (void*)GET_NEXT_PTR(curr_ptr);
 	}
 
-	return 0;
+	return true;
 }
 
 void remove_from_seglist(void * free_block)
 {
 	assert (free_block != NULL);
 	assert (!GET_ALLOC(free_block));
-	assert (is_block_in_free_list(free_block));
+	assert (is_block_in_free_list(free_block) == 1);
 
 	uintptr_t next = GET_NEXT_PTR(free_block); // next pointer
 	uintptr_t prev = GET_PREV_PTR(free_block); // prev pointer
@@ -189,23 +193,31 @@ int mm_init(void)
 //        {return -1;}
 //    PUT(heap_listp, PACK(4 * WSIZE, 0));
 //    PUT(heap_listp + (1 * WSIZE), 0xaa00aa);
+//    PUT(heap_listp + (2 * WSIZE), 0x00aa00);
 //    add_to_seglist(heap_listp);
 //
 //    PUT(heap_listp + (4 * WSIZE), PACK(4 * WSIZE, 0));
 //    PUT(heap_listp + (5 * WSIZE), 0xbb00bb);
+//    PUT(heap_listp + (6 * WSIZE), 0x00bb00);
 //    add_to_seglist(heap_listp + (4 * WSIZE));
 //
 //    PUT(heap_listp + (8 * WSIZE), PACK(4 * WSIZE, 0));
 //    PUT(heap_listp + (9 * WSIZE), 0xcc00cc);
+//    PUT(heap_listp + (10 * WSIZE), 0x00cc00);
 //    add_to_seglist(heap_listp + (8 * WSIZE));
 //
 //    PUT(heap_listp + (12 * WSIZE), PACK(4 * WSIZE, 0));
 //    PUT(heap_listp + (13 * WSIZE), 0xdd00dd);
+//    PUT(heap_listp + (14 * WSIZE), 0x00dd00);
 //    add_to_seglist(heap_listp + (12 * WSIZE));
 //
 //    PUT(heap_listp + (16 * WSIZE), PACK(4 * WSIZE, 0));
-//    PUT(heap_listp + (17 * WSIZE), 0xdd00ee);
+//    PUT(heap_listp + (17 * WSIZE), 0xee00ee);
+//    PUT(heap_listp + (18 * WSIZE), 0x00ee00);
 //    add_to_seglist(heap_listp + (16 * WSIZE));
+//
+//    remove_from_seglist(heap_listp + (8 * WSIZE));
+//    remove_from_seglist(heap_listp + (8 * WSIZE));
 //
 //    return 0;
 //}
@@ -247,8 +259,8 @@ void *coalesce(void *bp)
     void *curr_header = HDRP(bp);
     void *next_header = HDRP(NEXT_BLKP(bp));
 
-    //Let's calculate the footer pointer of al three blocks
-    void *prev_footer = FTRP(PREV_BLKP(bp));
+    //Let's calculate the footer pointer of all three blocks
+    // void *prev_footer = FTRP(PREV_BLKP(bp));
     void *curr_footer = FTRP(bp);
     void *next_footer = FTRP(NEXT_BLKP(bp));
 
