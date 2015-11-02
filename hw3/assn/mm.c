@@ -157,19 +157,19 @@ int is_block_in_free_list(void * block)
 	assert (block != NULL);
 
 	int index = log_hash(GET_SIZE(block));
-	int true = 0;
+	int m_true = 0;
 	void * curr_ptr = segList[index];
 
 	while (curr_ptr!=NULL)
 	{
 		if (block == curr_ptr)
 		{
-			true = 1;
+			m_true = 1;
 		}
 		curr_ptr = (void*)GET_NEXT_PTR(curr_ptr);
 	}
 
-	return true;
+	return m_true;
 }
 
 void remove_from_seglist(void * free_block)
@@ -181,12 +181,21 @@ void remove_from_seglist(void * free_block)
 
     printf("Invoking remove from seglist\n");
 
-	uintptr_t next = GET_NEXT_PTR(free_block); // next pointer
+	int index = log_hash(GET_SIZE(free_block));
+	
+    uintptr_t next = GET_NEXT_PTR(free_block); // next pointer
 	uintptr_t prev = GET_PREV_PTR(free_block); // prev pointer
-
-	SET_PREV_PTR(next, prev); // next's prev = prev
-	SET_NEXT_PTR(prev, next); // prev's next = next
-
+    
+    if(next){
+	    SET_PREV_PTR(next, prev); // next's prev = prev
+    }
+    if(prev){
+	    SET_NEXT_PTR(prev, next); // prev's next = next
+    }
+    else{
+        segList[index] = next;
+    }
+    printf("Finished remove from seg list\n");
 	return;
 }
 
@@ -251,6 +260,8 @@ void *coalesce(void *bp)
     void *prev_header = HDRP(PREV_BLKP(bp));
     void *curr_header = HDRP(bp);
     void *next_header = HDRP(NEXT_BLKP(bp));
+    printf("NextHeader: %p\n",next_header);
+    printf("PrevHeader: %p\n",prev_header);
 
     //Let's calculate the footer pointer of all three blocks
     // void *prev_footer = FTRP(PREV_BLKP(bp));
@@ -350,6 +361,8 @@ int mm_init(void)
     print_segList();
    
     remove_from_seglist(heap_listp);
+
+    print_segList();
     coalesce(heap_listp);
 
     return 0;
