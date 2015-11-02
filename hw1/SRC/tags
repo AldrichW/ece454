@@ -1,0 +1,1553 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.5.4	//
+ABSOLUTE	vpr_types.h	/^{ ABSOLUTE, FRACTIONAL };$/;"	e	enum:e_Fc_type
+ABS_DIFF	mst.c	7;"	d	file:
+ABS_DIFF	place_stats.c	7;"	d	file:
+ALLOW_SWITCH_OFF	rr_graph2.c	10;"	d	file:
+ALL_NETS	draw.c	/^{ ALL_NETS, HIGHLIGHTED };$/;"	e	enum:e_draw_net_type	file:
+AUTO_SCHED	vpr_types.h	/^{ AUTO_SCHED, USER_SCHED };	\/* Annealing schedule *\/$/;"	e	enum:sched_type
+ArchFile	ReadOptions.h	/^    char *ArchFile;$/;"	m	struct:s_options
+Aspect	xml_arch.h	/^    float Aspect;$/;"	m	struct:s_clb_grid
+BI_DIRECTION	vpr_types.h	/^    BI_DIRECTION = 2$/;"	e	enum:e_direction
+BI_DIRECTIONAL	vpr_types.h	/^{ UNI_DIRECTIONAL, BI_DIRECTIONAL };	\/* UDSD by AY *\/$/;"	e	enum:e_directionality
+BLACK	graphics.h	/^{ WHITE, BLACK, DARKGREY, LIGHTGREY, BLUE, GREEN, YELLOW,$/;"	e	enum:color_types
+BLOCK_COUNT	timing_place_lookup.c	47;"	d	file:
+BLUE	graphics.h	/^{ WHITE, BLACK, DARKGREY, LIGHTGREY, BLUE, GREEN, YELLOW,$/;"	e	enum:color_types
+BOTTOM	vpr_types.h	/^{ TOP = 0, RIGHT = 1, BOTTOM = 2, LEFT = 3 };$/;"	e	enum:e_side
+BOUNDARY	vpr_types.h	/^{ BOUNDARY = 0, FILL, COL_REPEAT, COL_REL };$/;"	e	enum:e_grid_loc_type
+BOUNDING_BOX_PLACE	vpr_types.h	/^{ BOUNDING_BOX_PLACE, NET_TIMING_DRIVEN_PLACE,$/;"	e	enum:e_place_algorithm
+BREADTH_FIRST	vpr_types.h	/^{ BREADTH_FIRST, TIMING_DRIVEN, DIRECTED_SEARCH };$/;"	e	enum:e_router_algorithm
+BUFSIZE	util.h	29;"	d
+BUF_AND_PTRANS_FLAG	check_rr_graph.c	12;"	d	file:
+BUF_FLAG	check_rr_graph.c	10;"	d	file:
+BUTTON_TEXT_LEN	graphics.c	92;"	d	file:
+C	vpr_types.h	/^    float C;$/;"	m	struct:s_rr_node
+CHANX	vpr_types.h	/^{ SOURCE, SINK, IPIN, OPIN, CHANX, CHANY, NUM_RR_TYPES }$/;"	e	enum:e_rr_type
+CHANX_COST_INDEX_START	vpr_types.h	/^    IPIN_COST_INDEX, CHANX_COST_INDEX_START$/;"	e	enum:e_cost_indices
+CHANY	vpr_types.h	/^{ SOURCE, SINK, IPIN, OPIN, CHANX, CHANY, NUM_RR_TYPES }$/;"	e	enum:e_rr_type
+CHECK	place.c	/^{ NORMAL, CHECK };$/;"	e	enum:cost_methods	file:
+CHECK_RAND	util.c	837;"	d	file:
+CHUNK_SIZE	util.c	218;"	d	file:
+COL_REL	vpr_types.h	/^{ BOUNDARY = 0, FILL, COL_REPEAT, COL_REL };$/;"	e	enum:e_grid_loc_type
+COL_REPEAT	vpr_types.h	/^{ BOUNDARY = 0, FILL, COL_REPEAT, COL_REL };$/;"	e	enum:e_grid_loc_type
+CONSTANT_GEN_SOURCE	path_delay2.h	/^    CONSTANT_GEN_SOURCE$/;"	e
+CYAN	graphics.h	/^    CYAN, RED, DARKGREEN, MAGENTA$/;"	e	enum:color_types
+C_downstream	net_delay.c	/^    float C_downstream;$/;"	m	struct:s_rc_node	file:
+C_downstream	route_tree_timing.h	/^    float C_downstream;$/;"	m	struct:s_rt_node
+C_ipin_cblock	vpr_types.h	/^    float C_ipin_cblock;$/;"	m	struct:s_timing_inf
+C_ipin_cblock	xml_arch.h	/^     float C_ipin_cblock;$/;"	m	struct:s_arch
+C_load	vpr_types.h	/^    float C_load;$/;"	m	struct:s_rr_indexed_data
+Chans	xml_arch.h	/^    t_chan_width_dist Chans;$/;"	m	struct:s_arch
+CheckArch	CheckArch.c	/^CheckArch(IN t_arch Arch,$/;"	f
+CheckElement	xml_arch.c	/^CheckElement(IN ezxml_t Node,$/;"	f	file:
+CheckGrid	SetupVPR.c	/^CheckGrid()$/;"	f	file:
+CheckOptions	CheckOptions.c	/^CheckOptions(IN t_options Options,$/;"	f
+CheckSegments	CheckArch.c	/^static void CheckSegments(IN t_arch Arch) {$/;"	f	file:
+CheckSetup	CheckSetup.c	/^CheckSetup(IN enum e_operation Operation,$/;"	f
+CheckSwitches	CheckArch.c	/^CheckSwitches(IN t_arch Arch,$/;"	f	file:
+Cin	vpr_types.h	/^    float Cin;$/;"	m	struct:s_switch_inf
+Cmetal	vpr_types.h	/^    float Cmetal;$/;"	m	struct:s_seg_details
+Cmetal	vpr_types.h	/^    float Cmetal;$/;"	m	struct:s_segment_inf
+Count	ReadOptions.h	/^    int Count[OT_BASE_UNKNOWN];$/;"	m	struct:s_options
+CountChildren	xml_arch.c	/^CountChildren(IN ezxml_t Node,$/;"	f	file:
+CountTokens	ReadLine.c	/^CountTokens(IN char **Tokens)$/;"	f
+CountTokensInString	xml_arch.c	/^CountTokensInString(IN const char *Str,$/;"	f	file:
+Cout	vpr_types.h	/^    float Cout;$/;"	m	struct:s_switch_inf
+DARKGREEN	graphics.h	/^    CYAN, RED, DARKGREEN, MAGENTA$/;"	e	enum:color_types
+DARKGREY	graphics.h	/^{ WHITE, BLACK, DARKGREY, LIGHTGREY, BLUE, GREEN, YELLOW,$/;"	e	enum:color_types
+DASHED	graphics.h	/^{ SOLID, DASHED };$/;"	e	enum:line_types
+DEBUG	vpr_types.h	2;"	d
+DEBUG_TIMING_PLACE_LOOKUP	timing_place_lookup.c	56;"	d	file:
+DEC_DIRECTION	vpr_types.h	/^    DEC_DIRECTION = 1,$/;"	e	enum:e_direction
+DELAY_NORMALIZED	vpr_types.h	/^{ INTRINSIC_DELAY, DELAY_NORMALIZED, DEMAND_ONLY };$/;"	e	enum:e_base_cost_type
+DELTA	vpr_types.h	/^{ UNIFORM, GAUSSIAN, PULSE, DELTA };$/;"	e	enum:e_stat
+DEMAND_ONLY	vpr_types.h	/^{ INTRINSIC_DELAY, DELAY_NORMALIZED, DEMAND_ONLY };$/;"	e	enum:e_base_cost_type
+DETAILED	vpr_types.h	/^{ GLOBAL, DETAILED };$/;"	e	enum:e_route_type
+DIRECTED_SEARCH	vpr_types.h	/^{ BREADTH_FIRST, TIMING_DRIVEN, DIRECTED_SEARCH };$/;"	e	enum:e_router_algorithm
+DRAW_ALL_BUT_BUFFERS_RR	draw.c	/^    DRAW_ALL_BUT_BUFFERS_RR,$/;"	e	enum:e_draw_rr_toggle	file:
+DRAW_ALL_RR	draw.c	/^    DRAW_ALL_RR,$/;"	e	enum:e_draw_rr_toggle	file:
+DRAW_NODES_AND_SBOX_RR	draw.c	/^    DRAW_NODES_AND_SBOX_RR,$/;"	e	enum:e_draw_rr_toggle	file:
+DRAW_NODES_RR	draw.c	/^    DRAW_NODES_RR,$/;"	e	enum:e_draw_rr_toggle	file:
+DRAW_NO_RR	draw.c	/^    DRAW_NO_RR = 0,$/;"	e	enum:e_draw_rr_toggle	file:
+DRAW_RR_TOGGLE_MAX	draw.c	/^    DRAW_RR_TOGGLE_MAX$/;"	e	enum:e_draw_rr_toggle	file:
+DRIVER	vpr_types.h	/^{ OPEN = -1, DRIVER = 0, RECEIVER = 1 };$/;"	e	enum:e_pin_type
+DUMPFILE	timing_place_lookup.c	58;"	d	file:
+EMPTY	vpr_types.h	43;"	d
+EMPTY_TYPE	main.c	/^t_type_ptr EMPTY_TYPE = NULL;$/;"	v
+EMPTY_TYPE_BACKUP	timing_place_lookup.c	/^static t_type_ptr EMPTY_TYPE_BACKUP;$/;"	v	file:
+EMPTY_TYPE_INDEX	xml_arch.c	12;"	d	file:
+ENABLE_REVERSE	rr_graph2.c	15;"	d	file:
+ERROR_TOL	place.c	37;"	d	file:
+ERROR_TOL	route_timing.c	766;"	d	file:
+ERRTAG	util.h	26;"	d
+EZXML_BUFSIZE	ezxml.h	38;"	d
+EZXML_DUP	ezxml.h	41;"	d
+EZXML_ERRL	ezxml.c	65;"	d	file:
+EZXML_NAMEM	ezxml.h	39;"	d
+EZXML_NIL	ezxml.c	/^char *EZXML_NIL[] = { NULL };	\/* empty, null terminated array of strings *\/$/;"	v
+EZXML_NOMMAP	ezxml.c	30;"	d	file:
+EZXML_TXTM	ezxml.h	40;"	d
+EZXML_WS	ezxml.c	64;"	d	file:
+EchoArch	xml_arch.c	/^EchoArch(IN const char *EchoFile,$/;"	f
+Enum	vpr_types.h	/^    int Enum;$/;"	m	struct:s_TokenPair
+Error	ReadOptions.c	/^Error(IN const char *Token)$/;"	f	file:
+ErrorOption	ReadOptions.c	/^ErrorOption(IN const char *Option)$/;"	f	file:
+FALSE	util.h	/^{ FALSE, TRUE }$/;"	e
+FB_IPIN	path_delay2.h	/^    FB_IPIN, FB_OPIN, SUBBLK_IPIN, SUBBLK_OPIN, FF_SINK, FF_SOURCE,$/;"	e
+FB_OPIN	path_delay2.h	/^    FB_IPIN, FB_OPIN, SUBBLK_IPIN, SUBBLK_OPIN, FF_SINK, FF_SOURCE,$/;"	e
+FC_ABS	xml_arch.c	/^{ FC_ABS, FC_FRAC, FC_FULL };$/;"	e	enum:Fc_type	file:
+FC_FRAC	xml_arch.c	/^{ FC_ABS, FC_FRAC, FC_FULL };$/;"	e	enum:Fc_type	file:
+FC_FULL	xml_arch.c	/^{ FC_ABS, FC_FRAC, FC_FULL };$/;"	e	enum:Fc_type	file:
+FF_SINK	path_delay2.h	/^    FB_IPIN, FB_OPIN, SUBBLK_IPIN, SUBBLK_OPIN, FF_SINK, FF_SOURCE,$/;"	e
+FF_SOURCE	path_delay2.h	/^    FB_IPIN, FB_OPIN, SUBBLK_IPIN, SUBBLK_OPIN, FF_SINK, FF_SOURCE,$/;"	e
+FILL	vpr_types.h	/^{ BOUNDARY = 0, FILL, COL_REPEAT, COL_REL };$/;"	e	enum:e_grid_loc_type
+FILL_TYPE	main.c	/^t_type_ptr FILL_TYPE = NULL;$/;"	v
+FILL_TYPE_BACKUP	timing_place_lookup.c	/^static t_type_ptr FILL_TYPE_BACKUP;$/;"	v	file:
+FRACTIONAL	vpr_types.h	/^{ ABSOLUTE, FRACTIONAL };$/;"	e	enum:e_Fc_type
+FRAGMENT_THRESHOLD	util.c	219;"	d	file:
+FREE	vpr_types.h	/^{ FREE, RANDOM, USER };$/;"	e	enum:e_pad_loc_type
+FROM	place.c	33;"	d	file:
+FROM_AND_TO	place.c	35;"	d	file:
+FROM_X_TO_Y	draw.c	/^{ FROM_X_TO_Y, FROM_Y_TO_X };	\/* Chanx to chany or vice versa? *\/$/;"	e	enum:e_edge_dir	file:
+FROM_Y_TO_X	draw.c	/^{ FROM_X_TO_Y, FROM_Y_TO_X };	\/* Chanx to chany or vice versa? *\/$/;"	e	enum:e_edge_dir	file:
+FULL	vpr_types.h	/^{ SUBSET, WILTON, UNIVERSAL, FULL };	\/* UDSD Modifications by WMF *\/$/;"	e	enum:e_switch_block_type
+Fc_in	vpr_types.h	/^    float Fc_in;$/;"	m	struct:s_type_descriptor
+Fc_out	vpr_types.h	/^    float Fc_out;$/;"	m	struct:s_type_descriptor
+Fc_type	xml_arch.c	/^    enum Fc_type$/;"	g	file:
+FindElement	xml_arch.c	/^FindElement(IN ezxml_t Parent,$/;"	f	file:
+FindProperty	xml_arch.c	/^FindProperty(IN ezxml_t Parent,$/;"	f	file:
+FreeNode	xml_arch.c	/^FreeNode(INOUT ezxml_t Node)$/;"	f	file:
+FreeTokens	ReadLine.c	/^FreeTokens(INOUT char ***TokensPtr)$/;"	f
+Fs	vpr_types.h	/^    int Fs;$/;"	m	struct:s_det_routing_arch
+Fs	xml_arch.h	/^     int Fs;$/;"	m	struct:s_arch
+Fs_seed	main.c	/^int Fs_seed = -1;$/;"	v
+GAUSSIAN	vpr_types.h	/^{ UNIFORM, GAUSSIAN, PULSE, DELTA };$/;"	e	enum:e_stat
+GLOBAL	vpr_types.h	/^{ GLOBAL, DETAILED };$/;"	e	enum:e_route_type
+GRAPH_BIDIR	rr_graph.h	/^    GRAPH_BIDIR,		\/* Detailed bidirectional graph *\/$/;"	e	enum:e_graph_type
+GRAPH_GLOBAL	rr_graph.h	/^    GRAPH_GLOBAL,		\/* One node per channel with wire capacity > 1 and full connectivity *\/$/;"	e	enum:e_graph_type
+GRAPH_UNIDIR	rr_graph.h	/^    GRAPH_UNIDIR,		\/* Detailed unidir graph, untilable *\/$/;"	e	enum:e_graph_type
+GRAPH_UNIDIR_TILEABLE	rr_graph.h	/^    GRAPH_UNIDIR_TILEABLE	\/* Detail unidir graph with wire groups multiples of 2*L *\/$/;"	e	enum:e_graph_type
+GREEN	graphics.h	/^{ WHITE, BLACK, DARKGREY, LIGHTGREY, BLUE, GREEN, YELLOW,$/;"	e	enum:color_types
+GetNodeTokens	xml_arch.c	/^GetNodeTokens(IN ezxml_t Node)$/;"	f	file:
+GraphPause	ReadOptions.h	/^	int GraphPause;$/;"	m	struct:s_options
+H	xml_arch.h	/^     int H;$/;"	m	struct:s_clb_grid
+HASHSIZE	hash.c	6;"	d	file:
+HIGHLIGHTED	draw.c	/^{ ALL_NETS, HIGHLIGHTED };$/;"	e	enum:e_draw_net_type	file:
+HUGE_FLOAT	vpr_types.h	35;"	d
+IA	util.c	834;"	d	file:
+IC	util.c	835;"	d	file:
+IM	util.c	836;"	d	file:
+IMPOSSIBLE	timing_place_lookup.h	1;"	d
+IN	util.h	21;"	d
+INC_DIRECTION	vpr_types.h	/^    INC_DIRECTION = 0,$/;"	e	enum:e_direction
+INFINITE	place_and_route.h	1;"	d
+INOUT	util.h	23;"	d
+INPAD	read_netlist.c	/^{ NORMAL = 0, INPAD, OUTPAD };$/;"	e	enum:special_blk	file:
+INPAD_OPIN	path_delay2.h	/^{ INPAD_SOURCE, INPAD_OPIN, OUTPAD_IPIN, OUTPAD_SINK,$/;"	e
+INPAD_SOURCE	path_delay2.h	/^{ INPAD_SOURCE, INPAD_OPIN, OUTPAD_IPIN, OUTPAD_SINK,$/;"	e
+INTRINSIC_DELAY	vpr_types.h	/^{ INTRINSIC_DELAY, DELAY_NORMALIZED, DEMAND_ONLY };$/;"	e	enum:e_base_cost_type
+IO_TYPE	main.c	/^t_type_ptr IO_TYPE = NULL;$/;"	v
+IO_TYPE_BACKUP	timing_place_lookup.c	/^static t_type_ptr IO_TYPE_BACKUP;$/;"	v	file:
+IO_TYPE_INDEX	xml_arch.c	13;"	d	file:
+IPIN	vpr_types.h	/^{ SOURCE, SINK, IPIN, OPIN, CHANX, CHANY, NUM_RR_TYPES }$/;"	e	enum:e_rr_type
+IPIN_COST_INDEX	vpr_types.h	/^    IPIN_COST_INDEX, CHANX_COST_INDEX_START$/;"	e	enum:e_cost_indices
+InitArch	SetupVPR.c	/^InitArch(IN t_arch Arch)$/;"	f	file:
+IsAuto	xml_arch.h	/^    boolean IsAuto;$/;"	m	struct:s_clb_grid
+IsTimingEnabled	SetupVPR.c	/^IsTimingEnabled(IN t_options Options)$/;"	f
+IsWhitespace	xml_arch.c	/^IsWhitespace(char c)$/;"	f	file:
+K	xml_arch.h	/^     int K;			\/* LUT size *\/$/;"	m	struct:s_arch
+LEFT	vpr_types.h	/^{ TOP = 0, RIGHT = 1, BOTTOM = 2, LEFT = 3 };$/;"	e	enum:e_side
+LIGHTGREY	graphics.h	/^{ WHITE, BLACK, DARKGREY, LIGHTGREY, BLUE, GREEN, YELLOW,$/;"	e	enum:color_types
+LINEAR_CONG	vpr_types.h	/^{ LINEAR_CONG, NONLINEAR_CONG };$/;"	e	enum:place_c_types
+LONGLINE	segment_stats.c	10;"	d	file:
+MAGENTA	graphics.h	/^    CYAN, RED, DARKGREEN, MAGENTA$/;"	e	enum:color_types
+MAJOR	vpr_types.h	33;"	d
+MAXPIXEL	graphics.c	157;"	d	file:
+MAXPTS	graphics.h	13;"	d
+MAX_CHANNEL_WIDTH	vpr_types.h	40;"	d
+MAX_FONT_SIZE	graphics.c	89;"	d	file:
+MAX_LEN	place_stats.c	9;"	d	file:
+MAX_MOVES_BEFORE_RECOMPUTE	place.c	38;"	d	file:
+MAX_SHORT	vpr_types.h	41;"	d
+MAX_X	place_stats.c	8;"	d	file:
+MINOR	vpr_types.h	32;"	d
+MINPIXEL	graphics.c	158;"	d	file:
+MULTI_BUFFERED	vpr_types.h	/^{ MULTI_BUFFERED, MULTI_MUXED, MULTI_MERGED, SINGLE };$/;"	e	enum:e_drivers
+MULTI_MERGED	vpr_types.h	/^{ MULTI_BUFFERED, MULTI_MUXED, MULTI_MERGED, SINGLE };$/;"	e	enum:e_drivers
+MULTI_MUXED	vpr_types.h	/^{ MULTI_BUFFERED, MULTI_MUXED, MULTI_MERGED, SINGLE };$/;"	e	enum:e_drivers
+MUX_SIZE_DIST_DISPLAY	rr_graph.c	26;"	d	file:
+MWIDTH	graphics.c	87;"	d	file:
+N	xml_arch.h	/^    int N;			\/* Cluster size *\/$/;"	m	struct:s_arch
+NCHUNK	route_common.c	1138;"	d	file:
+NDEBUG	vpr_types.h	16;"	d
+NET_COUNT	timing_place_lookup.c	36;"	d	file:
+NET_TIMING_DRIVEN_PLACE	vpr_types.h	/^{ BOUNDING_BOX_PLACE, NET_TIMING_DRIVEN_PLACE,$/;"	e	enum:e_place_algorithm
+NET_USED	timing_place_lookup.c	40;"	d	file:
+NET_USED_SINK_BLOCK	timing_place_lookup.c	43;"	d	file:
+NET_USED_SOURCE_BLOCK	timing_place_lookup.c	42;"	d	file:
+NONLINEAR_CONG	vpr_types.h	/^{ LINEAR_CONG, NONLINEAR_CONG };$/;"	e	enum:place_c_types
+NORMAL	place.c	/^{ NORMAL, CHECK };$/;"	e	enum:cost_methods	file:
+NORMAL	read_netlist.c	/^{ NORMAL = 0, INPAD, OUTPAD };$/;"	e	enum:special_blk	file:
+NOT_FOUND	place_and_route.h	2;"	d
+NO_FIXED_CHANNEL_WIDTH	vpr_types.h	446;"	d
+NO_GRAPHICS	vpr_types.h	15;"	d
+NO_PICTURE	vpr_types.h	/^{ NO_PICTURE, PLACEMENT, ROUTING };	\/* What's on screen? *\/$/;"	e	enum:pic_type
+NO_PREVIOUS	vpr_types.h	723;"	d
+NO_ROUTE_THROUGHS	route_tree_timing.c	297;"	d	file:
+NUM_COLOR	graphics.h	4;"	d
+NUM_RR_TYPES	vpr_types.h	/^{ SOURCE, SINK, IPIN, OPIN, CHANX, CHANY, NUM_RR_TYPES }$/;"	e	enum:e_rr_type
+NUM_SUB_PIN_TYPES	path_delay.c	/^{ SUB_INPUT = 0, SUB_OUTPUT, SUB_CLOCK, NUM_SUB_PIN_TYPES };$/;"	e	enum:e_subblock_pin_type	file:
+NUM_TYPES_USED	timing_place_lookup.c	54;"	d	file:
+NetFile	ReadOptions.h	/^    char *NetFile;$/;"	m	struct:s_options
+OFF	graphics.c	1128;"	d	file:
+ON	graphics.c	1129;"	d	file:
+OPEN	vpr_types.h	/^{ OPEN = -1, DRIVER = 0, RECEIVER = 1 };$/;"	e	enum:e_pin_type
+OPIN	vpr_types.h	/^{ SOURCE, SINK, IPIN, OPIN, CHANX, CHANY, NUM_RR_TYPES }$/;"	e	enum:e_rr_type
+OPIN_COST_INDEX	vpr_types.h	/^{ SOURCE_COST_INDEX = 0, SINK_COST_INDEX, OPIN_COST_INDEX,$/;"	e	enum:e_cost_indices
+OT_ACC_FAC	OptionTokens.h	/^    OT_ACC_FAC,$/;"	e	enum:e_OptionBaseToken
+OT_ALPHA_T	OptionTokens.h	/^    OT_ALPHA_T,$/;"	e	enum:e_OptionBaseToken
+OT_ARG_UNKNOWN	OptionTokens.h	/^    OT_ARG_UNKNOWN		\/* Must be last since used for counting enum items *\/$/;"	e	enum:e_OptionArgToken
+OT_ASTAR_FAC	OptionTokens.h	/^    OT_ASTAR_FAC,$/;"	e	enum:e_OptionBaseToken
+OT_AUTO	OptionTokens.h	/^    OT_AUTO,$/;"	e	enum:e_OptionBaseToken
+OT_BASE_COST_TYPE	OptionTokens.h	/^    OT_BASE_COST_TYPE,$/;"	e	enum:e_OptionBaseToken
+OT_BASE_UNKNOWN	OptionTokens.h	/^    OT_BASE_UNKNOWN		\/* Must be last since used for counting enum items *\/$/;"	e	enum:e_OptionBaseToken
+OT_BB_FACTOR	OptionTokens.h	/^    OT_BB_FACTOR,$/;"	e	enum:e_OptionBaseToken
+OT_BEND_COST	OptionTokens.h	/^    OT_BEND_COST,$/;"	e	enum:e_OptionBaseToken
+OT_BLOCK_DIST	OptionTokens.h	/^    OT_BLOCK_DIST,$/;"	e	enum:e_OptionBaseToken
+OT_BOUNDING_BOX	OptionTokens.h	/^    OT_BOUNDING_BOX,$/;"	e	enum:e_OptionArgToken
+OT_BREADTH_FIRST	OptionTokens.h	/^    OT_BREADTH_FIRST,$/;"	e	enum:e_OptionArgToken
+OT_CRITICALITY_EXP	OptionTokens.h	/^    OT_CRITICALITY_EXP,$/;"	e	enum:e_OptionBaseToken
+OT_DELAY_NORMALIZED	OptionTokens.h	/^	OT_DELAY_NORMALIZED,$/;"	e	enum:e_OptionArgToken
+OT_DEMAND_ONLY	OptionTokens.h	/^	OT_DEMAND_ONLY,$/;"	e	enum:e_OptionArgToken
+OT_DETAILED	OptionTokens.h	/^    OT_DETAILED,$/;"	e	enum:e_OptionArgToken
+OT_DIRECTED_SEARCH	OptionTokens.h	/^    OT_DIRECTED_SEARCH,$/;"	e	enum:e_OptionArgToken
+OT_ENABLE_TIMING_COMPUTATIONS	OptionTokens.h	/^    OT_ENABLE_TIMING_COMPUTATIONS,$/;"	e	enum:e_OptionBaseToken
+OT_EXIT_T	OptionTokens.h	/^    OT_EXIT_T,$/;"	e	enum:e_OptionBaseToken
+OT_FAST	OptionTokens.h	/^    OT_FAST,$/;"	e	enum:e_OptionBaseToken
+OT_FIRST_ITER_PRES_FAC	OptionTokens.h	/^    OT_FIRST_ITER_PRES_FAC,$/;"	e	enum:e_OptionBaseToken
+OT_FIX_PINS	OptionTokens.h	/^    OT_FIX_PINS,$/;"	e	enum:e_OptionBaseToken
+OT_FULL_STATS	OptionTokens.h	/^    OT_FULL_STATS,$/;"	e	enum:e_OptionBaseToken
+OT_GLOBAL	OptionTokens.h	/^    OT_GLOBAL,$/;"	e	enum:e_OptionArgToken
+OT_INITIAL_PRES_FAC	OptionTokens.h	/^    OT_INITIAL_PRES_FAC,$/;"	e	enum:e_OptionBaseToken
+OT_INIT_T	OptionTokens.h	/^    OT_INIT_T,$/;"	e	enum:e_OptionBaseToken
+OT_INNER_LOOP_RECOMPUTE_DIVIDER	OptionTokens.h	/^    OT_INNER_LOOP_RECOMPUTE_DIVIDER,$/;"	e	enum:e_OptionBaseToken
+OT_INNER_NUM	OptionTokens.h	/^    OT_INNER_NUM,$/;"	e	enum:e_OptionBaseToken
+OT_INTRINSIC_DELAY	OptionTokens.h	/^	OT_INTRINSIC_DELAY,$/;"	e	enum:e_OptionArgToken
+OT_LINEAR	OptionTokens.h	/^    OT_LINEAR,$/;"	e	enum:e_OptionArgToken
+OT_MAX_CRITICALITY	OptionTokens.h	/^    OT_MAX_CRITICALITY,$/;"	e	enum:e_OptionBaseToken
+OT_MAX_ROUTER_ITERATIONS	OptionTokens.h	/^    OT_MAX_ROUTER_ITERATIONS,$/;"	e	enum:e_OptionBaseToken
+OT_NET_TIMING_DRIVEN	OptionTokens.h	/^    OT_NET_TIMING_DRIVEN,$/;"	e	enum:e_OptionArgToken
+OT_NODISP	OptionTokens.h	/^    OT_NODISP,$/;"	e	enum:e_OptionBaseToken
+OT_NONLINEAR	OptionTokens.h	/^    OT_NONLINEAR,$/;"	e	enum:e_OptionArgToken
+OT_NUM_REGIONS	OptionTokens.h	/^    OT_NUM_REGIONS,$/;"	e	enum:e_OptionBaseToken
+OT_OFF	OptionTokens.h	/^    OT_OFF,$/;"	e	enum:e_OptionArgToken
+OT_ON	OptionTokens.h	/^    OT_ON,$/;"	e	enum:e_OptionArgToken
+OT_OUTFILE_PREFIX	OptionTokens.h	/^    OT_OUTFILE_PREFIX,$/;"	e	enum:e_OptionBaseToken
+OT_PATH_TIMING_DRIVEN	OptionTokens.h	/^    OT_PATH_TIMING_DRIVEN,$/;"	e	enum:e_OptionArgToken
+OT_PLACE_ALGORITHM	OptionTokens.h	/^    OT_PLACE_ALGORITHM,$/;"	e	enum:e_OptionBaseToken
+OT_PLACE_CHAN_WIDTH	OptionTokens.h	/^    OT_PLACE_CHAN_WIDTH,$/;"	e	enum:e_OptionBaseToken
+OT_PLACE_COST_EXP	OptionTokens.h	/^    OT_PLACE_COST_EXP,$/;"	e	enum:e_OptionBaseToken
+OT_PLACE_COST_TYPE	OptionTokens.h	/^    OT_PLACE_COST_TYPE,$/;"	e	enum:e_OptionBaseToken
+OT_PLACE_ONLY	OptionTokens.h	/^    OT_PLACE_ONLY,$/;"	e	enum:e_OptionBaseToken
+OT_PRES_FAC_MULT	OptionTokens.h	/^    OT_PRES_FAC_MULT,$/;"	e	enum:e_OptionBaseToken
+OT_RANDOM	OptionTokens.h	/^    OT_RANDOM,$/;"	e	enum:e_OptionArgToken
+OT_READ_PLACE_ONLY	OptionTokens.h	/^    OT_READ_PLACE_ONLY,$/;"	e	enum:e_OptionBaseToken
+OT_RECOMPUTE_CRIT_ITER	OptionTokens.h	/^    OT_RECOMPUTE_CRIT_ITER,$/;"	e	enum:e_OptionBaseToken
+OT_ROUTER_ALGORITHM	OptionTokens.h	/^    OT_ROUTER_ALGORITHM,$/;"	e	enum:e_OptionBaseToken
+OT_ROUTE_CHAN_WIDTH	OptionTokens.h	/^    OT_ROUTE_CHAN_WIDTH,$/;"	e	enum:e_OptionBaseToken
+OT_ROUTE_ONLY	OptionTokens.h	/^    OT_ROUTE_ONLY,$/;"	e	enum:e_OptionBaseToken
+OT_ROUTE_TYPE	OptionTokens.h	/^    OT_ROUTE_TYPE,$/;"	e	enum:e_OptionBaseToken
+OT_SEED	OptionTokens.h	/^    OT_SEED,$/;"	e	enum:e_OptionBaseToken
+OT_TD_PLACE_EXP_FIRST	OptionTokens.h	/^    OT_TD_PLACE_EXP_FIRST,$/;"	e	enum:e_OptionBaseToken
+OT_TD_PLACE_EXP_LAST	OptionTokens.h	/^    OT_TD_PLACE_EXP_LAST,$/;"	e	enum:e_OptionBaseToken
+OT_TIMING_ANALYSIS	OptionTokens.h	/^    OT_TIMING_ANALYSIS,$/;"	e	enum:e_OptionBaseToken
+OT_TIMING_ANALYZE_ONLY_WITH_NET_DELAY	OptionTokens.h	/^    OT_TIMING_ANALYZE_ONLY_WITH_NET_DELAY,$/;"	e	enum:e_OptionBaseToken
+OT_TIMING_DRIVEN	OptionTokens.h	/^    OT_TIMING_DRIVEN,$/;"	e	enum:e_OptionArgToken
+OT_TIMING_TRADEOFF	OptionTokens.h	/^    OT_TIMING_TRADEOFF,$/;"	e	enum:e_OptionBaseToken
+OT_VERIFY_BINARY_SEARCH	OptionTokens.h	/^    OT_VERIFY_BINARY_SEARCH,$/;"	e	enum:e_OptionBaseToken
+OUT	util.h	22;"	d
+OUTPAD	read_netlist.c	/^{ NORMAL = 0, INPAD, OUTPAD };$/;"	e	enum:special_blk	file:
+OUTPAD_IPIN	path_delay2.h	/^{ INPAD_SOURCE, INPAD_OPIN, OUTPAD_IPIN, OUTPAD_SINK,$/;"	e
+OUTPAD_SINK	path_delay2.h	/^{ INPAD_SOURCE, INPAD_OPIN, OUTPAD_IPIN, OUTPAD_SINK,$/;"	e
+OptionArgTokenList	OptionTokens.c	/^const struct s_TokenPair OptionArgTokenList[] = {$/;"	v
+OptionBaseTokenList	OptionTokens.c	/^const struct s_TokenPair OptionBaseTokenList[] = {$/;"	v
+OutFilePrefix	ReadOptions.h	/^    char *OutFilePrefix;$/;"	m	struct:s_options
+OutFilePrefix	main.c	/^char *OutFilePrefix = NULL;$/;"	v
+PATH_TIMING_DRIVEN_PLACE	vpr_types.h	/^    PATH_TIMING_DRIVEN_PLACE$/;"	e	enum:e_place_algorithm
+PI	graphics.c	90;"	d	file:
+PLACEMENT	vpr_types.h	/^{ NO_PICTURE, PLACEMENT, ROUTING };	\/* What's on screen? *\/$/;"	e	enum:pic_type
+PLACE_ALWAYS	vpr_types.h	/^{ PLACE_NEVER, PLACE_ONCE, PLACE_ALWAYS };$/;"	e	enum:pfreq
+PLACE_AND_ROUTE	vpr_types.h	/^{ PLACE_AND_ROUTE, PLACE_ONLY, ROUTE_ONLY,$/;"	e	enum:e_operation
+PLACE_NEVER	vpr_types.h	/^{ PLACE_NEVER, PLACE_ONCE, PLACE_ALWAYS };$/;"	e	enum:pfreq
+PLACE_ONCE	vpr_types.h	/^{ PLACE_NEVER, PLACE_ONCE, PLACE_ALWAYS };$/;"	e	enum:pfreq
+PLACE_ONLY	vpr_types.h	/^{ PLACE_AND_ROUTE, PLACE_ONLY, ROUTE_ONLY,$/;"	e	enum:e_operation
+POSTSCRIPT	graphics.h	2;"	d
+PROC_TIME	place_and_route.h	6;"	d
+PTRANS_FLAG	check_rr_graph.c	11;"	d	file:
+PULSE	vpr_types.h	/^{ UNIFORM, GAUSSIAN, PULSE, DELTA };$/;"	e	enum:e_stat
+ParseFc	xml_arch.c	/^ParseFc(ezxml_t Node,$/;"	f	file:
+PinFile	ReadOptions.h	/^    char *PinFile;$/;"	m	struct:s_options
+PlaceAlgorithm	ReadOptions.h	/^    enum e_place_algorithm PlaceAlgorithm;$/;"	m	struct:s_options
+PlaceAlphaT	ReadOptions.h	/^    float PlaceAlphaT;$/;"	m	struct:s_options
+PlaceChanWidth	ReadOptions.h	/^    int PlaceChanWidth;$/;"	m	struct:s_options
+PlaceCostType	ReadOptions.h	/^    enum place_c_types PlaceCostType;$/;"	m	struct:s_options
+PlaceExitT	ReadOptions.h	/^    float PlaceExitT;$/;"	m	struct:s_options
+PlaceFile	ReadOptions.h	/^    char *PlaceFile;$/;"	m	struct:s_options
+PlaceInitT	ReadOptions.h	/^    float PlaceInitT;$/;"	m	struct:s_options
+PlaceInnerNum	ReadOptions.h	/^    float PlaceInnerNum;$/;"	m	struct:s_options
+PlaceNonlinearRegions	ReadOptions.h	/^    int PlaceNonlinearRegions;$/;"	m	struct:s_options
+PlaceTimingTradeoff	ReadOptions.h	/^	float PlaceTimingTradeoff;$/;"	m	struct:s_options
+PrintTitle	main.c	/^PrintTitle()$/;"	f	file:
+PrintUsage	main.c	/^PrintUsage()$/;"	f	file:
+ProcessCB_SB	xml_arch.c	/^ProcessCB_SB(INOUT ezxml_t Node,$/;"	f	file:
+ProcessChanWidthDistr	xml_arch.c	/^ProcessChanWidthDistr(INOUT ezxml_t Node,$/;"	f	file:
+ProcessChanWidthDistrDir	xml_arch.c	/^ProcessChanWidthDistrDir(INOUT ezxml_t Node,$/;"	f	file:
+ProcessDevice	xml_arch.c	/^ProcessDevice(INOUT ezxml_t Node,$/;"	f	file:
+ProcessIO	xml_arch.c	/^ProcessIO(INOUT ezxml_t Node,$/;"	f	file:
+ProcessLayout	xml_arch.c	/^ProcessLayout(INOUT ezxml_t Node,$/;"	f	file:
+ProcessOption	ReadOptions.c	/^ProcessOption(IN const char *const *Args,$/;"	f	file:
+ProcessSegments	xml_arch.c	/^ProcessSegments(INOUT ezxml_t Parent,$/;"	f	file:
+ProcessSubblocks	xml_arch.c	/^ProcessSubblocks(INOUT ezxml_t Parent,$/;"	f	file:
+ProcessSwitches	xml_arch.c	/^ProcessSwitches(INOUT ezxml_t Parent,$/;"	f	file:
+ProcessTypeProps	xml_arch.c	/^ProcessTypeProps(ezxml_t Node,$/;"	f	file:
+ProcessTypes	xml_arch.c	/^ProcessTypes(INOUT ezxml_t Node,$/;"	f	file:
+Process_Fc	xml_arch.c	/^Process_Fc(ezxml_t Fc_in_node,$/;"	f	file:
+R	vpr_types.h	/^    float R;$/;"	m	struct:s_rr_node
+R	vpr_types.h	/^    float R;$/;"	m	struct:s_switch_inf
+RANDOM	vpr_types.h	/^{ FREE, RANDOM, USER };$/;"	e	enum:e_pad_loc_type
+RECEIVER	vpr_types.h	/^{ OPEN = -1, DRIVER = 0, RECEIVER = 1 };$/;"	e	enum:e_pin_type
+RED	graphics.h	/^    CYAN, RED, DARKGREEN, MAGENTA$/;"	e	enum:color_types
+REVERSE_OPIN_ORDER	rr_graph.c	23;"	d	file:
+RIGHT	vpr_types.h	/^{ TOP = 0, RIGHT = 1, BOTTOM = 2, LEFT = 3 };$/;"	e	enum:e_side
+ROUND_UP	route_directed_search.c	537;"	d	file:
+ROUND_UP	route_timing.c	612;"	d	file:
+ROUTE_ONLY	vpr_types.h	/^{ PLACE_AND_ROUTE, PLACE_ONLY, ROUTE_ONLY,$/;"	e	enum:e_operation
+ROUTING	vpr_types.h	/^{ NO_PICTURE, PLACEMENT, ROUTING };	\/* What's on screen? *\/$/;"	e	enum:pic_type
+RR_GRAPH_NO_WARN	rr_graph.h	/^    RR_GRAPH_NO_WARN = 0x00,$/;"	e
+RR_GRAPH_WARN_CHAN_WIDTH_CHANGED	rr_graph.h	/^    RR_GRAPH_WARN_CHAN_WIDTH_CHANGED = 0x02$/;"	e
+RR_GRAPH_WARN_FC_CLIPPED	rr_graph.h	/^    RR_GRAPH_WARN_FC_CLIPPED = 0x01,$/;"	e
+R_minW_nmos	vpr_types.h	/^    float R_minW_nmos;$/;"	m	struct:s_det_routing_arch
+R_minW_nmos	xml_arch.h	/^     float R_minW_nmos;$/;"	m	struct:s_arch
+R_minW_pmos	vpr_types.h	/^    float R_minW_pmos;$/;"	m	struct:s_det_routing_arch
+R_minW_pmos	xml_arch.h	/^     float R_minW_pmos;$/;"	m	struct:s_arch
+R_upstream	route_common.h	/^    float R_upstream;$/;"	m	struct:s_heap
+R_upstream	route_tree_timing.h	/^    float R_upstream;$/;"	m	struct:s_rt_node
+ReadBaseCostType	ReadOptions.c	/^ReadBaseCostType(IN const char *const *Args,$/;"	f	file:
+ReadBaseToken	ReadOptions.c	/^ReadBaseToken(IN const char *const *Args,$/;"	f	file:
+ReadFixPins	ReadOptions.c	/^ReadFixPins(IN const char *const *Args,$/;"	f	file:
+ReadFloat	ReadOptions.c	/^ReadFloat(IN const char *const *Args,$/;"	f	file:
+ReadInt	ReadOptions.c	/^ReadInt(IN const char *const *Args,$/;"	f	file:
+ReadLineTokens	ReadLine.c	/^ReadLineTokens(INOUT FILE * InFile,$/;"	f
+ReadOnOff	ReadOptions.c	/^ReadOnOff(IN const char *const *Args,$/;"	f	file:
+ReadOptions	ReadOptions.c	/^ReadOptions(IN int argc,$/;"	f
+ReadPlaceAlgorithm	ReadOptions.c	/^ReadPlaceAlgorithm(IN const char *const *Args,$/;"	f	file:
+ReadPlaceCostType	ReadOptions.c	/^ReadPlaceCostType(IN const char *const *Args,$/;"	f	file:
+ReadRouteType	ReadOptions.c	/^ReadRouteType(IN const char *const *Args,$/;"	f	file:
+ReadRouterAlgorithm	ReadOptions.c	/^ReadRouterAlgorithm(IN const char *const *Args,$/;"	f	file:
+ReadString	ReadOptions.c	/^ReadString(IN const char *const *Args,$/;"	f	file:
+ReadToken	ReadOptions.c	/^ReadToken(IN const char *const *Args,$/;"	f	file:
+RecomputeCritIter	ReadOptions.h	/^	int RecomputeCritIter;$/;"	m	struct:s_options
+Rmetal	vpr_types.h	/^    float Rmetal;$/;"	m	struct:s_seg_details
+Rmetal	vpr_types.h	/^    float Rmetal;$/;"	m	struct:s_segment_inf
+RouteChanWidth	ReadOptions.h	/^	int RouteChanWidth;$/;"	m	struct:s_options
+RouteFile	ReadOptions.h	/^    char *RouteFile;$/;"	m	struct:s_options
+RouteType	ReadOptions.h	/^    enum e_route_type RouteType;$/;"	m	struct:s_options
+RouterAlgorithm	ReadOptions.h	/^    enum e_router_algorithm RouterAlgorithm;$/;"	m	struct:s_options
+SAME_TRACK	rr_graph2.c	18;"	d	file:
+SBOX_ERROR	rr_graph_sbox.c	141;"	d	file:
+SBType	xml_arch.h	/^     enum e_switch_block_type SBType;$/;"	m	struct:s_arch
+SCREEN	graphics.h	1;"	d
+SINGLE	vpr_types.h	/^{ MULTI_BUFFERED, MULTI_MUXED, MULTI_MERGED, SINGLE };$/;"	e	enum:e_drivers
+SINK	vpr_types.h	/^{ SOURCE, SINK, IPIN, OPIN, CHANX, CHANY, NUM_RR_TYPES }$/;"	e	enum:e_rr_type
+SINK_BLOCK	timing_place_lookup.c	45;"	d	file:
+SINK_COST_INDEX	vpr_types.h	/^{ SOURCE_COST_INDEX = 0, SINK_COST_INDEX, OPIN_COST_INDEX,$/;"	e	enum:e_cost_indices
+SMALL_NET	place.c	21;"	d	file:
+SOLID	graphics.h	/^{ SOLID, DASHED };$/;"	e	enum:line_types
+SOURCE	vpr_types.h	/^{ SOURCE, SINK, IPIN, OPIN, CHANX, CHANY, NUM_RR_TYPES }$/;"	e	enum:e_rr_type
+SOURCE_BLOCK	timing_place_lookup.c	44;"	d	file:
+SOURCE_COST_INDEX	vpr_types.h	/^{ SOURCE_COST_INDEX = 0, SINK_COST_INDEX, OPIN_COST_INDEX,$/;"	e	enum:e_cost_indices
+SUBBLK_IPIN	path_delay2.h	/^    FB_IPIN, FB_OPIN, SUBBLK_IPIN, SUBBLK_OPIN, FF_SINK, FF_SOURCE,$/;"	e
+SUBBLK_OPIN	path_delay2.h	/^    FB_IPIN, FB_OPIN, SUBBLK_IPIN, SUBBLK_OPIN, FF_SINK, FF_SOURCE,$/;"	e
+SUBSET	vpr_types.h	/^{ SUBSET, WILTON, UNIVERSAL, FULL };	\/* UDSD Modifications by WMF *\/$/;"	e	enum:e_switch_block_type
+SUB_CLOCK	path_delay.c	/^{ SUB_INPUT = 0, SUB_OUTPUT, SUB_CLOCK, NUM_SUB_PIN_TYPES };$/;"	e	enum:e_subblock_pin_type	file:
+SUB_INPUT	path_delay.c	/^{ SUB_INPUT = 0, SUB_OUTPUT, SUB_CLOCK, NUM_SUB_PIN_TYPES };$/;"	e	enum:e_subblock_pin_type	file:
+SUB_OUTPUT	path_delay.c	/^{ SUB_INPUT = 0, SUB_OUTPUT, SUB_CLOCK, NUM_SUB_PIN_TYPES };$/;"	e	enum:e_subblock_pin_type	file:
+Seed	ReadOptions.h	/^    int Seed;$/;"	m	struct:s_options
+Segments	xml_arch.h	/^     t_segment_inf * Segments;$/;"	m	struct:s_arch
+SetupAnnealSched	SetupVPR.c	/^SetupAnnealSched(IN t_options Options,$/;"	f	file:
+SetupClassInf	xml_arch.c	/^SetupClassInf(ezxml_t Classes,$/;"	f	file:
+SetupEmptyType	xml_arch.c	/^SetupEmptyType()$/;"	f	file:
+SetupGridLocations	xml_arch.c	/^SetupGridLocations(ezxml_t Locations,$/;"	f	file:
+SetupOperation	SetupVPR.c	/^SetupOperation(IN t_options Options,$/;"	f	file:
+SetupPinClasses	xml_arch.c	/^SetupPinClasses(ezxml_t Classes,$/;"	f	file:
+SetupPinLocations	xml_arch.c	/^SetupPinLocations(ezxml_t Locations,$/;"	f	file:
+SetupPlacerOpts	SetupVPR.c	/^SetupPlacerOpts(IN t_options Options,$/;"	f	file:
+SetupRouterOpts	SetupVPR.c	/^SetupRouterOpts(IN t_options Options,$/;"	f	file:
+SetupRoutingArch	SetupVPR.c	/^SetupRoutingArch(IN t_arch Arch,$/;"	f	file:
+SetupSubblocksTSeq	xml_arch.c	/^SetupSubblocksTSeq(ezxml_t timing_seq_in,$/;"	f	file:
+SetupSubblocksTcomb	xml_arch.c	/^SetupSubblocksTcomb(ezxml_t timing,$/;"	f	file:
+SetupSwitches	SetupVPR.c	/^SetupSwitches(IN t_arch Arch,$/;"	f	file:
+SetupTiming	SetupVPR.c	/^SetupTiming(IN t_options Options,$/;"	f	file:
+SetupTypeTiming	xml_arch.c	/^SetupTypeTiming(ezxml_t timing,$/;"	f	file:
+SetupVPR	SetupVPR.c	/^SetupVPR(IN t_options Options,$/;"	f
+ShowAnnealSched	ShowSetup.c	/^ShowAnnealSched(IN struct s_annealing_sched AnnealSched)$/;"	f	file:
+ShowOperation	ShowSetup.c	/^ShowOperation(IN enum e_operation Operation)$/;"	f	file:
+ShowPlaceTiming	ReadOptions.h	/^    boolean ShowPlaceTiming;$/;"	m	struct:s_options
+ShowPlacerOpts	ShowSetup.c	/^ShowPlacerOpts(IN t_options Options,$/;"	f	file:
+ShowRouterOpts	ShowSetup.c	/^ShowRouterOpts(IN struct s_router_opts RouterOpts)$/;"	f	file:
+ShowRoutingArch	ShowSetup.c	/^ShowRoutingArch(IN struct s_det_routing_arch RoutingArch)$/;"	f	file:
+ShowSetup	ShowSetup.c	/^ShowSetup(IN t_options Options,$/;"	f
+Str	vpr_types.h	/^    char *Str;$/;"	m	struct:s_TokenPair
+Switches	xml_arch.h	/^     struct s_switch_inf *Switches;$/;"	m	struct:s_arch
+TIMING_ANALYSIS_ONLY	vpr_types.h	/^    TIMING_ANALYSIS_ONLY$/;"	e	enum:e_operation
+TIMING_DRIVEN	vpr_types.h	/^{ BREADTH_FIRST, TIMING_DRIVEN, DIRECTED_SEARCH };$/;"	e	enum:e_router_algorithm
+TO	place.c	34;"	d	file:
+TOKENS	vpr_types.h	19;"	d
+TOP	vpr_types.h	/^{ TOP = 0, RIGHT = 1, BOTTOM = 2, LEFT = 3 };$/;"	e	enum:e_side
+TRUE	util.h	/^{ FALSE, TRUE }$/;"	e
+T_AREA_HEIGHT	graphics.c	88;"	d	file:
+T_CONSTANT_GENERATOR	path_delay.c	76;"	d	file:
+T_arr	path_delay2.h	/^    float T_arr;$/;"	m
+T_comb	vpr_types.h	/^    float **T_comb;$/;"	m	struct:s_T_subblock
+T_fb_ipin_to_sblk_ipin	vpr_types.h	/^    float T_fb_ipin_to_sblk_ipin;$/;"	m	struct:s_type_timing_inf
+T_ipin_cblock	vpr_types.h	/^    float T_ipin_cblock;$/;"	m	struct:s_timing_inf
+T_ipin_cblock	xml_arch.h	/^     float T_ipin_cblock;$/;"	m	struct:s_arch
+T_linear	vpr_types.h	/^    float T_linear;$/;"	m	struct:s_rr_indexed_data
+T_quadratic	vpr_types.h	/^    float T_quadratic;$/;"	m	struct:s_rr_indexed_data
+T_req	path_delay2.h	/^    float T_req;$/;"	m
+T_sblk_opin_to_fb_opin	vpr_types.h	/^    float T_sblk_opin_to_fb_opin;$/;"	m	struct:s_type_timing_inf
+T_sblk_opin_to_sblk_ipin	vpr_types.h	/^    float T_sblk_opin_to_sblk_ipin;$/;"	m	struct:s_type_timing_inf
+T_seq_in	vpr_types.h	/^    float *T_seq_in;$/;"	m	struct:s_T_subblock
+T_seq_out	vpr_types.h	/^    float *T_seq_out;$/;"	m	struct:s_T_subblock
+T_subblock	vpr_types.h	/^    t_T_subblock *T_subblock;$/;"	m	struct:s_type_timing_inf
+Tdel	net_delay.c	/^    float Tdel;$/;"	m	struct:s_rc_node	file:
+Tdel	path_delay2.h	/^    float Tdel;$/;"	m
+Tdel	route_tree_timing.h	/^    float Tdel;$/;"	m	struct:s_rt_node
+Tdel	vpr_types.h	/^    float Tdel;$/;"	m	struct:s_switch_inf
+TimingAnalysis	ReadOptions.h	/^    boolean TimingAnalysis;$/;"	m	struct:s_options
+UNIFORM	vpr_types.h	/^{ UNIFORM, GAUSSIAN, PULSE, DELTA };$/;"	e	enum:e_stat
+UNIVERSAL	vpr_types.h	/^{ SUBSET, WILTON, UNIVERSAL, FULL };	\/* UDSD Modifications by WMF *\/$/;"	e	enum:e_switch_block_type
+UNI_DIRECTIONAL	vpr_types.h	/^{ UNI_DIRECTIONAL, BI_DIRECTIONAL };	\/* UDSD by AY *\/$/;"	e	enum:e_directionality
+UN_SET	rr_graph2.c	19;"	d	file:
+USER	vpr_types.h	/^{ FREE, RANDOM, USER };$/;"	e	enum:e_pad_loc_type
+USER_SCHED	vpr_types.h	/^{ AUTO_SCHED, USER_SCHED };	\/* Annealing schedule *\/$/;"	e	enum:sched_type
+W	xml_arch.h	/^     int W;$/;"	m	struct:s_clb_grid
+WARNTAG	util.h	27;"	d
+WHITE	graphics.h	/^{ WHITE, BLACK, DARKGREY, LIGHTGREY, BLUE, GREEN, YELLOW,$/;"	e	enum:color_types
+WILTON	vpr_types.h	/^{ SUBSET, WILTON, UNIVERSAL, FULL };	\/* UDSD Modifications by WMF *\/$/;"	e	enum:e_switch_block_type
+WL	place_and_route.h	5;"	d
+WMF_DEBUG	main.c	/^boolean WMF_DEBUG = FALSE;$/;"	v
+WNEED	place_and_route.h	4;"	d
+W_seed	main.c	/^int W_seed = -1;$/;"	v
+XPOST	graphics.c	75;"	d	file:
+XTOWORLD	graphics.c	81;"	d	file:
+XmlReadArch	xml_arch.c	/^XmlReadArch(IN const char *ArchFile,$/;"	f
+YELLOW	graphics.h	/^{ WHITE, BLACK, DARKGREY, LIGHTGREY, BLUE, GREEN, YELLOW,$/;"	e	enum:color_types
+YPOST	graphics.c	76;"	d	file:
+YTOWORLD	graphics.c	82;"	d	file:
+_EZXML_H	ezxml.h	26;"	d
+acc_cost	route_common.h	/^    float acc_cost;$/;"	m
+acc_fac	ReadOptions.h	/^	float acc_fac;$/;"	m	struct:s_options
+acc_fac	vpr_types.h	/^    float acc_fac;$/;"	m	struct:s_router_opts
+add_path_to_route_tree	route_tree_timing.c	/^add_path_to_route_tree(struct s_heap *hptr,$/;"	f	file:
+add_route_tree_to_heap	route_timing.c	/^add_route_tree_to_heap(t_rt_node * rt_node,$/;"	f	file:
+add_rr_graph_C_from_switches	rr_graph_timing_params.c	/^add_rr_graph_C_from_switches(float C_ipin_cblock)$/;"	f
+add_to_heap	route_common.c	/^add_to_heap(struct s_heap *hptr)$/;"	f	file:
+add_to_mod_list	route_common.c	/^add_to_mod_list(float *fptr)$/;"	f
+add_to_rc_tree	net_delay.c	/^add_to_rc_tree(t_rc_node * parent_rc,$/;"	f	file:
+add_to_sort_heap	heapsort.c	/^add_to_sort_heap(int *heap,$/;"	f	file:
+adjust_one_rr_occ_and_pcost	route_common.c	/^adjust_one_rr_occ_and_pcost(int inode,$/;"	f	file:
+adjustwin	graphics.c	/^adjustwin(void (*drawscreen) (void))$/;"	f	file:
+alloc_and_assign_internal_structures	timing_place_lookup.c	/^alloc_and_assign_internal_structures(struct s_net **original_net,$/;"	f	file:
+alloc_and_load_actual_fc	rr_graph.c	/^alloc_and_load_actual_fc(IN int num_types,$/;"	f	file:
+alloc_and_load_clb_opins_used_locally	route_common.c	/^alloc_and_load_clb_opins_used_locally(t_subblock_data subblock_data)$/;"	f	file:
+alloc_and_load_edges_and_switches	rr_graph.c	/^alloc_and_load_edges_and_switches(IN t_rr_node * rr_node,$/;"	f
+alloc_and_load_fanout_counts	path_delay.c	/^alloc_and_load_fanout_counts(int ***num_uses_of_fb_ipin_ptr,$/;"	f	file:
+alloc_and_load_for_fast_cost_update	place.c	/^alloc_and_load_for_fast_cost_update(float place_cost_exp)$/;"	f	file:
+alloc_and_load_global_route_seg_details	rr_graph.c	/^alloc_and_load_global_route_seg_details(IN int nodes_per_chan,$/;"	f	file:
+alloc_and_load_grid	SetupVPR.c	/^alloc_and_load_grid(INOUT int *num_instances_type)$/;"	f	file:
+alloc_and_load_perturb_ipins	rr_graph.c	/^alloc_and_load_perturb_ipins(IN int nodes_per_chan,$/;"	f	file:
+alloc_and_load_pin_mappings	path_delay.c	/^alloc_and_load_pin_mappings(int ***block_pin_to_tnode_ptr,$/;"	f	file:
+alloc_and_load_pin_to_track_map	rr_graph.c	/^alloc_and_load_pin_to_track_map(IN enum e_pin_type pin_type,$/;"	f	file:
+alloc_and_load_placement_structs	place.c	/^alloc_and_load_placement_structs(int place_cost_type,$/;"	f	file:
+alloc_and_load_rc_tree	net_delay.c	/^alloc_and_load_rc_tree(int inet,$/;"	f	file:
+alloc_and_load_rr_clb_source	rr_graph.c	/^alloc_and_load_rr_clb_source(t_ivec *** rr_node_indices)$/;"	f	file:
+alloc_and_load_rr_graph	rr_graph.c	/^alloc_and_load_rr_graph(IN int num_nodes,$/;"	f	file:
+alloc_and_load_rr_indexed_data	rr_graph_indexed_data.c	/^alloc_and_load_rr_indexed_data(IN t_segment_inf * segment_inf,$/;"	f
+alloc_and_load_rr_node_indices	rr_graph2.c	/^alloc_and_load_rr_node_indices(IN int nodes_per_chan,$/;"	f
+alloc_and_load_rr_node_route_structs	route_common.c	/^alloc_and_load_rr_node_route_structs(void)$/;"	f
+alloc_and_load_seg_details	rr_graph2.c	/^alloc_and_load_seg_details(INOUT int *nodes_per_chan,$/;"	f
+alloc_and_load_sharable_switch_trans	rr_graph_area.c	/^alloc_and_load_sharable_switch_trans(int num_switch,$/;"	f	file:
+alloc_and_load_switch_block_conn	rr_graph_sbox.c	/^alloc_and_load_switch_block_conn(IN int nodes_per_chan,$/;"	f
+alloc_and_load_timing_graph	path_delay.c	/^alloc_and_load_timing_graph(t_timing_inf timing_inf,$/;"	f
+alloc_and_load_timing_graph_levels	path_delay2.c	/^alloc_and_load_timing_graph_levels(void)$/;"	f
+alloc_and_load_tnode_fanin_and_check_edges	path_delay2.c	/^alloc_and_load_tnode_fanin_and_check_edges(int *num_sinks_ptr)$/;"	f	file:
+alloc_and_load_tnodes_and_net_mapping	path_delay.c	/^alloc_and_load_tnodes_and_net_mapping(int **num_uses_of_fb_ipin,$/;"	f	file:
+alloc_and_load_track_to_pin_lookup	rr_graph.c	/^alloc_and_load_track_to_pin_lookup(IN int ****pin_to_track_map,$/;"	f	file:
+alloc_and_load_unique_pin_list	place.c	/^alloc_and_load_unique_pin_list(void)$/;"	f	file:
+alloc_and_load_unsharable_switch_trans	rr_graph_area.c	/^alloc_and_load_unsharable_switch_trans(int num_switch,$/;"	f	file:
+alloc_block	timing_place_lookup.c	/^alloc_block(void)$/;"	f	file:
+alloc_crit	timing_place.c	/^alloc_crit(struct s_linked_vptr **chunk_list_head_ptr)$/;"	f	file:
+alloc_delta_arrays	timing_place_lookup.c	/^alloc_delta_arrays(void)$/;"	f	file:
+alloc_draw_structs	draw.c	/^alloc_draw_structs(void)$/;"	f
+alloc_hash_table	hash.c	/^alloc_hash_table(void)$/;"	f
+alloc_heap_data	route_common.c	/^alloc_heap_data(void)$/;"	f	file:
+alloc_ivector_and_copy_int_list	util.c	/^alloc_ivector_and_copy_int_list(t_linked_int ** list_head_ptr,$/;"	f
+alloc_linked_f_pointer	route_common.c	/^alloc_linked_f_pointer(void)$/;"	f	file:
+alloc_linked_rc_edge	net_delay.c	/^alloc_linked_rc_edge(t_linked_rc_edge ** rc_edge_free_list_ptr)$/;"	f	file:
+alloc_linked_rt_edge	route_tree_timing.c	/^alloc_linked_rt_edge(void)$/;"	f	file:
+alloc_lookups_and_criticalities	timing_place.c	/^alloc_lookups_and_criticalities(t_chan_width_dist chan_width_dist,$/;"	f
+alloc_matrix	util.c	/^alloc_matrix(int nrmin,$/;"	f
+alloc_matrix3	util.c	/^alloc_matrix3(int nrmin,$/;"	f
+alloc_matrix4	util.c	/^alloc_matrix4(int nrmin,$/;"	f
+alloc_net	timing_place_lookup.c	/^alloc_net(void)$/;"	f	file:
+alloc_net_delay	net_delay.c	/^alloc_net_delay(struct s_linked_vptr **chunk_list_head_ptr)$/;"	f
+alloc_net_rr_terminals	rr_graph.c	/^alloc_net_rr_terminals(void)$/;"	f	file:
+alloc_net_slack	path_delay.c	/^alloc_net_slack(void)$/;"	f	file:
+alloc_place_regions	place.c	/^alloc_place_regions(int num_regions)$/;"	f	file:
+alloc_rc_node	net_delay.c	/^alloc_rc_node(t_rc_node ** rc_node_free_list_ptr)$/;"	f	file:
+alloc_route_structs	route_common.c	/^alloc_route_structs(t_subblock_data subblock_data)$/;"	f
+alloc_route_tree_timing_structs	route_tree_timing.c	/^alloc_route_tree_timing_structs(void)$/;"	f
+alloc_routing_structs	timing_place_lookup.c	/^alloc_routing_structs(struct s_router_opts router_opts,$/;"	f	file:
+alloc_rt_node	route_tree_timing.c	/^alloc_rt_node(void)$/;"	f	file:
+alloc_saved_routing	route_common.c	/^alloc_saved_routing(t_ivec ** fb_opins_used_locally,$/;"	f
+alloc_sblock_pattern_lookup	rr_graph2.c	/^alloc_sblock_pattern_lookup(IN int nx,$/;"	f
+alloc_timing_driven_route_structs	route_timing.c	/^alloc_timing_driven_route_structs(float **pin_criticality_ptr,$/;"	f
+alloc_trace_data	route_common.c	/^alloc_trace_data(void)$/;"	f	file:
+allocate_and_load_critical_path	path_delay.c	/^allocate_and_load_critical_path(void)$/;"	f
+alpha_t	vpr_types.h	/^    float alpha_t;$/;"	m	struct:s_annealing_sched
+angnorm	graphics.c	/^angnorm(float ang)$/;"	f	file:
+assess_swap	place.c	/^assess_swap(float delta_c,$/;"	f	file:
+assign_blocks_and_route_net	timing_place_lookup.c	/^assign_blocks_and_route_net(t_type_ptr source_type,$/;"	f	file:
+assign_locations	timing_place_lookup.c	/^assign_locations(t_type_ptr source_type,$/;"	f	file:
+astar_fac	ReadOptions.h	/^	float astar_fac;$/;"	m	struct:s_options
+astar_fac	vpr_types.h	/^    float astar_fac;$/;"	m	struct:s_router_opts
+attr	ezxml.c	/^    char ***attr;		\/* default attributes *\/$/;"	m	struct:ezxml_root	file:
+attr	ezxml.h	/^	char **attr;		\/* tag attributes { name, value, name, value, ... NULL } *\/$/;"	m	struct:ezxml
+backward_path_cost	route_common.h	/^    float backward_path_cost;$/;"	m
+backward_path_cost	route_common.h	/^    float backward_path_cost;$/;"	m	struct:s_heap
+base_cost	vpr_types.h	/^    float base_cost;$/;"	m	struct:s_rr_indexed_data
+base_cost_type	ReadOptions.h	/^	enum e_base_cost_type base_cost_type;$/;"	m	struct:s_options
+base_cost_type	vpr_types.h	/^    enum e_base_cost_type base_cost_type;$/;"	m	struct:s_router_opts
+bb_coords	place.c	/^static struct s_bb *bb_coords = NULL, *bb_num_on_edges = NULL;$/;"	v	file:
+bb_factor	ReadOptions.h	/^	int bb_factor;$/;"	m	struct:s_options
+bb_factor	vpr_types.h	/^    int bb_factor;$/;"	m	struct:s_router_opts
+bb_num_on_edges	place.c	/^static struct s_bb *bb_coords = NULL, *bb_num_on_edges = NULL;$/;"	v	file:
+bend_cost	ReadOptions.h	/^	float bend_cost;$/;"	m	struct:s_options
+bend_cost	vpr_types.h	/^    float bend_cost;$/;"	m	struct:s_router_opts
+binary_search	main.c	/^int binary_search = -1;$/;"	v
+binary_search_place_and_route	place_and_route.c	/^binary_search_place_and_route(struct s_placer_opts placer_opts,$/;"	f	file:
+bitfield	vpr_types.h	/^typedef size_t bitfield;$/;"	t
+block	globals_declare.h	/^struct s_block *block;$/;"	v
+block	main.c	/^struct s_block *block = NULL;$/;"	v
+block_color	draw.c	/^static enum color_types *net_color, *block_color;$/;"	v	file:
+block_dist	ReadOptions.h	/^    int block_dist;$/;"	m	struct:s_options
+block_dist	vpr_types.h	/^    int block_dist;$/;"	m	struct:s_placer_opts
+blocks	vpr_types.h	/^    int *blocks;$/;"	m	struct:s_grid_tile
+boolean	util.h	/^boolean;$/;"	t
+boolean	util.h	/^typedef int boolean;$/;"	t
+breadth_first_add_source_to_heap	route_breadth_first.c	/^breadth_first_add_source_to_heap(int inet)$/;"	f	file:
+breadth_first_expand_neighbours	route_breadth_first.c	/^breadth_first_expand_neighbours(int inode,$/;"	f	file:
+breadth_first_expand_trace_segment	route_breadth_first.c	/^breadth_first_expand_trace_segment(struct s_trace *start_ptr,$/;"	f	file:
+breadth_first_route_net	route_breadth_first.c	/^breadth_first_route_net(int inet,$/;"	f	file:
+buf_size	vpr_types.h	/^    float buf_size;$/;"	m	struct:s_switch_inf
+buffered	vpr_types.h	/^    boolean buffered;$/;"	m	struct:s_switch_inf
+build_bidir_rr_opins	rr_graph.c	/^build_bidir_rr_opins(IN int i,$/;"	f	file:
+build_block_output_tnode	path_delay.c	/^build_block_output_tnode(int inode,$/;"	f	file:
+build_default_menu	graphics.c	/^build_default_menu(void)$/;"	f	file:
+build_fb_tnodes	path_delay.c	/^build_fb_tnodes(int iblk,$/;"	f	file:
+build_rr_graph	rr_graph.c	/^build_rr_graph(IN t_graph_type graph_type,$/;"	f
+build_rr_sinks_sources	rr_graph.c	/^build_rr_sinks_sources(IN int i,$/;"	f	file:
+build_rr_xchan	rr_graph.c	/^build_rr_xchan(IN int i,$/;"	f	file:
+build_rr_ychan	rr_graph.c	/^build_rr_ychan(IN int i,$/;"	f	file:
+build_subblock_tnodes	path_delay.c	/^build_subblock_tnodes(int **n_uses_of_sblk_opin,$/;"	f	file:
+build_textarea	graphics.c	/^build_textarea(void)$/;"	f	file:
+build_unidir_rr_opins	rr_graph.c	/^build_unidir_rr_opins(IN int i,$/;"	f	file:
+button	graphics.c	/^static t_button *button;	\/* [0..num_buttons-1] *\/$/;"	v	file:
+capacity	vpr_types.h	/^    float capacity;$/;"	m	struct:s_place_region
+capacity	vpr_types.h	/^    int capacity;$/;"	m	struct:s_type_descriptor
+capacity	vpr_types.h	/^    short capacity;$/;"	m	struct:s_rr_node
+cb	vpr_types.h	/^    boolean *cb;$/;"	m	struct:s_seg_details
+cb	vpr_types.h	/^    boolean *cb;$/;"	m	struct:s_segment_inf
+cb_len	vpr_types.h	/^    int cb_len;$/;"	m	struct:s_segment_inf
+chan_width_io	vpr_types.h	/^    float chan_width_io;$/;"	m	struct:s_chan_width_dist
+chan_width_x	globals_declare.h	/^int *chan_width_x, *chan_width_y;	\/* numerical form *\/$/;"	v
+chan_width_x	main.c	/^int *chan_width_x = NULL;	\/* [0..ny] *\/$/;"	v
+chan_width_y	globals_declare.h	/^int *chan_width_x, *chan_width_y;	\/* numerical form *\/$/;"	v
+chan_width_y	main.c	/^int *chan_width_y = NULL;	\/* [0..nx] *\/$/;"	v
+chan_x_dist	vpr_types.h	/^    t_chan chan_x_dist;$/;"	m	struct:s_chan_width_dist
+chan_y_dist	vpr_types.h	/^    t_chan chan_y_dist;$/;"	m	struct:s_chan_width_dist
+chanx_chany_adjacent	check_route.c	/^chanx_chany_adjacent(int chanx_node,$/;"	f	file:
+chanx_place_cost_fac	place.c	/^static float **chanx_place_cost_fac, **chany_place_cost_fac;$/;"	v	file:
+chany_place_cost_fac	place.c	/^static float **chanx_place_cost_fac, **chany_place_cost_fac;$/;"	v	file:
+check_adjacent	check_route.c	/^check_adjacent(int from_node,$/;"	f	file:
+check_all_tracks_reach_pins	rr_graph.c	/^check_all_tracks_reach_pins(t_type_ptr type,$/;"	f	file:
+check_connections_to_global_fb_pins	check_netlist.c	/^check_connections_to_global_fb_pins(int inet)$/;"	f	file:
+check_fb_conn	check_netlist.c	/^check_fb_conn(int iblk,$/;"	f	file:
+check_fb_to_subblock_connections	check_netlist.c	/^check_fb_to_subblock_connections(int iblk,$/;"	f	file:
+check_for_duplicate_block_names	check_netlist.c	/^check_for_duplicate_block_names(void)$/;"	f	file:
+check_for_multiple_sink_connections	check_netlist.c	/^check_for_multiple_sink_connections(void)$/;"	f	file:
+check_internal_subblock_connections	check_netlist.c	/^check_internal_subblock_connections(t_subblock_data * subblock_data_ptr,$/;"	f	file:
+check_locally_used_fb_opins	check_route.c	/^check_locally_used_fb_opins(t_ivec ** fb_opins_used_locally,$/;"	f	file:
+check_netlist	check_netlist.c	/^check_netlist(t_subblock_data * subblock_data_ptr)$/;"	f
+check_node	check_rr_graph.c	/^check_node(int inode,$/;"	f
+check_node_and_range	check_route.c	/^check_node_and_range(int inode,$/;"	f	file:
+check_pass_transistors	check_rr_graph.c	/^check_pass_transistors(int from_node)$/;"	f	file:
+check_place	place.c	/^check_place(float bb_cost,$/;"	f	file:
+check_route	check_route.c	/^check_route(enum e_route_type route_type,$/;"	f
+check_rr_graph	check_rr_graph.c	/^check_rr_graph(IN t_graph_type graph_type,$/;"	f
+check_sink	check_route.c	/^check_sink(int inode,$/;"	f	file:
+check_source	check_route.c	/^check_source(int inode,$/;"	f	file:
+check_subblock_pin	check_netlist.c	/^check_subblock_pin(int fb_pin,$/;"	f	file:
+check_subblocks	check_netlist.c	/^check_subblocks(int iblk,$/;"	f	file:
+check_switch	check_route.c	/^check_switch(struct s_trace *tptr,$/;"	f	file:
+check_timing_graph	path_delay2.c	/^check_timing_graph(int num_const_gen,$/;"	f
+child	ezxml.h	/^	ezxml_t child;		\/* head of sub tag list, NULL if none *\/$/;"	m	struct:ezxml
+child	net_delay.c	/^    struct s_rc_node *child;$/;"	m	struct:s_linked_rc_edge	file:
+child	route_tree_timing.h	/^    struct s_rt_node *child;$/;"	m	struct:s_linked_rt_edge
+child_list	net_delay.c	/^	t_linked_rc_edge *child_list;$/;"	m	union:s_rc_node::<anonymous>	file:
+child_list	route_tree_timing.h	/^	t_linked_rt_edge *child_list;$/;"	m	union:s_rt_node::<anonymous>
+chunk_bytes_avail	rr_graph.c	/^static int chunk_bytes_avail = 0;$/;"	v	file:
+chunk_next_avail_mem	rr_graph.c	/^static char *chunk_next_avail_mem = NULL;$/;"	v	file:
+class_inf	vpr_types.h	/^    struct s_class *class_inf;	\/* [0..num_class-1] *\/$/;"	m	struct:s_type_descriptor
+clb_grid	xml_arch.h	/^     struct s_clb_grid clb_grid;$/;"	m	struct:s_arch
+clb_opins_used_locally	timing_place_lookup.c	/^static t_ivec **clb_opins_used_locally;$/;"	v	file:
+clearscreen	graphics.c	/^clearscreen(void)$/;"	f
+clock	vpr_types.h	/^    int clock;$/;"	m	struct:s_subblock
+close	ezxml.c	61;"	d	file:
+close_graphics	graphics.c	/^close_graphics(void)$/;"	f
+close_postscript	graphics.c	/^close_postscript(void)$/;"	f
+col_rel	vpr_types.h	/^    float col_rel;$/;"	m	struct:s_grid_loc_def
+color_types	graphics.h	/^enum color_types$/;"	g
+colors	graphics.c	/^static int colors[NUM_COLOR];$/;"	v	file:
+comp_bb_cost	place.c	/^comp_bb_cost(int method,$/;"	f	file:
+comp_delta_td_cost	place.c	/^comp_delta_td_cost(int b_from,$/;"	f	file:
+comp_td_costs	place.c	/^comp_td_costs(float *timing_cost,$/;"	f	file:
+comp_td_point_to_point_delay	place.c	/^comp_td_point_to_point_delay(int inet,$/;"	f	file:
+comp_width	place_and_route.c	/^comp_width(t_chan * chan,$/;"	f	file:
+compute_delay_lookup_tables	timing_place_lookup.c	/^compute_delay_lookup_tables(struct s_router_opts router_opts,$/;"	f
+compute_delta_arrays	timing_place_lookup.c	/^compute_delta_arrays(struct s_router_opts router_opts,$/;"	f	file:
+compute_delta_fb_to_fb	timing_place_lookup.c	/^compute_delta_fb_to_fb(struct s_router_opts router_opts,$/;"	f	file:
+compute_delta_fb_to_io	timing_place_lookup.c	/^compute_delta_fb_to_io(struct s_router_opts router_opts,$/;"	f	file:
+compute_delta_io_to_fb	timing_place_lookup.c	/^compute_delta_io_to_fb(struct s_router_opts router_opts,$/;"	f	file:
+compute_delta_io_to_io	timing_place_lookup.c	/^compute_delta_io_to_io(struct s_router_opts router_opts,$/;"	f	file:
+compute_net_pin_index_values	place.c	/^compute_net_pin_index_values()$/;"	f	file:
+compute_net_slacks	path_delay.c	/^compute_net_slacks(float **net_slack)$/;"	f	file:
+constant_net_delay	ReadOptions.h	/^	float constant_net_delay;$/;"	m	struct:s_options
+cont	util.c	/^static int cont;		\/* line continued? *\/$/;"	v	file:
+cost	route_common.h	/^    float cost;$/;"	m	struct:s_heap
+cost	vpr_types.h	/^    float cost;$/;"	m	struct:s_place_region
+cost_index	vpr_types.h	/^    short cost_index;$/;"	m	struct:s_rr_node
+cost_methods	place.c	/^enum cost_methods$/;"	g	file:
+count	hash.h	/^    int count;$/;"	m	struct:s_hash
+count_bidir_routing_transistors	rr_graph_area.c	/^count_bidir_routing_transistors(int num_switch,$/;"	f
+count_connections	place.c	/^count_connections()$/;"	f	file:
+count_routing_transistors	rr_graph_area.c	/^count_routing_transistors(enum e_directionality directionality,$/;"	f
+count_unidir_routing_transistors	rr_graph_area.c	/^count_unidir_routing_transistors(t_segment_inf * segment_inf,$/;"	f
+create_button	graphics.c	/^create_button(char *prev_button_text,$/;"	f
+criticality_exp	ReadOptions.h	/^	float criticality_exp;$/;"	m	struct:s_options
+criticality_exp	vpr_types.h	/^    float criticality_exp;$/;"	m	struct:s_router_opts
+cross_count	place.c	/^static const float cross_count[50] = {	\/* [0..49] *\/$/;"	v	file:
+cur	ezxml.c	/^    ezxml_t cur;		\/* current xml tree insertion point *\/$/;"	m	struct:ezxml_root	file:
+current_random	util.c	/^static unsigned int current_random = 0;$/;"	v	file:
+currentcolor	graphics.c	/^static int currentcolor = BLACK;$/;"	v	file:
+currentfontsize	graphics.c	/^static int currentfontsize = 10;$/;"	v	file:
+currentlinestyle	graphics.c	/^static int currentlinestyle = SOLID;$/;"	v	file:
+currentlinewidth	graphics.c	/^static int currentlinewidth = 0;$/;"	v	file:
+data	util.h	/^    int data;$/;"	m	struct:s_linked_int
+data_vptr	util.h	/^    void *data_vptr;$/;"	m	struct:s_linked_vptr
+dc	vpr_types.h	/^    float dc;$/;"	m	struct:s_chan
+default_message	draw.c	/^static char default_message[BUFSIZE];	\/* Default screen message on screen *\/$/;"	v	file:
+delayless_switch	vpr_types.h	/^    short delayless_switch;$/;"	m	struct:s_det_routing_arch
+delta_fb_to_fb	timing_place_lookup.c	/^float **delta_fb_to_fb;$/;"	v
+delta_fb_to_io	timing_place_lookup.c	/^float **delta_fb_to_io;$/;"	v
+delta_io_to_fb	timing_place_lookup.c	/^float **delta_io_to_fb;$/;"	v
+delta_io_to_io	timing_place_lookup.c	/^float **delta_io_to_io;$/;"	v
+deselect_all	draw.c	/^deselect_all(void)$/;"	f	file:
+destroy_button	graphics.c	/^destroy_button(char *button_text)$/;"	f
+directed_search_add_source_to_heap	route_directed_search.c	/^directed_search_add_source_to_heap(int inet,$/;"	f	file:
+directed_search_expand_neighbours	route_directed_search.c	/^directed_search_expand_neighbours(struct s_heap *current,$/;"	f	file:
+directed_search_expand_trace_segment	route_directed_search.c	/^directed_search_expand_trace_segment(struct s_trace *start_ptr,$/;"	f	file:
+directed_search_route_net	route_directed_search.c	/^directed_search_route_net(int inet,$/;"	f	file:
+direction	vpr_types.h	/^    enum e_direction direction;	\/* UDSD by AY *\/$/;"	m	struct:s_rr_node
+direction	vpr_types.h	/^    enum e_direction direction;	\/* UDSD by AY *\/$/;"	m	struct:s_seg_details
+directionality	vpr_types.h	/^    enum e_directionality directionality;	\/* UDSD by AY *\/$/;"	m	struct:s_det_routing_arch
+directionality	vpr_types.h	/^    enum e_directionality directionality;$/;"	m	struct:s_segment_inf
+disp_type	graphics.c	/^static int disp_type;		\/* Selects SCREEN or POSTSCRIPT *\/$/;"	v	file:
+display	graphics.c	/^static Display *display;$/;"	v	file:
+display_height	graphics.c	/^static unsigned int display_width, display_height;	\/* screen size *\/$/;"	v	file:
+display_width	graphics.c	/^static unsigned int display_width, display_height;	\/* screen size *\/$/;"	v	file:
+distr	rr_graph.c	/^    int *distr;$/;"	m	struct:s_mux_size_distribution	file:
+do_constant_net_delay_timing_analysis	path_delay.c	/^do_constant_net_delay_timing_analysis(t_timing_inf timing_inf,$/;"	f
+draw_chanx_to_chanx_edge	draw.c	/^draw_chanx_to_chanx_edge(int from_node,$/;"	f	file:
+draw_chanx_to_chany_edge	draw.c	/^draw_chanx_to_chany_edge(int chanx_node,$/;"	f	file:
+draw_chany_to_chany_edge	draw.c	/^draw_chany_to_chany_edge(int from_node,$/;"	f	file:
+draw_congestion	draw.c	/^draw_congestion(void)$/;"	f	file:
+draw_message	graphics.c	/^draw_message(void)$/;"	f
+draw_pin_to_chan_edge	draw.c	/^draw_pin_to_chan_edge(int pin_node,$/;"	f	file:
+draw_route_type	draw.c	/^static enum e_route_type draw_route_type;$/;"	v	file:
+draw_rr	draw.c	/^draw_rr(void)$/;"	f
+draw_rr_chanx	draw.c	/^draw_rr_chanx(int inode,$/;"	f	file:
+draw_rr_chany	draw.c	/^draw_rr_chany(int inode,$/;"	f	file:
+draw_rr_edges	draw.c	/^draw_rr_edges(int inode)$/;"	f	file:
+draw_rr_pin	draw.c	/^draw_rr_pin(int inode,$/;"	f	file:
+draw_rr_switch	draw.c	/^draw_rr_switch(float from_x,$/;"	f	file:
+draw_rr_toggle	draw.c	/^static enum e_draw_rr_toggle draw_rr_toggle = DRAW_NO_RR;	\/* UDSD by AY *\/$/;"	v	file:
+draw_triangle_along_line	draw.c	/^draw_triangle_along_line(float xend,$/;"	f	file:
+draw_x	draw.c	/^draw_x(float x,$/;"	f	file:
+drawarc	graphics.c	/^drawarc(float xc,$/;"	f
+drawarc	graphics.c	/^drawarc(float xcen,$/;"	f
+drawbut	graphics.c	/^drawbut(int bnum)$/;"	f	file:
+drawline	graphics.c	/^drawline(float x1,$/;"	f
+drawmenu	graphics.c	/^drawmenu(void)$/;"	f	file:
+drawnets	draw.c	/^drawnets(void)$/;"	f	file:
+drawplace	draw.c	/^drawplace(void)$/;"	f	file:
+drawrect	graphics.c	/^drawrect(float x1,$/;"	f
+drawroute	draw.c	/^drawroute(enum e_draw_net_type draw_net_type)$/;"	f	file:
+drawscreen	draw.c	/^drawscreen()$/;"	f	file:
+drawtext	graphics.c	/^drawtext(float xc,$/;"	f
+drivers	vpr_types.h	/^    enum e_drivers drivers;	\/* UDSD by AY *\/$/;"	m	struct:s_rr_node
+drivers	vpr_types.h	/^    enum e_drivers drivers;	\/* UDSD by AY *\/$/;"	m	struct:s_seg_details
+dummy_type_descriptors	timing_place_lookup.c	/^static t_type_descriptor dummy_type_descriptors[NUM_TYPES_USED];$/;"	v	file:
+dump_rr_graph	rr_graph.c	/^dump_rr_graph(IN const char *file_name)$/;"	f
+dump_seg_details	rr_graph2.c	/^dump_seg_details(t_seg_details * seg_details,$/;"	f
+duplicate_pins	place.c	/^static int *duplicate_pins;$/;"	v	file:
+e	ezxml.c	/^    char *e;			\/* end of work area *\/$/;"	m	struct:ezxml_root	file:
+e_Fc_type	vpr_types.h	/^enum e_Fc_type$/;"	g
+e_OptionArgToken	OptionTokens.h	/^enum e_OptionArgToken$/;"	g
+e_OptionBaseToken	OptionTokens.h	/^enum e_OptionBaseToken$/;"	g
+e_base_cost_type	vpr_types.h	/^enum e_base_cost_type$/;"	g
+e_cost_indices	vpr_types.h	/^enum e_cost_indices$/;"	g
+e_direction	vpr_types.h	/^enum e_direction$/;"	g
+e_directionality	vpr_types.h	/^enum e_directionality$/;"	g
+e_draw_net_type	draw.c	/^enum e_draw_net_type$/;"	g	file:
+e_draw_rr_toggle	draw.c	/^enum e_draw_rr_toggle$/;"	g	file:
+e_drivers	vpr_types.h	/^enum e_drivers$/;"	g
+e_edge_dir	draw.c	/^enum e_edge_dir$/;"	g	file:
+e_graph_type	rr_graph.h	/^enum e_graph_type$/;"	g
+e_grid_loc_type	vpr_types.h	/^enum e_grid_loc_type$/;"	g
+e_operation	vpr_types.h	/^enum e_operation$/;"	g
+e_pad_loc_type	vpr_types.h	/^enum e_pad_loc_type$/;"	g
+e_pin_type	vpr_types.h	/^enum e_pin_type$/;"	g
+e_place_algorithm	vpr_types.h	/^enum e_place_algorithm$/;"	g
+e_route_type	vpr_types.h	/^enum e_route_type$/;"	g
+e_router_algorithm	vpr_types.h	/^enum e_router_algorithm$/;"	g
+e_rr_type	vpr_types.h	/^typedef enum e_rr_type$/;"	g
+e_side	vpr_types.h	/^enum e_side$/;"	g
+e_stat	vpr_types.h	/^enum e_stat$/;"	g
+e_subblock_pin_type	path_delay.c	/^enum e_subblock_pin_type$/;"	g	file:
+e_switch_block_type	vpr_types.h	/^enum e_switch_block_type$/;"	g
+edge	rr_graph_util.h	/^    int edge;$/;"	m	struct:s_linked_edge
+edges	vpr_types.h	/^    int *edges;$/;"	m	struct:s_rr_node
+empty_heap	route_common.c	/^empty_heap(void)$/;"	f
+enable_timing_computations	vpr_types.h	/^    boolean enable_timing_computations;$/;"	m	struct:s_placer_opts
+end_track	vpr_types.h	/^    int end_track;		\/* UDSD by AY *\/$/;"	m	struct:s_seg_details
+ent	ezxml.c	/^    char **ent;			\/* general entities (ampersand sequences) *\/$/;"	m	struct:ezxml_root	file:
+err	ezxml.c	/^    char err[EZXML_ERRL];	\/* error string *\/$/;"	m	struct:ezxml_root	file:
+event_loop	graphics.c	/^event_loop(void (*act_on_button) (float x,$/;"	f
+exit_crit	place.c	/^exit_crit(float t,$/;"	f	file:
+exit_t	vpr_types.h	/^    float exit_t;$/;"	m	struct:s_annealing_sched
+ezxml	ezxml.h	/^    struct ezxml$/;"	s
+ezxml_add_child	ezxml.c	/^ezxml_add_child(ezxml_t xml,$/;"	f
+ezxml_add_child_d	ezxml.h	139;"	d
+ezxml_ampencode	ezxml.c	/^ezxml_ampencode(const char *s,$/;"	f
+ezxml_attr	ezxml.c	/^ezxml_attr(ezxml_t xml,$/;"	f
+ezxml_char_content	ezxml.c	/^ezxml_char_content(ezxml_root_t root,$/;"	f
+ezxml_child	ezxml.c	/^ezxml_child(ezxml_t xml,$/;"	f
+ezxml_close_tag	ezxml.c	/^ezxml_close_tag(ezxml_root_t root,$/;"	f
+ezxml_cut	ezxml.c	/^ezxml_cut(ezxml_t xml)$/;"	f
+ezxml_decode	ezxml.c	/^ezxml_decode(char *s,$/;"	f
+ezxml_ent_ok	ezxml.c	/^ezxml_ent_ok(char *name,$/;"	f
+ezxml_err	ezxml.c	/^ezxml_err(ezxml_root_t root,$/;"	f
+ezxml_error	ezxml.c	/^ezxml_error(ezxml_t xml)$/;"	f
+ezxml_free	ezxml.c	/^ezxml_free(ezxml_t xml)$/;"	f
+ezxml_free_attr	ezxml.c	/^ezxml_free_attr(char **attr)$/;"	f
+ezxml_get	ezxml.c	/^ezxml_get(ezxml_t xml,$/;"	f
+ezxml_idx	ezxml.c	/^ezxml_idx(ezxml_t xml,$/;"	f
+ezxml_insert	ezxml.c	/^ezxml_insert(ezxml_t xml,$/;"	f
+ezxml_internal_dtd	ezxml.c	/^ezxml_internal_dtd(ezxml_root_t root,$/;"	f
+ezxml_move	ezxml.h	174;"	d
+ezxml_name	ezxml.h	93;"	d
+ezxml_new	ezxml.c	/^ezxml_new(const char *name)$/;"	f
+ezxml_new_d	ezxml.h	130;"	d
+ezxml_next	ezxml.h	85;"	d
+ezxml_open_tag	ezxml.c	/^ezxml_open_tag(ezxml_root_t root,$/;"	f
+ezxml_parse_fd	ezxml.c	/^ezxml_parse_fd(int fd)$/;"	f
+ezxml_parse_file	ezxml.c	/^ezxml_parse_file(const char *file)$/;"	f
+ezxml_parse_fp	ezxml.c	/^ezxml_parse_fp(FILE * fp)$/;"	f
+ezxml_parse_str	ezxml.c	/^ezxml_parse_str(char *s,$/;"	f
+ezxml_pi	ezxml.c	/^ezxml_pi(ezxml_t xml,$/;"	f
+ezxml_proc_inst	ezxml.c	/^ezxml_proc_inst(ezxml_root_t root,$/;"	f
+ezxml_remove	ezxml.h	177;"	d
+ezxml_root	ezxml.c	/^struct ezxml_root$/;"	s	file:
+ezxml_root_t	ezxml.c	/^typedef struct ezxml_root *ezxml_root_t;$/;"	t	file:
+ezxml_set_attr	ezxml.c	/^ezxml_set_attr(ezxml_t xml,$/;"	f
+ezxml_set_attr_d	ezxml.h	157;"	d
+ezxml_set_flag	ezxml.c	/^ezxml_set_flag(ezxml_t xml,$/;"	f
+ezxml_set_txt	ezxml.c	/^ezxml_set_txt(ezxml_t xml,$/;"	f
+ezxml_set_txt_d	ezxml.h	147;"	d
+ezxml_str2utf8	ezxml.c	/^ezxml_str2utf8(char **s,$/;"	f
+ezxml_t	ezxml.h	/^    typedef struct ezxml *ezxml_t;$/;"	t
+ezxml_toxml	ezxml.c	/^ezxml_toxml(ezxml_t xml)$/;"	f
+ezxml_toxml_r	ezxml.c	/^ezxml_toxml_r(ezxml_t xml,$/;"	f
+ezxml_txt	ezxml.h	96;"	d
+ezxml_vget	ezxml.c	/^ezxml_vget(ezxml_t xml,$/;"	f
+fan_in	vpr_types.h	/^    short fan_in;$/;"	m	struct:s_rr_node
+fc	place_and_route.h	/^    int fc;			\/* at this fc *\/$/;"	m	struct:s_fmap_cell
+fcn	graphics.c	/^    void (*fcn) (void (*drawscreen) (void));$/;"	m	file:
+feasible_routing	route_common.c	/^feasible_routing(void)$/;"	f
+fillarc	graphics.c	/^fillarc(float xc,$/;"	f
+fillarc	graphics.c	/^fillarc(float xcen,$/;"	f
+fillpoly	graphics.c	/^fillpoly(t_point * points,$/;"	f
+fillrect	graphics.c	/^fillrect(float x1,$/;"	f
+find_affected_nets	place.c	/^find_affected_nets(int *nets_to_update,$/;"	f	file:
+find_label_of_track	rr_graph2.c	/^find_label_of_track(int *wire_mux_on_track,$/;"	f	file:
+find_to	place.c	/^find_to(int x_from,$/;"	f	file:
+find_type_col	SetupVPR.c	/^find_type_col(IN int x)$/;"	f	file:
+first_iter_pres_fac	ReadOptions.h	/^	float first_iter_pres_fac;$/;"	m	struct:s_options
+first_iter_pres_fac	vpr_types.h	/^    float first_iter_pres_fac;$/;"	m	struct:s_router_opts
+fixed_channel_width	vpr_types.h	/^    int fixed_channel_width;$/;"	m	struct:s_router_opts
+flags	ezxml.h	/^	short flags;		\/* additional information *\/$/;"	m	struct:ezxml
+flushinput	graphics.c	/^flushinput(void)$/;"	f
+font_info	graphics.c	/^static XFontStruct *font_info[MAX_FONT_SIZE + 1];	\/* Data for each size *\/$/;"	v	file:
+font_is_loaded	graphics.c	/^static int font_is_loaded[MAX_FONT_SIZE + 1];	\/* 1: loaded, 0: not  *\/$/;"	v	file:
+force_setcolor	graphics.c	/^force_setcolor(int cindex)$/;"	f	file:
+force_setfontsize	graphics.c	/^force_setfontsize(int pointsize)$/;"	f	file:
+force_setlinestyle	graphics.c	/^force_setlinestyle(int linestyle)$/;"	f	file:
+force_setlinewidth	graphics.c	/^force_setlinewidth(int linewidth)$/;"	f	file:
+fptr	vpr_types.h	/^    float *fptr;$/;"	m	struct:s_linked_f_pointer
+frac_cb	vpr_types.h	/^    float frac_cb;$/;"	m	struct:s_segment_inf
+frac_sb	vpr_types.h	/^    float frac_sb;$/;"	m	struct:s_segment_inf
+freeArch	main.c	/^static void freeArch(t_arch* Arch)$/;"	f	file:
+freeGrid	SetupVPR.c	/^freeGrid()$/;"	f	file:
+free_and_reset_internal_structures	timing_place_lookup.c	/^free_and_reset_internal_structures(struct s_net *original_net,$/;"	f	file:
+free_chunk_memory	util.c	/^free_chunk_memory(struct s_linked_vptr *chunk_ptr_head)$/;"	f
+free_crit	timing_place.c	/^free_crit(struct s_linked_vptr **chunk_list_head_ptr)$/;"	f	file:
+free_delta_arrays	timing_place_lookup.c	/^free_delta_arrays(void)$/;"	f	file:
+free_edge_list_head	rr_graph2.c	/^t_linked_edge *free_edge_list_head = NULL;$/;"	v
+free_fanout_counts	path_delay.c	/^free_fanout_counts(int **num_uses_of_fb_ipin,$/;"	f	file:
+free_fast_cost_update_structs	place.c	/^free_fast_cost_update_structs(void)$/;"	f	file:
+free_hash_table	hash.c	/^free_hash_table(struct s_hash **hash_table)$/;"	f
+free_heap_data	route_common.c	/^free_heap_data(struct s_heap *hptr)$/;"	f
+free_int_list	util.c	/^free_int_list(t_linked_int ** int_list_head_ptr)$/;"	f
+free_ivec_matrix	util.c	/^free_ivec_matrix(struct s_ivec **ivec_matrix,$/;"	f
+free_ivec_matrix3	util.c	/^free_ivec_matrix3(struct s_ivec ***ivec_matrix3,$/;"	f
+free_ivec_vector	util.c	/^free_ivec_vector(struct s_ivec *ivec_vector,$/;"	f
+free_linked_rc_edge	net_delay.c	/^free_linked_rc_edge(t_linked_rc_edge * rc_edge,$/;"	f	file:
+free_linked_rt_edge	route_tree_timing.c	/^free_linked_rt_edge(t_linked_rt_edge * rt_edge)$/;"	f	file:
+free_lookups_and_criticalities	timing_place.c	/^free_lookups_and_criticalities(float ***net_delay,$/;"	f
+free_matrix	util.c	/^free_matrix(void *vptr,$/;"	f
+free_matrix3	util.c	/^free_matrix3(void *vptr,$/;"	f
+free_matrix4	util.c	/^free_matrix4(void *vptr,$/;"	f
+free_net_delay	net_delay.c	/^free_net_delay(float **net_delay,$/;"	f
+free_pin_mappings	path_delay.c	/^free_pin_mappings(int **block_pin_to_tnode,$/;"	f	file:
+free_place_lookup_structs	timing_place_lookup.c	/^free_place_lookup_structs(void)$/;"	f
+free_place_regions	place.c	/^free_place_regions(int num_regions)$/;"	f	file:
+free_placement_structs	place.c	/^free_placement_structs(int place_cost_type,$/;"	f	file:
+free_rc_edge_free_list	net_delay.c	/^free_rc_edge_free_list(t_linked_rc_edge * rc_edge_free_list)$/;"	f	file:
+free_rc_node	net_delay.c	/^free_rc_node(t_rc_node * rc_node,$/;"	f	file:
+free_rc_node_free_list	net_delay.c	/^free_rc_node_free_list(t_rc_node * rc_node_free_list)$/;"	f	file:
+free_rc_tree	net_delay.c	/^free_rc_tree(t_rc_node * rc_root,$/;"	f	file:
+free_route_structs	route_common.c	/^free_route_structs(t_ivec ** fb_opins_used_locally)$/;"	f
+free_route_tree	route_tree_timing.c	/^free_route_tree(t_rt_node * rt_node)$/;"	f
+free_route_tree_timing_structs	route_tree_timing.c	/^free_route_tree_timing_structs(void)$/;"	f
+free_routing_structs	timing_place_lookup.c	/^free_routing_structs(struct s_router_opts router_opts,$/;"	f	file:
+free_rr_graph	rr_graph.c	/^free_rr_graph(void)$/;"	f
+free_rr_node_indices	rr_graph2.c	/^free_rr_node_indices(IN t_ivec *** rr_node_indices)$/;"	f
+free_rr_node_route_structs	route_common.c	/^free_rr_node_route_structs(void)$/;"	f
+free_rt_node	route_tree_timing.c	/^free_rt_node(t_rt_node * rt_node)$/;"	f	file:
+free_saved_routing	route_common.c	/^free_saved_routing(struct s_trace **best_routing,$/;"	f
+free_sblock_pattern_lookup	rr_graph2.c	/^free_sblock_pattern_lookup(INOUT short *****sblock_pattern)$/;"	f
+free_seg_details	rr_graph2.c	/^free_seg_details(t_seg_details * seg_details,$/;"	f
+free_subblock_data	place_and_route.c	/^free_subblock_data(t_subblock_data * subblock_data_ptr)$/;"	f
+free_switch_block_conn	rr_graph_sbox.c	/^free_switch_block_conn(struct s_ivec ***switch_block_conn,$/;"	f
+free_timing_driven_route_structs	route_timing.c	/^free_timing_driven_route_structs(float *pin_criticality,$/;"	f
+free_timing_graph	path_delay.c	/^free_timing_graph(float **net_slack)$/;"	f
+free_trace_data	route_common.c	/^free_trace_data(struct s_trace *tptr)$/;"	f	file:
+free_trace_structs	route_common.c	/^free_trace_structs(void)$/;"	f
+free_traceback	route_common.c	/^free_traceback(int inet)$/;"	f
+free_type_pin_to_track_map	rr_graph.c	/^free_type_pin_to_track_map(int***** ipin_to_track_map, t_type_ptr types, int* fc_in)$/;"	f	file:
+free_type_track_to_ipin_map	rr_graph.c	/^free_type_track_to_ipin_map(struct s_ivec**** track_to_pin_map, t_type_ptr types, int nodes_per_chan)$/;"	f	file:
+free_unique_pin_list	place.c	/^free_unique_pin_list(void)$/;"	f	file:
+frequency	vpr_types.h	/^    int frequency;$/;"	m	struct:s_segment_inf
+from_node	mst.h	/^    unsigned short int from_node;$/;"	m	struct:s_mst_edge
+fs	place_and_route.h	/^    int fs;			\/* at this fs *\/$/;"	m	struct:s_fmap_cell
+full_stats	vpr_types.h	/^	boolean full_stats;$/;"	m	struct:s_router_opts
+gc	graphics.c	/^static GC gc, gcxor, gc_menus;$/;"	v	file:
+gc_menus	graphics.c	/^static GC gc, gcxor, gc_menus;$/;"	v	file:
+gcxor	graphics.c	/^static GC gc, gcxor, gc_menus;$/;"	v	file:
+generic_compute_matrix	timing_place_lookup.c	/^generic_compute_matrix(float ***matrix_ptr,$/;"	f	file:
+get_average_opin_delay	rr_graph_indexed_data.c	/^get_average_opin_delay(t_ivec *** rr_node_indices,$/;"	f	file:
+get_bb_from_scratch	place.c	/^get_bb_from_scratch(int inet,$/;"	f	file:
+get_bidir_opin_connections	rr_graph2.c	/^get_bidir_opin_connections(IN int i,$/;"	f
+get_bidir_track_to_chan_seg	rr_graph2.c	/^get_bidir_track_to_chan_seg(IN struct s_ivec conn_tracks,$/;"	f	file:
+get_block_center	draw.c	/^get_block_center(int bnum,$/;"	f	file:
+get_cblock_trans	rr_graph_area.c	/^get_cblock_trans(int *num_inputs_to_cblock,$/;"	f	file:
+get_channel_occupancy_stats	stats.c	/^get_channel_occupancy_stats(void)$/;"	f	file:
+get_class_range_for_block	vpr_utils.c	/^get_class_range_for_block(IN int iblk,$/;"	f
+get_delay_normalization_fac	rr_graph_indexed_data.c	/^get_delay_normalization_fac(int nodes_per_chan,$/;"	f	file:
+get_directed_search_expected_cost	route_directed_search.c	/^get_directed_search_expected_cost(int inode,$/;"	f	file:
+get_expected_segs_to_target	route_directed_search.c	/^get_expected_segs_to_target(int inode,$/;"	f	file:
+get_expected_segs_to_target	route_timing.c	/^get_expected_segs_to_target(int inode,$/;"	f	file:
+get_first_pin	timing_place_lookup.c	/^get_first_pin(enum e_pin_type pintype,$/;"	f	file:
+get_hash_entry	hash.c	/^get_hash_entry(struct s_hash **hash_table,$/;"	f
+get_heap_head	route_common.c	/^get_heap_head(void)$/;"	f
+get_length_and_bends_stats	stats.c	/^get_length_and_bends_stats(void)$/;"	f	file:
+get_longest_segment_length	timing_place_lookup.c	/^get_longest_segment_length(struct s_det_routing_arch det_routing_arch,$/;"	f	file:
+get_max_pins_per_net	route_timing.c	/^get_max_pins_per_net(void)$/;"	f	file:
+get_mst_of_net	mst.c	/^get_mst_of_net(int inet)$/;"	f
+get_net_cost	place.c	/^get_net_cost(int inet,$/;"	f	file:
+get_net_wirelength_estimate	place.c	/^get_net_wirelength_estimate(int inet,$/;"	f	file:
+get_next_hash	hash.c	/^get_next_hash(struct s_hash **hash_table,$/;"	f
+get_non_updateable_bb	place.c	/^get_non_updateable_bb(int inet,$/;"	f	file:
+get_num_bends_and_length	stats.c	/^get_num_bends_and_length(int inet,$/;"	f	file:
+get_num_conn	check_netlist.c	/^get_num_conn(int bnum)$/;"	f	file:
+get_rr_cong_cost	route_common.c	/^get_rr_cong_cost(int inode)$/;"	f
+get_rr_node_index	rr_graph2.c	/^get_rr_node_index(int x,$/;"	f
+get_rr_pin_draw_coords	draw.c	/^get_rr_pin_draw_coords(int inode,$/;"	f	file:
+get_seg_end	rr_graph2.c	/^get_seg_end(IN t_seg_details * seg_details,$/;"	f
+get_seg_start	rr_graph2.c	/^get_seg_start(IN t_seg_details * seg_details,$/;"	f
+get_seg_track_counts	rr_graph2.c	/^get_seg_track_counts(IN int num_sets,$/;"	f	file:
+get_segment_usage_stats	segment_stats.c	/^get_segment_usage_stats(int num_segment,$/;"	f
+get_serial_num	route_common.c	/^get_serial_num(void)$/;"	f
+get_simple_switch_block_track	rr_graph_sbox.c	/^get_simple_switch_block_track(IN enum e_side from_side,$/;"	f
+get_std_dev	place.c	/^get_std_dev(int n,$/;"	f	file:
+get_switch_type	rr_graph2.c	/^get_switch_type(boolean is_from_sbox,$/;"	f	file:
+get_timing_driven_expected_cost	route_timing.c	/^get_timing_driven_expected_cost(int inode,$/;"	f	file:
+get_tnode_block_and_output_net	path_delay.c	/^get_tnode_block_and_output_net(int inode,$/;"	f
+get_top_of_heap_index	heapsort.c	/^get_top_of_heap_index(int *heap,$/;"	f	file:
+get_track_num	draw.c	/^get_track_num(int inode,$/;"	f	file:
+get_track_to_ipins	rr_graph2.c	/^get_track_to_ipins(int seg,$/;"	f
+get_track_to_tracks	rr_graph2.c	/^get_track_to_tracks(IN int from_chan,$/;"	f
+get_type_by_name	read_netlist.c	/^get_type_by_name(IN const char *name,$/;"	f	file:
+get_unidir_opin_connections	rr_graph2.c	/^get_unidir_opin_connections(IN int chan,$/;"	f
+get_unidir_track_to_chan_seg	rr_graph2.c	/^get_unidir_track_to_chan_seg(IN boolean is_end_sb,$/;"	f	file:
+global_route_switch	vpr_types.h	/^    short global_route_switch;$/;"	m	struct:s_det_routing_arch
+gr_automode	draw.c	/^static int gr_automode;		\/* Need user input after: 0: each t,   *$/;"	v	file:
+grid	globals_declare.h	/^struct s_grid_tile **grid;$/;"	v
+grid	main.c	/^struct s_grid_tile **grid = NULL;	\/* [0..(nx+1)][0..(ny+1)] Physical block list *\/$/;"	v
+grid_backup	timing_place_lookup.c	/^static struct s_grid_tile **grid_backup;$/;"	v	file:
+grid_loc_def	vpr_types.h	/^    struct s_grid_loc_def *grid_loc_def;	\/* [0..num_def-1] *\/$/;"	m	struct:s_type_descriptor
+grid_loc_type	vpr_types.h	/^    enum e_grid_loc_type grid_loc_type;$/;"	m	struct:s_grid_loc_def
+grid_logic_tile_area	main.c	/^float grid_logic_tile_area = 0;$/;"	v
+grid_logic_tile_area	xml_arch.h	/^     float grid_logic_tile_area;$/;"	m	struct:s_arch
+group_size	vpr_types.h	/^    int group_size;$/;"	m	struct:s_seg_details
+group_start	vpr_types.h	/^    int group_start;$/;"	m	struct:s_seg_details
+h_ptr	hash.h	/^    struct s_hash *h_ptr;$/;"	m	struct:s_hash_iterator
+hash_value	hash.c	/^hash_value(char *name)$/;"	f	file:
+heap	route_common.c	/^static struct s_heap **heap;	\/* Indexed from [1..heap_size] *\/$/;"	v	file:
+heap_free_head	route_common.c	/^static struct s_heap *heap_free_head = NULL;$/;"	v	file:
+heap_size	route_common.c	/^static int heap_size;		\/* Number of slots in the heap array *\/$/;"	v	file:
+heap_tail	route_common.c	/^static int heap_tail;		\/* Index of first unused slot in the heap array *\/$/;"	v	file:
+heapsort	heapsort.c	/^heapsort(int *sort_index,$/;"	f
+height	graphics.c	/^    int height;$/;"	m	file:
+height	vpr_types.h	/^    int height;$/;"	m	struct:s_type_descriptor
+highlight_blocks	draw.c	/^highlight_blocks(float x,$/;"	f	file:
+highlight_crit_path	draw.c	/^highlight_crit_path(void (*drawscreen_ptr) (void))$/;"	f	file:
+i	hash.h	/^    int i;$/;"	m	struct:s_hash_iterator
+iblk	path_delay2.h	/^    int iblk;$/;"	m
+index	hash.h	/^    int index;$/;"	m	struct:s_hash
+index	route_common.h	/^    int index;$/;"	m	struct:s_heap
+index	vpr_types.h	/^    int index;			\/* index of type descriptor in array (allows for index referencing) *\/$/;"	m	struct:s_type_descriptor
+index	vpr_types.h	/^    int index;$/;"	m	struct:s_seg_details
+index	vpr_types.h	/^    int index;$/;"	m	struct:s_trace
+init_chan	place_and_route.c	/^init_chan(int cfactor,$/;"	f
+init_draw_coords	draw.c	/^init_draw_coords(float width_val)$/;"	f
+init_graphics	graphics.c	/^init_graphics(char *window_name)$/;"	f
+init_postscript	graphics.c	/^init_postscript(char *fname)$/;"	f
+init_route_structs	route_common.c	/^init_route_structs(int bb_factor)$/;"	f
+init_route_tree_to_source	route_tree_timing.c	/^init_route_tree_to_source(int inet)$/;"	f
+init_t	vpr_types.h	/^    float init_t;$/;"	m	struct:s_annealing_sched
+init_world	graphics.c	/^init_world(float x1,$/;"	f
+init_world	graphics.c	/^init_world(float xl,$/;"	f
+initial_placement	place.c	/^initial_placement(enum e_pad_loc_type pad_loc_type,$/;"	f	file:
+initial_pres_fac	ReadOptions.h	/^	float initial_pres_fac;$/;"	m	struct:s_options
+initial_pres_fac	vpr_types.h	/^    float initial_pres_fac;$/;"	m	struct:s_router_opts
+inner_loop_recompute_divider	ReadOptions.h	/^	int inner_loop_recompute_divider;$/;"	m	struct:s_options
+inner_loop_recompute_divider	vpr_types.h	/^    int inner_loop_recompute_divider;$/;"	m	struct:s_placer_opts
+inner_num	vpr_types.h	/^    float inner_num;$/;"	m	struct:s_annealing_sched
+inode	net_delay.c	/^    int inode;$/;"	m	struct:s_rc_node	file:
+inode	route_tree_timing.h	/^    int inode;$/;"	m	struct:s_rt_node
+inputs	vpr_types.h	/^    int *inputs;$/;"	m	struct:s_subblock
+insert_in_edge_list	rr_graph_util.c	/^insert_in_edge_list(IN t_linked_edge * head,$/;"	f
+insert_in_hash_table	hash.c	/^insert_in_hash_table(struct s_hash **hash_table,$/;"	f
+insert_in_int_list	util.c	/^insert_in_int_list(t_linked_int * head,$/;"	f
+insert_in_vptr_list	util.c	/^insert_in_vptr_list(struct s_linked_vptr *head,$/;"	f
+inv_capacity	vpr_types.h	/^    float inv_capacity;$/;"	m	struct:s_place_region
+inv_length	vpr_types.h	/^    float inv_length;$/;"	m	struct:s_rr_indexed_data
+invalidate_heap_entries	route_common.c	/^invalidate_heap_entries(int sink_node,$/;"	f
+ipin	path_delay2.h	/^    short ipin;$/;"	m
+ipin_mux_trans_size	main.c	/^float ipin_mux_trans_size = 0;$/;"	v
+ipin_mux_trans_size	xml_arch.h	/^     float ipin_mux_trans_size;$/;"	m	struct:s_arch
+is_Fc_frac	vpr_types.h	/^    boolean is_Fc_frac;$/;"	m	struct:s_type_descriptor
+is_Fc_out_full_flex	vpr_types.h	/^    boolean is_Fc_out_full_flex;$/;"	m	struct:s_type_descriptor
+is_cbox	rr_graph2.c	/^is_cbox(IN int chan,$/;"	f
+is_empty_heap	route_common.c	/^is_empty_heap(void)$/;"	f
+is_global	globals_declare.h	/^boolean *is_global;$/;"	v
+is_global	vpr_types.h	/^    boolean is_global;$/;"	m	struct:s_net
+is_global_clock	path_delay.c	/^is_global_clock(int iblk,$/;"	f	file:
+is_global_pin	vpr_types.h	/^    boolean *is_global_pin;	\/* [0..num_pins-1] *\/$/;"	m	struct:s_type_descriptor
+is_opin	vpr_utils.c	/^is_opin(int ipin,$/;"	f
+is_sbox	rr_graph2.c	/^is_sbox(IN int chan,$/;"	f
+ispoly	graphics.c	/^    int ispoly;$/;"	m	file:
+ispressed	graphics.c	/^    int ispressed;$/;"	m	file:
+istext	graphics.c	/^    int istext;$/;"	m	file:
+isubblk	path_delay2.h	/^    short isubblk;$/;"	m
+iswitch	net_delay.c	/^    short iswitch;$/;"	m	struct:s_linked_rc_edge	file:
+iswitch	route_tree_timing.h	/^    short iswitch;$/;"	m	struct:s_linked_rt_edge
+iswitch	rr_graph_util.h	/^    short iswitch;$/;"	m	struct:s_linked_edge
+iswitch	vpr_types.h	/^    short iswitch;$/;"	m	struct:s_trace
+label_incoming_wires	rr_graph2.c	/^label_incoming_wires(IN int chan_num,$/;"	f	file:
+label_wire_muxes	rr_graph2.c	/^label_wire_muxes(IN int chan_num,$/;"	f	file:
+label_wire_muxes_for_balance	rr_graph2.c	/^label_wire_muxes_for_balance(IN int chan_num,$/;"	f	file:
+len	ezxml.c	/^    size_t len;			\/* length of allocated memory for mmap, -1 for malloc *\/$/;"	m	struct:ezxml_root	file:
+length	vpr_types.h	/^    int length;$/;"	m	struct:s_seg_details
+length	vpr_types.h	/^    int length;$/;"	m	struct:s_segment_inf
+limit_value	util.c	/^limit_value(int cur,$/;"	f
+line_types	graphics.h	/^enum line_types$/;"	g
+linenum	util.c	/^int linenum;			\/* Line in file being parsed. *\/$/;"	v
+linked_f_pointer_free_head	route_common.c	/^static struct s_linked_f_pointer *linked_f_pointer_free_head = NULL;$/;"	v	file:
+list	util.h	/^    int *list;$/;"	m	struct:s_ivec
+load_chan_rr_indices	rr_graph2.c	/^load_chan_rr_indices(IN int nodes_per_chan,$/;"	f	file:
+load_channel_occupancies	stats.c	/^load_channel_occupancies(int **chanx_occ,$/;"	f	file:
+load_constant_net_delay	net_delay.c	/^load_constant_net_delay(float **net_delay,$/;"	f
+load_criticalities	timing_place.c	/^load_criticalities(struct s_placer_opts placer_opts,$/;"	f
+load_font	graphics.c	/^load_font(int pointsize)$/;"	f	file:
+load_net_delay_from_routing	net_delay.c	/^load_net_delay_from_routing(float **net_delay)$/;"	f
+load_net_rr_terminals	rr_graph.c	/^load_net_rr_terminals(t_ivec *** rr_node_indices)$/;"	f
+load_net_slack	path_delay.c	/^load_net_slack(float **net_slack,$/;"	f
+load_new_path_R_upstream	route_tree_timing.c	/^load_new_path_R_upstream(t_rt_node * start_of_new_path_rt_node)$/;"	f	file:
+load_one_constant_net_delay	net_delay.c	/^load_one_constant_net_delay(float **net_delay,$/;"	f	file:
+load_one_fb_fanout_count	vpr_utils.c	/^load_one_fb_fanout_count(t_subblock * subblock_inf,$/;"	f
+load_one_net_delay	net_delay.c	/^load_one_net_delay(float **net_delay,$/;"	f	file:
+load_perturbed_switch_pattern	rr_graph.c	/^load_perturbed_switch_pattern(IN t_type_ptr type,$/;"	f	file:
+load_place_regions	place.c	/^load_place_regions(int num_regions)$/;"	f	file:
+load_rc_tree_C	net_delay.c	/^load_rc_tree_C(t_rc_node * rc_node)$/;"	f	file:
+load_rc_tree_T	net_delay.c	/^load_rc_tree_T(t_rc_node * rc_node,$/;"	f	file:
+load_route_bb	route_common.c	/^load_route_bb(int bb_factor)$/;"	f	file:
+load_rr_indexed_data_T_values	rr_graph_indexed_data.c	/^load_rr_indexed_data_T_values(int index_start,$/;"	f	file:
+load_rr_indexed_data_base_costs	rr_graph_indexed_data.c	/^load_rr_indexed_data_base_costs(int nodes_per_chan,$/;"	f	file:
+load_rt_subtree_Tdel	route_tree_timing.c	/^load_rt_subtree_Tdel(t_rt_node * subtree_rt_root,$/;"	f	file:
+load_sblock_pattern_lookup	rr_graph2.c	/^load_sblock_pattern_lookup(IN int i,$/;"	f
+load_simplified_device	timing_place_lookup.c	/^load_simplified_device(void)$/;"	f	file:
+load_subblock_info_to_type	SetupVPR.c	/^load_subblock_info_to_type(INOUT t_subblock_data * subblocks,$/;"	f	file:
+load_timing_graph_net_delays	path_delay.c	/^load_timing_graph_net_delays(float **net_delay)$/;"	f
+load_uniform_opin_switch_pattern_paired	rr_graph.c	/^load_uniform_opin_switch_pattern_paired(IN int *Fc_out,$/;"	f	file:
+load_uniform_switch_pattern	rr_graph.c	/^load_uniform_switch_pattern(IN t_type_ptr type,$/;"	f	file:
+longline	vpr_types.h	/^    boolean longline;$/;"	m	struct:s_seg_details
+longline	vpr_types.h	/^    boolean longline;$/;"	m	struct:s_segment_inf
+lookup_dump	timing_place_lookup.c	/^static FILE *lookup_dump;	\/* If debugging mode is on, print out to$/;"	v	file:
+m	ezxml.c	/^    char *m;			\/* original xml string *\/$/;"	m	struct:ezxml_root	file:
+main	ezxml.c	/^main(int argc,$/;"	f
+main	main.c	/^main(int argc,$/;"	f
+main	testing.c	/^main()$/;"	f
+map_button	graphics.c	/^map_button(int bnum)$/;"	f	file:
+mark_ends	route_common.c	/^mark_ends(int inet)$/;"	f
+max	graphics.c	84;"	d	file:
+max	util.h	31;"	d
+max_criticality	ReadOptions.h	/^	float max_criticality;$/;"	m	struct:s_options
+max_criticality	vpr_types.h	/^    float max_criticality;$/;"	m	struct:s_router_opts
+max_index	rr_graph.c	/^    int max_index;$/;"	m	struct:s_mux_size_distribution	file:
+max_router_iterations	ReadOptions.h	/^	int max_router_iterations;$/;"	m	struct:s_options
+max_router_iterations	vpr_types.h	/^    int max_router_iterations;$/;"	m	struct:s_router_opts
+max_subblock_inputs	vpr_types.h	/^    int max_subblock_inputs;$/;"	m	struct:s_type_descriptor
+max_subblock_outputs	vpr_types.h	/^    int max_subblock_outputs;$/;"	m	struct:s_type_descriptor
+max_subblocks	vpr_types.h	/^    int max_subblocks;$/;"	m	struct:s_type_descriptor
+menu	graphics.c	/^static Window toplevel, menu, textarea;	\/* various windows *\/$/;"	v	file:
+menu_font_size	graphics.c	/^static const int menu_font_size = 14;	\/* Font for menus and dialog boxes. *\/$/;"	v	file:
+menutext	graphics.c	/^menutext(Window win,$/;"	f	file:
+message	graphics.c	/^static char message[BUFSIZE] = "\\0";	\/* User message to display *\/$/;"	v	file:
+min	graphics.c	85;"	d	file:
+min	util.h	32;"	d
+min_dist_from_mst	mst.c	/^min_dist_from_mst(int node_outside,$/;"	f	file:
+mux_count	rr_graph.c	/^    int mux_count;$/;"	m	struct:s_mux_size_distribution	file:
+mux_trans_size	vpr_types.h	/^    float mux_trans_size;$/;"	m	struct:s_switch_inf
+my_atoi	util.c	/^my_atoi(const char *str)$/;"	f
+my_calloc	util.c	/^my_calloc(size_t nelem,$/;"	f
+my_chunk_malloc	util.c	/^my_chunk_malloc(size_t size,$/;"	f
+my_fgets	util.c	/^my_fgets(char *buf,$/;"	f
+my_fopen	util.c	/^my_fopen(const char *fname,$/;"	f
+my_frand	util.c	/^my_frand(void)$/;"	f
+my_irand	util.c	/^my_irand(int imax)$/;"	f
+my_malloc	util.c	/^my_malloc(size_t size)$/;"	f
+my_realloc	util.c	/^my_realloc(void *ptr,$/;"	f
+my_srandom	util.c	/^my_srandom(int seed)$/;"	f
+my_strdup	util.c	/^my_strdup(const char *str)$/;"	f
+my_strncpy	util.c	/^my_strncpy(char *dest,$/;"	f
+my_strtok	util.c	/^my_strtok(char *ptr,$/;"	f
+name	ezxml.h	/^	char *name;		\/* tag name *\/$/;"	m	struct:ezxml
+name	hash.h	/^    char *name;$/;"	m	struct:s_hash
+name	vpr_types.h	/^    char *name;$/;"	m	struct:s_block
+name	vpr_types.h	/^    char *name;$/;"	m	struct:s_net
+name	vpr_types.h	/^    char *name;$/;"	m	struct:s_subblock
+name	vpr_types.h	/^    char *name;$/;"	m	struct:s_switch_inf
+name	vpr_types.h	/^    const char *name;$/;"	m	struct:s_type_descriptor
+nelem	util.h	/^    int nelem;$/;"	m	struct:s_ivec
+net	globals_declare.h	/^struct s_net *net;$/;"	v
+net	main.c	/^struct s_net *net = NULL;$/;"	v
+net_color	draw.c	/^static enum color_types *net_color, *block_color;$/;"	v	file:
+net_cost	place.c	/^static float *net_cost = NULL, *temp_net_cost = NULL;	\/* [0..num_nets-1] *\/$/;"	v	file:
+net_delay	timing_place_lookup.c	/^static float **net_delay;$/;"	v	file:
+net_delay_chunk_list_head	timing_place.c	/^static struct s_linked_vptr *net_delay_chunk_list_head;$/;"	v	file:
+net_pin_index	place.c	/^static int **net_pin_index = NULL;$/;"	v	file:
+net_rr_terminals	globals_declare.h	/^int **net_rr_terminals;		\/* [0..num_nets-1][0..num_pins-1] *\/$/;"	v
+net_rr_terminals	main.c	/^int **net_rr_terminals = NULL;	\/* [0..num_nets-1][0..num_pins-1] *\/$/;"	v
+net_slack	timing_place_lookup.c	/^static float **net_slack;$/;"	v	file:
+net_to_driver_tnode	path_delay2.c	/^int *net_to_driver_tnode;$/;"	v
+nets	vpr_types.h	/^    int *nets;$/;"	m	struct:s_block
+next	ezxml.h	/^	ezxml_t next;		\/* next tag with same name in this section at this depth *\/$/;"	m	struct:ezxml
+next	hash.h	/^    struct s_hash *next;$/;"	m	struct:s_hash
+next	net_delay.c	/^	struct s_rc_node *next;$/;"	m	union:s_rc_node::<anonymous>	file:
+next	net_delay.c	/^    struct s_linked_rc_edge *next;$/;"	m	struct:s_linked_rc_edge	file:
+next	net_delay.c	/^    struct s_linked_rc_ptr *next;$/;"	m	struct:s_linked_rc_ptr	file:
+next	place_and_route.h	/^    struct s_fmap_cell *next;$/;"	m	struct:s_fmap_cell
+next	route_common.h	/^	struct s_heap *next;$/;"	m	union:s_heap::<anonymous>
+next	route_tree_timing.h	/^	struct s_rt_node *next;$/;"	m	union:s_rt_node::<anonymous>
+next	route_tree_timing.h	/^    struct s_linked_rt_edge *next;$/;"	m	struct:s_linked_rt_edge
+next	rr_graph.c	/^    struct s_mux *next;$/;"	m	struct:s_mux	file:
+next	rr_graph.c	/^    struct s_mux_size_distribution *next;$/;"	m	struct:s_mux_size_distribution	file:
+next	rr_graph_util.h	/^    struct s_linked_edge *next;$/;"	m	struct:s_linked_edge
+next	util.h	/^    struct s_linked_int *next;$/;"	m	struct:s_linked_int
+next	util.h	/^    struct s_linked_vptr *next;$/;"	m	struct:s_linked_vptr
+next	vpr_types.h	/^    struct s_linked_f_pointer *next;$/;"	m	struct:s_linked_f_pointer
+next	vpr_types.h	/^    struct s_trace *next;$/;"	m	struct:s_trace
+nint	util.h	34;"	d
+node_block	vpr_types.h	/^    int *node_block;$/;"	m	struct:s_net
+node_block_pin	vpr_types.h	/^    int *node_block_pin;$/;"	m	struct:s_net
+node_to_heap	route_common.c	/^node_to_heap(int inode,$/;"	f
+nonlinear_cong_cost	place.c	/^nonlinear_cong_cost(int num_regions)$/;"	f	file:
+num_blocks	globals_declare.h	/^int num_nets, num_blocks;$/;"	v
+num_blocks	main.c	/^int num_blocks = 0;$/;"	v
+num_buttons	graphics.c	/^static int num_buttons;		\/* Number of menu buttons *\/$/;"	v	file:
+num_class	vpr_types.h	/^    int num_class;$/;"	m	struct:s_type_descriptor
+num_const_gen	vpr_types.h	/^    int num_const_gen;$/;"	m	struct:s_subblock_data
+num_drivers	vpr_types.h	/^    int num_drivers;$/;"	m	struct:s_type_descriptor
+num_edges	path_delay2.h	/^    int num_edges;$/;"	m
+num_edges	vpr_types.h	/^    short num_edges;$/;"	m	struct:s_rr_node
+num_ff	vpr_types.h	/^    int num_ff;$/;"	m	struct:s_subblock_data
+num_grid_loc_def	vpr_types.h	/^    int num_grid_loc_def;$/;"	m	struct:s_type_descriptor
+num_heap_allocated	route_common.c	/^static int num_heap_allocated = 0;$/;"	v	file:
+num_linked_f_pointer_allocated	route_common.c	/^static int num_linked_f_pointer_allocated = 0;$/;"	v	file:
+num_nets	globals_declare.h	/^int num_nets, num_blocks;$/;"	v
+num_nets	main.c	/^int num_nets = 0;$/;"	v
+num_opin_drivers	vpr_types.h	/^    int num_opin_drivers;	\/* UDSD by WMF (could use "short") *\/$/;"	m	struct:s_rr_node
+num_pins	vpr_types.h	/^    int num_pins;$/;"	m	struct:s_class
+num_pins	vpr_types.h	/^    int num_pins;$/;"	m	struct:s_type_descriptor
+num_receivers	vpr_types.h	/^    int num_receivers;$/;"	m	struct:s_type_descriptor
+num_regions	vpr_types.h	/^    int num_regions;$/;"	m	struct:s_placer_opts
+num_rp	place_stats.c	/^    int num_rp[MAX_LEN];$/;"	m	struct:relapos_rec_s	file:
+num_rr_indexed_data	globals_declare.h	/^int num_rr_indexed_data;$/;"	v
+num_rr_indexed_data	main.c	/^int num_rr_indexed_data = 0;$/;"	v
+num_rr_nodes	globals_declare.h	/^int num_rr_nodes;$/;"	v
+num_rr_nodes	main.c	/^int num_rr_nodes = 0;$/;"	v
+num_segment	vpr_types.h	/^    int num_segment;$/;"	m	struct:s_det_routing_arch
+num_segments	xml_arch.h	/^     int num_segments;$/;"	m	struct:s_arch
+num_sinks	vpr_types.h	/^    int num_sinks;$/;"	m	struct:s_net
+num_subblocks_per_block	vpr_types.h	/^    int *num_subblocks_per_block;$/;"	m	struct:s_subblock_data
+num_switch	vpr_types.h	/^    short num_switch;$/;"	m	struct:s_det_routing_arch
+num_switches	xml_arch.h	/^     int num_switches;$/;"	m	struct:s_arch
+num_tnode_levels	path_delay2.c	/^int num_tnode_levels;		\/* Number of levels in the timing graph. *\/$/;"	v
+num_tnodes	path_delay2.c	/^int num_tnodes;			\/* Number of nodes (pins) in the timing graph *\/$/;"	v
+num_trace_allocated	route_common.c	/^static int num_trace_allocated = 0;	\/* To watch for memory leaks. *\/$/;"	v	file:
+num_types	main.c	/^int num_types = 0;$/;"	v
+num_types_backup	timing_place_lookup.c	/^static int num_types_backup;$/;"	v	file:
+num_wire_drivers	vpr_types.h	/^    int num_wire_drivers;	\/* UDSD by WMF *\/$/;"	m	struct:s_rr_node
+nx	globals_declare.h	/^int nx, ny;$/;"	v
+nx	main.c	/^int nx = 0;$/;"	v
+ny	globals_declare.h	/^int nx, ny;$/;"	v
+ny	main.c	/^int ny = 0;$/;"	v
+occ	vpr_types.h	/^    short occ;$/;"	m	struct:s_rr_node
+occupancy	vpr_types.h	/^    float occupancy;$/;"	m	struct:s_place_region
+off	ezxml.h	/^	size_t off;		\/* tag offset from start of parent tag character content *\/$/;"	m	struct:ezxml
+offset	vpr_types.h	/^    int offset;$/;"	m	struct:s_grid_tile
+open	ezxml.c	58;"	d	file:
+opin_switch	vpr_types.h	/^    short opin_switch;$/;"	m	struct:s_seg_details
+opin_switch	vpr_types.h	/^    short opin_switch;$/;"	m	struct:s_segment_inf
+ordered	ezxml.h	/^	ezxml_t ordered;	\/* next tag, same section and depth, in original order *\/$/;"	m	struct:ezxml
+ortho_cost_index	vpr_types.h	/^    int ortho_cost_index;$/;"	m	struct:s_rr_indexed_data
+out_edges	path_delay2.h	/^    t_tedge *out_edges;$/;"	m
+outputs	vpr_types.h	/^    int *outputs;$/;"	m	struct:s_subblock
+pad_loc_file	vpr_types.h	/^    char *pad_loc_file;$/;"	m	struct:s_placer_opts
+pad_loc_type	vpr_types.h	/^    enum e_pad_loc_type pad_loc_type;$/;"	m	struct:s_placer_opts
+parent	ezxml.h	/^	ezxml_t parent;		\/* parent tag, NULL if current tag is root tag *\/$/;"	m	struct:ezxml
+parent_node	route_tree_timing.h	/^    struct s_rt_node *parent_node;$/;"	m	struct:s_rt_node
+parent_switch	route_tree_timing.h	/^    short parent_switch;$/;"	m	struct:s_rt_node
+path_cost	route_common.h	/^    float path_cost;$/;"	m
+pathfinder_update_cost	route_common.c	/^pathfinder_update_cost(float pres_fac,$/;"	f
+pathfinder_update_one_cost	route_common.c	/^pathfinder_update_one_cost(struct s_trace *route_segment_start,$/;"	f
+peak	vpr_types.h	/^    float peak;$/;"	m	struct:s_chan
+pfreq	vpr_types.h	/^enum pfreq$/;"	g
+pi	ezxml.c	/^    char ***pi;			\/* processing instructions *\/$/;"	m	struct:ezxml_root	file:
+pic_on_screen	draw.c	/^static enum pic_type pic_on_screen = NO_PICTURE;	\/* What do I draw? *\/$/;"	v	file:
+pic_type	vpr_types.h	/^enum pic_type$/;"	g
+pin_and_chan_adjacent	check_route.c	/^pin_and_chan_adjacent(int pin_node,$/;"	f	file:
+pin_class	vpr_types.h	/^    int *pin_class;		\/* [0..num_pins-1] *\/$/;"	m	struct:s_type_descriptor
+pin_criticality	timing_place_lookup.c	/^static float *pin_criticality;$/;"	v	file:
+pin_size	draw.c	/^static float tile_width, pin_size;$/;"	v	file:
+pinlist	vpr_types.h	/^    int *pinlist;$/;"	m	struct:s_class
+pinlist_str	read_netlist.c	/^static char *pinlist_str = "pinlist:";$/;"	v	file:
+pinloc	vpr_types.h	/^    int ***pinloc;		\/* [0..height-1][0..3][0..num_pins-1] *\/$/;"	m	struct:s_type_descriptor
+place_algorithm	vpr_types.h	/^    enum e_place_algorithm place_algorithm;$/;"	m	struct:s_placer_opts
+place_and_route	place_and_route.c	/^place_and_route(enum e_operation operation,$/;"	f
+place_c_types	vpr_types.h	/^enum place_c_types$/;"	g
+place_chan_width	vpr_types.h	/^    int place_chan_width;$/;"	m	struct:s_placer_opts
+place_cost_exp	ReadOptions.h	/^	float place_cost_exp;$/;"	m	struct:s_options
+place_cost_exp	vpr_types.h	/^    float place_cost_exp;$/;"	m	struct:s_placer_opts
+place_cost_type	vpr_types.h	/^    enum place_c_types place_cost_type;$/;"	m	struct:s_placer_opts
+place_exp_first	ReadOptions.h	/^	float place_exp_first;$/;"	m	struct:s_options
+place_exp_last	ReadOptions.h	/^	float place_exp_last;$/;"	m	struct:s_options
+place_freq	vpr_types.h	/^    enum pfreq place_freq;$/;"	m	struct:s_placer_opts
+place_region_bounds_x	place.c	/^static float *place_region_bounds_x, *place_region_bounds_y;$/;"	v	file:
+place_region_bounds_y	place.c	/^static float *place_region_bounds_x, *place_region_bounds_y;$/;"	v	file:
+place_region_x	place.c	/^static struct s_place_region **place_region_x, **place_region_y;$/;"	v	file:
+place_region_y	place.c	/^static struct s_place_region **place_region_x, **place_region_y;$/;"	v	file:
+point_to_point_delay_cost	place.c	/^static float **point_to_point_delay_cost = NULL;$/;"	v	file:
+point_to_point_timing_cost	place.c	/^static float **point_to_point_timing_cost = NULL;$/;"	v	file:
+poly	graphics.c	/^    int poly[3][2];$/;"	m	file:
+post_place_sync	place_and_route.c	/^post_place_sync(IN int num_blocks,$/;"	f
+postscript	graphics.c	/^postscript(void (*drawscreen) (void))$/;"	f	file:
+pres_cost	route_common.h	/^    float pres_cost;$/;"	m
+pres_fac_mult	ReadOptions.h	/^	float pres_fac_mult;$/;"	m	struct:s_options
+pres_fac_mult	vpr_types.h	/^    float pres_fac_mult;$/;"	m	struct:s_router_opts
+prev_edge	route_common.h	/^    int prev_edge;$/;"	m	struct:s_heap
+prev_edge	route_common.h	/^    short prev_edge;$/;"	m
+prev_node	route_common.h	/^	int prev_node;$/;"	m	union:s_heap::<anonymous>
+prev_node	route_common.h	/^    int prev_node;$/;"	m
+print_array	timing_place_lookup.c	/^print_array(float **array_to_print,$/;"	f	file:
+print_critical_path	path_delay.c	/^print_critical_path(char *fname,$/;"	f
+print_critical_path_node	path_delay2.c	/^print_critical_path_node(FILE * fp,$/;"	f
+print_distribution	rr_graph.c	/^print_distribution(FILE * fptr,$/;"	f	file:
+print_int_matrix3	util.c	/^print_int_matrix3(int ***vptr,$/;"	f
+print_lambda	stats.c	/^print_lambda(void)$/;"	f
+print_net_delay	net_delay.c	/^print_net_delay(float **net_delay,$/;"	f
+print_net_slack	path_delay.c	/^print_net_slack(char *fname,$/;"	f
+print_netlist	print_netlist.c	/^print_netlist(char *foutput,$/;"	f
+print_pinnum	print_netlist.c	/^print_pinnum(FILE * fp,$/;"	f	file:
+print_place	read_place.c	/^print_place(char *place_file,$/;"	f
+print_relative_pos_distr	place_stats.c	/^print_relative_pos_distr(void)$/;"	f
+print_route	route_common.c	/^print_route(char *route_file)$/;"	f
+print_rr_indexed_data	rr_graph.c	/^print_rr_indexed_data(FILE * fp,$/;"	f
+print_rr_node	rr_graph.c	/^print_rr_node(FILE * fp,$/;"	f	file:
+print_sink_delays	timing_place.c	/^print_sink_delays(char *fname)$/;"	f
+print_timing_graph	path_delay.c	/^print_timing_graph(char *fname)$/;"	f
+print_wirelen_prob_dist	stats.c	/^print_wirelen_prob_dist(void)$/;"	f
+priority	vpr_types.h	/^    int priority;$/;"	m	struct:s_grid_loc_def
+private_cmap	graphics.c	/^static Colormap private_cmap;	\/* "None" unless a private cmap was allocated. *\/$/;"	v	file:
+proc_time	place_and_route.h	/^    int proc_time;$/;"	m	struct:s_fmap_cell
+proceed	graphics.c	/^proceed(void (*drawscreen) (void))$/;"	f	file:
+ps	graphics.c	/^static FILE *ps;$/;"	v	file:
+ps_bot	graphics.c	/^static float ps_left, ps_right, ps_top, ps_bot;	\/* Figure boundaries for *$/;"	v	file:
+ps_left	graphics.c	/^static float ps_left, ps_right, ps_top, ps_bot;	\/* Figure boundaries for *$/;"	v	file:
+ps_right	graphics.c	/^static float ps_left, ps_right, ps_top, ps_bot;	\/* Figure boundaries for *$/;"	v	file:
+ps_top	graphics.c	/^static float ps_left, ps_right, ps_top, ps_bot;	\/* Figure boundaries for *$/;"	v	file:
+ps_xmult	graphics.c	/^static float ps_xmult, ps_ymult;	\/* Transformation for PostScript. *\/$/;"	v	file:
+ps_ymult	graphics.c	/^static float ps_xmult, ps_ymult;	\/* Transformation for PostScript. *\/$/;"	v	file:
+ptc_num	vpr_types.h	/^    short ptc_num;$/;"	m	struct:s_rr_node
+quit	graphics.c	/^quit(void (*drawscreen) (void))$/;"	f	file:
+rc_node	net_delay.c	/^    struct s_rc_node *rc_node;$/;"	m	struct:s_linked_rc_ptr	file:
+re_expand	route_tree_timing.h	/^    short re_expand;$/;"	m	struct:s_rt_node
+read	ezxml.c	59;"	d	file:
+read_netlist	read_netlist.c	/^read_netlist(IN const char *net_file,$/;"	f
+read_place	read_place.c	/^read_place(IN const char *place_file,$/;"	f
+read_user_pad_loc	read_place.c	/^read_user_pad_loc(char *pad_loc_file)$/;"	f
+recompute_bb_cost	place.c	/^recompute_bb_cost(int place_cost_type,$/;"	f	file:
+recompute_crit_iter	vpr_types.h	/^    int recompute_crit_iter;$/;"	m	struct:s_placer_opts
+recompute_occupancy_from_scratch	check_route.c	/^recompute_occupancy_from_scratch(t_ivec ** fb_opins_used_locally)$/;"	f	file:
+rect_off_screen	graphics.c	/^rect_off_screen(float x1,$/;"	f	file:
+redraw_screen	draw.c	/^redraw_screen()$/;"	f	file:
+relapos_rec_s	place_stats.c	/^typedef struct relapos_rec_s$/;"	s	file:
+relapos_rec_t	place_stats.c	/^relapos_rec_t;$/;"	t	file:
+repeat	vpr_types.h	/^    int repeat;$/;"	m	struct:s_grid_loc_def
+reserve_locally_used_opins	route_common.c	/^reserve_locally_used_opins(float pres_fac,$/;"	f
+reset_flags	check_route.c	/^reset_flags(int inet,$/;"	f	file:
+reset_path_costs	route_common.c	/^reset_path_costs(void)$/;"	f
+reset_placement	timing_place_lookup.c	/^reset_placement(void)$/;"	f	file:
+reset_rr_node_to_rc_node	net_delay.c	/^reset_rr_node_to_rc_node(t_linked_rc_ptr * rr_node_to_rc_node,$/;"	f	file:
+restore_original_device	timing_place_lookup.c	/^restore_original_device(void)$/;"	f	file:
+restore_region_occ	place.c	/^restore_region_occ(float **old_region_occ_x,$/;"	f	file:
+restore_routing	route_common.c	/^restore_routing(struct s_trace **best_routing,$/;"	f
+route_bb	route_common.c	/^struct s_bb *route_bb = NULL;	\/* [0..num_nets-1]. Limits area in which each  *\/$/;"	v
+route_type	vpr_types.h	/^    enum e_route_type route_type;$/;"	m	struct:s_router_opts
+router_algorithm	vpr_types.h	/^    enum e_router_algorithm router_algorithm;$/;"	m	struct:s_router_opts
+routing_stats	stats.c	/^routing_stats(boolean full_stats,$/;"	f
+rr_blk_source	globals_declare.h	/^int **rr_blk_source;		\/* [0..num_blocks-1][0..num_class-1] *\/$/;"	v
+rr_blk_source	main.c	/^int **rr_blk_source = NULL;	\/* [0..(num_blocks-1)][0..(num_class-1)] *\/$/;"	v
+rr_edge_done	rr_graph2.c	/^boolean *rr_edge_done;$/;"	v
+rr_graph_error	check_rr_graph.c	/^static boolean rr_graph_error;$/;"	v	file:
+rr_graph_externals	rr_graph.c	/^rr_graph_externals( t_timing_inf timing_inf,$/;"	f	file:
+rr_graph_warn	check_rr_graph.c	/^static boolean rr_graph_warn;$/;"	v	file:
+rr_indexed_data	globals_declare.h	/^t_rr_indexed_data *rr_indexed_data;	\/* [0 .. num_rr_indexed_data-1] *\/$/;"	v
+rr_indexed_data	main.c	/^t_rr_indexed_data *rr_indexed_data = NULL;	\/* [0..(num_rr_indexed_data-1)] *\/$/;"	v
+rr_mem_chunk_list_head	rr_graph.c	/^static struct s_linked_vptr *rr_mem_chunk_list_head = NULL;$/;"	v	file:
+rr_modified_head	route_common.c	/^static struct s_linked_f_pointer *rr_modified_head = NULL;$/;"	v	file:
+rr_node	globals_declare.h	/^t_rr_node *rr_node;		\/* [0..num_rr_nodes-1]          *\/$/;"	v
+rr_node	main.c	/^t_rr_node *rr_node = NULL;	\/* [0..(num_rr_nodes-1)] *\/$/;"	v
+rr_node_indices	globals_declare.h	/^t_ivec ***rr_node_indices;$/;"	v
+rr_node_indices	main.c	/^t_ivec ***rr_node_indices = NULL;$/;"	v
+rr_node_is_global_clb_ipin	check_rr_graph.c	/^rr_node_is_global_clb_ipin(int inode)$/;"	f	file:
+rr_node_route_inf	route_common.c	/^t_rr_node_route_inf *rr_node_route_inf = NULL;	\/* [0..num_rr_nodes-1] *\/$/;"	v
+rr_node_to_rt_node	route_tree_timing.c	/^static t_rt_node **rr_node_to_rt_node = NULL;	\/* [0..num_rr_nodes-1] *\/$/;"	v	file:
+rt_edge_free_list	route_tree_timing.c	/^static t_linked_rt_edge *rt_edge_free_list = NULL;$/;"	v	file:
+rt_node_free_list	route_tree_timing.c	/^static t_rt_node *rt_node_free_list = NULL;$/;"	v	file:
+rt_node_of_sink	timing_place_lookup.c	/^static t_rt_node **rt_node_of_sink;$/;"	v	file:
+s	ezxml.c	/^    char *s;			\/* start of work area *\/$/;"	m	struct:ezxml_root	file:
+s_T_subblock	vpr_types.h	/^typedef struct s_T_subblock$/;"	s
+s_TokenPair	vpr_types.h	/^struct s_TokenPair$/;"	s
+s_annealing_sched	vpr_types.h	/^struct s_annealing_sched$/;"	s
+s_arch	xml_arch.h	/^struct s_arch$/;"	s
+s_bb	vpr_types.h	/^struct s_bb$/;"	s
+s_block	vpr_types.h	/^struct s_block$/;"	s
+s_chan	vpr_types.h	/^typedef struct s_chan$/;"	s
+s_chan_width_dist	vpr_types.h	/^typedef struct s_chan_width_dist$/;"	s
+s_class	vpr_types.h	/^struct s_class$/;"	s
+s_clb_grid	xml_arch.h	/^    struct s_clb_grid$/;"	s
+s_det_routing_arch	vpr_types.h	/^struct s_det_routing_arch$/;"	s
+s_fmap_cell	place_and_route.h	/^typedef struct s_fmap_cell$/;"	s
+s_grid_loc_def	vpr_types.h	/^struct s_grid_loc_def$/;"	s
+s_grid_tile	vpr_types.h	/^struct s_grid_tile$/;"	s
+s_hash	hash.h	/^struct s_hash$/;"	s
+s_hash_iterator	hash.h	/^struct s_hash_iterator$/;"	s
+s_heap	route_common.h	/^struct s_heap$/;"	s
+s_ivec	util.h	/^struct s_ivec$/;"	s
+s_linked_edge	rr_graph_util.h	/^struct s_linked_edge$/;"	s
+s_linked_f_pointer	vpr_types.h	/^struct s_linked_f_pointer$/;"	s
+s_linked_int	util.h	/^struct s_linked_int$/;"	s
+s_linked_rc_edge	net_delay.c	/^struct s_linked_rc_edge$/;"	s	file:
+s_linked_rc_ptr	net_delay.c	/^struct s_linked_rc_ptr$/;"	s	file:
+s_linked_rt_edge	route_tree_timing.h	/^struct s_linked_rt_edge$/;"	s
+s_linked_vptr	util.h	/^struct s_linked_vptr$/;"	s
+s_mst_edge	mst.h	/^typedef struct s_mst_edge$/;"	s
+s_mux	rr_graph.c	/^typedef struct s_mux$/;"	s	file:
+s_mux_size_distribution	rr_graph.c	/^typedef struct s_mux_size_distribution$/;"	s	file:
+s_net	vpr_types.h	/^struct s_net$/;"	s
+s_options	ReadOptions.h	/^struct s_options$/;"	s
+s_place_region	vpr_types.h	/^struct s_place_region$/;"	s
+s_placer_opts	vpr_types.h	/^struct s_placer_opts$/;"	s
+s_rc_node	net_delay.c	/^struct s_rc_node$/;"	s	file:
+s_router_opts	vpr_types.h	/^struct s_router_opts$/;"	s
+s_rr_indexed_data	vpr_types.h	/^typedef struct s_rr_indexed_data$/;"	s
+s_rr_node	vpr_types.h	/^typedef struct s_rr_node$/;"	s
+s_rt_node	route_tree_timing.h	/^struct s_rt_node$/;"	s
+s_seg_details	vpr_types.h	/^typedef struct s_seg_details$/;"	s
+s_segment_inf	vpr_types.h	/^typedef struct s_segment_inf$/;"	s
+s_subblock	vpr_types.h	/^struct s_subblock$/;"	s
+s_subblock_data	vpr_types.h	/^struct s_subblock_data$/;"	s
+s_switch_inf	vpr_types.h	/^struct s_switch_inf$/;"	s
+s_timing_inf	vpr_types.h	/^typedef struct s_timing_inf$/;"	s
+s_trace	vpr_types.h	/^struct s_trace$/;"	s
+s_type_descriptor	vpr_types.h	/^struct s_type_descriptor$/;"	s
+s_type_timing_inf	vpr_types.h	/^typedef struct s_type_timing_inf$/;"	s
+save_region_occ	place.c	/^save_region_occ(float **old_region_occ_x,$/;"	f	file:
+save_routing	route_common.c	/^save_routing(struct s_trace **best_routing,$/;"	f
+saved_base_cost	vpr_types.h	/^    float saved_base_cost;$/;"	m	struct:s_rr_indexed_data
+saved_xleft	graphics.c	/^static float saved_xleft, saved_xright, saved_ytop, saved_ybot;$/;"	v	file:
+saved_xright	graphics.c	/^static float saved_xleft, saved_xright, saved_ytop, saved_ybot;$/;"	v	file:
+saved_ybot	graphics.c	/^static float saved_xleft, saved_xright, saved_ytop, saved_ybot;$/;"	v	file:
+saved_ytop	graphics.c	/^static float saved_xleft, saved_xright, saved_ytop, saved_ybot;$/;"	v	file:
+sb	vpr_types.h	/^    boolean *sb;$/;"	m	struct:s_seg_details
+sb	vpr_types.h	/^    boolean *sb;$/;"	m	struct:s_segment_inf
+sb_len	vpr_types.h	/^    int sb_len;$/;"	m	struct:s_segment_inf
+sched_type	vpr_types.h	/^enum sched_type$/;"	g
+screen_num	graphics.c	/^static int screen_num;$/;"	v	file:
+seed	vpr_types.h	/^    int seed;$/;"	m	struct:s_placer_opts
+seg_index	vpr_types.h	/^    int seg_index;$/;"	m	struct:s_rr_indexed_data
+seg_index_of_cblock	rr_graph_util.c	/^seg_index_of_cblock(t_rr_type from_rr_type,$/;"	f
+seg_index_of_sblock	rr_graph_util.c	/^seg_index_of_sblock(int from_node,$/;"	f
+set_graphics_state	draw.c	/^set_graphics_state(boolean show_graphics_val,$/;"	f
+setcolor	graphics.c	/^setcolor(int cindex)$/;"	f
+setfontsize	graphics.c	/^setfontsize(int pointsize)$/;"	f
+setlinestyle	graphics.c	/^setlinestyle(int linestyle)$/;"	f
+setlinewidth	graphics.c	/^setlinewidth(int linewidth)$/;"	f
+setpoly	graphics.c	/^setpoly(int bnum,$/;"	f	file:
+setup_chan_width	timing_place_lookup.c	/^setup_chan_width(struct s_router_opts router_opts,$/;"	f	file:
+show_congestion	draw.c	/^static boolean show_congestion = FALSE;$/;"	v	file:
+show_graphics	draw.c	/^static boolean show_graphics;	\/* Graphics enabled or not? *\/$/;"	v	file:
+show_nets	draw.c	/^static boolean show_nets = FALSE;	\/* Show nets of placement or routing? *\/$/;"	v	file:
+sibling	ezxml.h	/^	ezxml_t sibling;	\/* next tag with different name in same section and depth *\/$/;"	m	struct:ezxml
+sink_order	timing_place_lookup.c	/^static int *sink_order;$/;"	v	file:
+size	rr_graph.c	/^    int size;$/;"	m	struct:s_mux	file:
+snprintf	ezxml.c	57;"	d	file:
+special_blk	read_netlist.c	/^enum special_blk$/;"	g	file:
+standalone	ezxml.c	/^    short standalone;		\/* non-zero if <?xml standalone="yes"?> *\/$/;"	m	struct:ezxml_root	file:
+start	vpr_types.h	/^    int start;$/;"	m	struct:s_seg_details
+start_col	vpr_types.h	/^    int start_col;$/;"	m	struct:s_grid_loc_def
+start_hash_table_iterator	hash.c	/^start_hash_table_iterator(void)$/;"	f
+start_track	vpr_types.h	/^    int start_track;		\/* UDSD by AY *\/$/;"	m	struct:s_seg_details
+starting_t	place.c	/^starting_t(float *cost_ptr,$/;"	f	file:
+subblock_inf	vpr_types.h	/^    t_subblock **subblock_inf;$/;"	m	struct:s_subblock_data
+switch_block_type	vpr_types.h	/^    enum e_switch_block_type switch_block_type;$/;"	m	struct:s_det_routing_arch
+switch_inf	globals_declare.h	/^struct s_switch_inf *switch_inf;	\/* [0..det_routing_arch.num_switch-1] *\/$/;"	v
+switch_inf	main.c	/^struct s_switch_inf *switch_inf = NULL;	\/* [0..(det_routing_arch.num_switch-1)] *\/$/;"	v
+switches	vpr_types.h	/^    short *switches;$/;"	m	struct:s_rr_node
+sync_grid_to_blocks	vpr_utils.c	/^sync_grid_to_blocks(IN int num_blocks,$/;"	f
+sync_nets_to_blocks	vpr_utils.c	/^sync_nets_to_blocks(IN int num_blocks,$/;"	f
+t_T_subblock	vpr_types.h	/^t_T_subblock;$/;"	t
+t_arch	xml_arch.h	/^typedef struct s_arch t_arch;$/;"	t
+t_button	graphics.c	/^t_button;$/;"	t	file:
+t_chan	vpr_types.h	/^t_chan;$/;"	t
+t_chan_width_dist	vpr_types.h	/^t_chan_width_dist;$/;"	t
+t_class	vpr_types.h	/^typedef struct s_class t_class;$/;"	t
+t_fmap_cell	place_and_route.h	/^t_fmap_cell;$/;"	t
+t_graph_type	rr_graph.h	/^typedef enum e_graph_type t_graph_type;$/;"	t
+t_ivec	util.h	/^typedef struct s_ivec t_ivec;$/;"	t
+t_linked_edge	rr_graph_util.h	/^typedef struct s_linked_edge t_linked_edge;$/;"	t
+t_linked_int	util.h	/^typedef struct s_linked_int t_linked_int;$/;"	t
+t_linked_rc_edge	net_delay.c	/^typedef struct s_linked_rc_edge t_linked_rc_edge;$/;"	t	file:
+t_linked_rc_ptr	net_delay.c	/^typedef struct s_linked_rc_ptr t_linked_rc_ptr;$/;"	t	file:
+t_linked_rt_edge	route_tree_timing.h	/^typedef struct s_linked_rt_edge t_linked_rt_edge;$/;"	t
+t_mst_edge	mst.h	/^t_mst_edge;$/;"	t
+t_mux	rr_graph.c	/^t_mux;$/;"	t	file:
+t_mux_size_distribution	rr_graph.c	/^t_mux_size_distribution;$/;"	t	file:
+t_options	ReadOptions.h	/^typedef struct s_options t_options;$/;"	t
+t_point	graphics.h	/^t_point;			\/* Used in calls to fillpoly *\/$/;"	t
+t_rc_node	net_delay.c	/^typedef struct s_rc_node t_rc_node;$/;"	t	file:
+t_rr_indexed_data	vpr_types.h	/^t_rr_indexed_data;$/;"	t
+t_rr_node	vpr_types.h	/^t_rr_node;$/;"	t
+t_rr_node_route_inf	route_common.h	/^t_rr_node_route_inf;$/;"	t
+t_rr_type	vpr_types.h	/^t_rr_type;$/;"	t
+t_rt_node	route_tree_timing.h	/^typedef struct s_rt_node t_rt_node;$/;"	t
+t_seg_details	vpr_types.h	/^t_seg_details;$/;"	t
+t_segment_inf	vpr_types.h	/^t_segment_inf;$/;"	t
+t_subblock	vpr_types.h	/^typedef struct s_subblock t_subblock;$/;"	t
+t_subblock_data	vpr_types.h	/^typedef struct s_subblock_data t_subblock_data;$/;"	t
+t_switch_block_type	vpr_types.h	/^typedef enum e_switch_block_type t_switch_block_type;$/;"	t
+t_tedge	path_delay2.h	/^t_tedge;$/;"	t
+t_timing_inf	vpr_types.h	/^t_timing_inf;$/;"	t
+t_tnode	path_delay2.h	/^t_tnode;$/;"	t
+t_tnode_descript	path_delay2.h	/^t_tnode_descript;$/;"	t
+t_tnode_type	path_delay2.h	/^t_tnode_type;$/;"	t
+t_type_descriptor	vpr_types.h	/^typedef struct s_type_descriptor t_type_descriptor;$/;"	t
+t_type_ptr	vpr_types.h	/^typedef const struct s_type_descriptor *t_type_ptr;$/;"	t
+t_type_timing_inf	vpr_types.h	/^t_type_timing_inf;$/;"	t
+target_flag	route_common.h	/^    short target_flag;$/;"	m
+td_place_exp_first	vpr_types.h	/^    float td_place_exp_first;$/;"	m	struct:s_placer_opts
+td_place_exp_last	vpr_types.h	/^    float td_place_exp_last;$/;"	m	struct:s_placer_opts
+tedge_ch_bytes_avail	path_delay.c	/^static int tedge_ch_bytes_avail = 0;$/;"	v	file:
+tedge_ch_list_head	path_delay.c	/^static struct s_linked_vptr *tedge_ch_list_head = NULL;$/;"	v	file:
+tedge_ch_next_avail	path_delay.c	/^static char *tedge_ch_next_avail = NULL;$/;"	v	file:
+temp_net_cost	place.c	/^static float *net_cost = NULL, *temp_net_cost = NULL;	\/* [0..num_nets-1] *\/$/;"	v	file:
+temp_point_to_point_delay_cost	place.c	/^static float **temp_point_to_point_delay_cost = NULL;$/;"	v	file:
+temp_point_to_point_timing_cost	place.c	/^static float **temp_point_to_point_timing_cost = NULL;$/;"	v	file:
+test_if_exposed	graphics.c	/^test_if_exposed(Display * disp,$/;"	f	file:
+text	graphics.c	/^    char text[BUTTON_TEXT_LEN];$/;"	m	file:
+textarea	graphics.c	/^static Window toplevel, menu, textarea;	\/* various windows *\/$/;"	v	file:
+tile_width	draw.c	/^static float tile_width, pin_size;$/;"	v	file:
+tile_x	draw.c	/^static float *tile_x, *tile_y;$/;"	v	file:
+tile_y	draw.c	/^static float *tile_x, *tile_y;$/;"	v	file:
+timing_analysis_enabled	vpr_types.h	/^    boolean timing_analysis_enabled;$/;"	m	struct:s_timing_inf
+timing_driven_check_net_delays	route_timing.c	/^timing_driven_check_net_delays(float **net_delay)$/;"	f	file:
+timing_driven_expand_neighbours	route_timing.c	/^timing_driven_expand_neighbours(struct s_heap *current,$/;"	f	file:
+timing_driven_route_net	route_timing.c	/^timing_driven_route_net(int inet,$/;"	f
+timing_place_crit	timing_place.c	/^float **timing_place_crit;	\/*available externally *\/$/;"	v
+timing_place_crit_chunk_list_head	timing_place.c	/^static struct s_linked_vptr *timing_place_crit_chunk_list_head;$/;"	v	file:
+timing_tradeoff	vpr_types.h	/^    float timing_tradeoff;$/;"	m	struct:s_placer_opts
+tnode	path_delay2.c	/^t_tnode *tnode;			\/* [0..num_tnodes - 1] *\/$/;"	v
+tnode_descript	path_delay2.c	/^t_tnode_descript *tnode_descript;	\/* [0..num_tnodes - 1] *\/$/;"	v
+tnodes_at_level	path_delay2.c	/^struct s_ivec *tnodes_at_level;$/;"	v
+to_node	mst.h	/^    unsigned short int to_node;$/;"	m	struct:s_mst_edge
+to_node	path_delay2.h	/^    int to_node;$/;"	m
+toggle_congestion	draw.c	/^toggle_congestion(void (*drawscreen_ptr) (void))$/;"	f	file:
+toggle_nets	draw.c	/^toggle_nets(void (*drawscreen_ptr) (void))$/;"	f	file:
+toggle_rr	draw.c	/^toggle_rr(void (*drawscreen_ptr) (void))$/;"	f	file:
+top_height	graphics.c	/^static unsigned int top_width, top_height;	\/* window size *\/$/;"	v	file:
+top_width	graphics.c	/^static unsigned int top_width, top_height;	\/* window size *\/$/;"	v	file:
+toplevel	graphics.c	/^static Window toplevel, menu, textarea;	\/* various windows *\/$/;"	v	file:
+trace_free_head	route_common.c	/^static struct s_trace *trace_free_head = NULL;$/;"	v	file:
+trace_head	globals_declare.h	/^struct s_trace **trace_head, **trace_tail;$/;"	v
+trace_head	main.c	/^struct s_trace **trace_head = NULL;	\/* [0..(num_nets-1)] *\/$/;"	v
+trace_tail	globals_declare.h	/^struct s_trace **trace_head, **trace_tail;$/;"	v
+trace_tail	main.c	/^struct s_trace **trace_tail = NULL;	\/* [0..(num_nets-1)] *\/$/;"	v
+trans_per_R	rr_graph_area.c	/^trans_per_R(float Rtrans,$/;"	f	file:
+trans_per_buf	rr_graph_area.c	/^trans_per_buf(float Rbuf,$/;"	f	file:
+trans_per_mux	rr_graph_area.c	/^trans_per_mux(int num_inputs,$/;"	f	file:
+translate_down	graphics.c	/^translate_down(void (*drawscreen) (void))$/;"	f	file:
+translate_left	graphics.c	/^translate_left(void (*drawscreen) (void))$/;"	f	file:
+translate_right	graphics.c	/^translate_right(void (*drawscreen) (void))$/;"	f	file:
+translate_up	graphics.c	/^translate_up(void (*drawscreen) (void))$/;"	f	file:
+try_breadth_first_route	route_breadth_first.c	/^try_breadth_first_route(struct s_router_opts router_opts,$/;"	f
+try_directed_search_route	route_directed_search.c	/^try_directed_search_route(struct s_router_opts router_opts,$/;"	f
+try_place	place.c	/^try_place(struct s_placer_opts placer_opts,$/;"	f
+try_route	route_common.c	/^try_route(int width_fac,$/;"	f
+try_swap	place.c	/^try_swap(float t,$/;"	f	file:
+try_timing_driven_route	route_timing.c	/^try_timing_driven_route(struct s_router_opts router_opts,$/;"	f
+turn_on_off	graphics.c	/^turn_on_off(int pressed)$/;"	f	file:
+twisted	vpr_types.h	/^    boolean twisted;$/;"	m	struct:s_seg_details
+txt	ezxml.h	/^	char *txt;		\/* tag character content, empty string if none *\/$/;"	m	struct:ezxml
+type	path_delay2.h	/^    t_tnode_type type;$/;"	m
+type	vpr_types.h	/^    enum e_pin_type type;$/;"	m	struct:s_class
+type	vpr_types.h	/^    enum e_stat type;$/;"	m	struct:s_chan
+type	vpr_types.h	/^    enum sched_type type;$/;"	m	struct:s_annealing_sched
+type	vpr_types.h	/^    t_rr_type type;$/;"	m	struct:s_rr_node
+type	vpr_types.h	/^    t_type_ptr type;$/;"	m	struct:s_block
+type	vpr_types.h	/^    t_type_ptr type;$/;"	m	struct:s_grid_tile
+type_descriptors	main.c	/^struct s_type_descriptor *type_descriptors = NULL;$/;"	v
+type_descriptors_backup	timing_place_lookup.c	/^static t_type_descriptor *type_descriptors_backup;$/;"	v	file:
+type_timing_inf	vpr_types.h	/^    t_type_timing_inf type_timing_inf;$/;"	m	struct:s_type_descriptor
+u	ezxml.c	/^    char *u;			\/* UTF-8 conversion of string if original was UTF-16 *\/$/;"	m	struct:ezxml_root	file:
+u	net_delay.c	/^    u;$/;"	m	struct:s_rc_node	file:
+u	route_common.h	/^    u;$/;"	m	struct:s_heap
+u	route_tree_timing.h	/^    u;$/;"	m	struct:s_rt_node
+unique_pin_list	place.c	/^static int **unique_pin_list;$/;"	v	file:
+unmap_button	graphics.c	/^unmap_button(int bnum)$/;"	f	file:
+update_bb	place.c	/^update_bb(int inet,$/;"	f	file:
+update_message	graphics.c	/^update_message(char *msg)$/;"	f
+update_net_delays_from_route_tree	route_tree_timing.c	/^update_net_delays_from_route_tree(float *net_delay,$/;"	f
+update_ps_transform	graphics.c	/^update_ps_transform(void)$/;"	f	file:
+update_region_occ	place.c	/^update_region_occ(int inet,$/;"	f	file:
+update_rlim	place.c	/^update_rlim(float *rlim,$/;"	f	file:
+update_route_tree	route_tree_timing.c	/^update_route_tree(struct s_heap * hptr)$/;"	f
+update_rr_base_costs	route_timing.c	/^update_rr_base_costs(int inet,$/;"	f	file:
+update_screen	draw.c	/^update_screen(int priority,$/;"	f
+update_t	place.c	/^update_t(float *t,$/;"	f	file:
+update_td_cost	place.c	/^update_td_cost(int b_from,$/;"	f	file:
+update_traceback	route_common.c	/^update_traceback(struct s_heap *hptr,$/;"	f
+update_transform	graphics.c	/^update_transform(void)$/;"	f	file:
+update_unbuffered_ancestors_C_downstream	route_tree_timing.c	/^update_unbuffered_ancestors_C_downstream(t_rt_node$/;"	f	file:
+update_win	graphics.c	/^update_win(int x[2],$/;"	f	file:
+usage	vpr_types.h	/^    int usage;$/;"	m	struct:s_grid_tile
+verify_binary_search	vpr_types.h	/^	boolean verify_binary_search;$/;"	m	struct:s_router_opts
+view_mux_size_distribution	rr_graph.c	/^view_mux_size_distribution(t_ivec *** rr_node_indices,$/;"	f	file:
+vpr_to_phy_track	rr_graph2.c	/^vpr_to_phy_track(IN int itrack,$/;"	f	file:
+watch_edges	rr_graph.c	/^watch_edges(int inode,$/;"	f
+which_button	graphics.c	/^which_button(Window win)$/;"	f	file:
+width	graphics.c	/^    int width;$/;"	m	file:
+width	vpr_types.h	/^    float width;$/;"	m	struct:s_chan
+win	graphics.c	/^    Window win;$/;"	m	file:
+wire_switch	vpr_types.h	/^    short wire_switch;$/;"	m	struct:s_seg_details
+wire_switch	vpr_types.h	/^    short wire_switch;$/;"	m	struct:s_segment_inf
+wire_to_ipin_switch	vpr_types.h	/^    short wire_to_ipin_switch;$/;"	m	struct:s_det_routing_arch
+wirelength	place_and_route.h	/^    int wirelength;		\/* corresponding wirelength of successful routing at wneed *\/$/;"	m	struct:s_fmap_cell
+wneed	place_and_route.h	/^    int wneed;			\/* need wneed to route *\/$/;"	m	struct:s_fmap_cell
+write	ezxml.c	60;"	d	file:
+x	graphics.h	/^    float x;$/;"	m
+x	vpr_types.h	/^    int x;$/;"	m	struct:s_block
+xcoord	graphics.c	/^xcoord(float worldx)$/;"	f	file:
+xhigh	vpr_types.h	/^    short xhigh;$/;"	m	struct:s_rr_node
+xleft	graphics.c	/^    int xleft;$/;"	m	file:
+xleft	graphics.c	/^static float xleft, xright, ytop, ybot;	\/* world coordinates *\/$/;"	v	file:
+xlow	vpr_types.h	/^    short xlow;$/;"	m	struct:s_rr_node
+xmax	vpr_types.h	/^    int xmax;$/;"	m	struct:s_bb
+xmin	vpr_types.h	/^    int xmin;$/;"	m	struct:s_bb
+xml	ezxml.c	/^    struct ezxml xml;		\/* is a super-struct built on top of ezxml struct *\/$/;"	m	struct:ezxml_root	file:
+xmult	graphics.c	/^static float xmult, ymult;	\/* Transformation factors *\/$/;"	v	file:
+xpeak	vpr_types.h	/^    float xpeak;$/;"	m	struct:s_chan
+xright	graphics.c	/^static float xleft, xright, ytop, ybot;	\/* world coordinates *\/$/;"	v	file:
+y	graphics.h	/^    float y;$/;"	m
+y	vpr_types.h	/^    int y;$/;"	m	struct:s_block
+ybot	graphics.c	/^static float xleft, xright, ytop, ybot;	\/* world coordinates *\/$/;"	v	file:
+ycoord	graphics.c	/^ycoord(float worldy)$/;"	f	file:
+yhigh	vpr_types.h	/^    short yhigh;$/;"	m	struct:s_rr_node
+ylow	vpr_types.h	/^    short ylow;$/;"	m	struct:s_rr_node
+ymax	vpr_types.h	/^    int ymax;$/;"	m	struct:s_bb
+ymin	vpr_types.h	/^    int ymin;$/;"	m	struct:s_bb
+ymult	graphics.c	/^static float xmult, ymult;	\/* Transformation factors *\/$/;"	v	file:
+ytop	graphics.c	/^    int ytop;$/;"	m	file:
+ytop	graphics.c	/^static float xleft, xright, ytop, ybot;	\/* world coordinates *\/$/;"	v	file:
+z	vpr_types.h	/^    int z;$/;"	m	struct:s_block
+zoom_fit	graphics.c	/^zoom_fit(void (*drawscreen) (void))$/;"	f	file:
+zoom_in	graphics.c	/^zoom_in(void (*drawscreen) (void))$/;"	f	file:
+zoom_out	graphics.c	/^zoom_out(void (*drawscreen) (void))$/;"	f	file:
