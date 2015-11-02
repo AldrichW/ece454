@@ -115,6 +115,7 @@ void add_to_seglist(void * free_block)
 
 	int index = log_hash(GET_SIZE(free_block));
 	void* old_first_block = segList[index];
+	segList[index] = free_block;
 
 	SET_NEXT_PTR(free_block, (uintptr_t)old_first_block);
 	SET_PREV_PTR(free_block, (uintptr_t)NULL);
@@ -181,6 +182,33 @@ int mm_init(void)
 
     return 0;
 }
+
+//int mm_init(void)
+//{
+//    if ((heap_listp = mem_sbrk(20*WSIZE)) == (void *)-1)
+//        {return -1;}
+//    PUT(heap_listp, PACK(4 * WSIZE, 0));
+//    PUT(heap_listp + (1 * WSIZE), 0xaa00aa);
+//    add_to_seglist(heap_listp);
+//
+//    PUT(heap_listp + (4 * WSIZE), PACK(4 * WSIZE, 0));
+//    PUT(heap_listp + (5 * WSIZE), 0xbb00bb);
+//    add_to_seglist(heap_listp + (4 * WSIZE));
+//
+//    PUT(heap_listp + (8 * WSIZE), PACK(4 * WSIZE, 0));
+//    PUT(heap_listp + (9 * WSIZE), 0xcc00cc);
+//    add_to_seglist(heap_listp + (8 * WSIZE));
+//
+//    PUT(heap_listp + (12 * WSIZE), PACK(4 * WSIZE, 0));
+//    PUT(heap_listp + (13 * WSIZE), 0xdd00dd);
+//    add_to_seglist(heap_listp + (12 * WSIZE));
+//
+//    PUT(heap_listp + (16 * WSIZE), PACK(4 * WSIZE, 0));
+//    PUT(heap_listp + (17 * WSIZE), 0xdd00ee);
+//    add_to_seglist(heap_listp + (16 * WSIZE));
+//
+//    return 0;
+//}
 
 /**********************************************************
  * coalesce
