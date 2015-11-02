@@ -157,22 +157,26 @@ int is_block_in_free_list(void * block)
 	assert (block != NULL);
 
 	int index = log_hash(GET_SIZE(block));
+	int true = 0;
 	void * curr_ptr = segList[index];
 
 	while (curr_ptr!=NULL)
 	{
-		if (block == curr_ptr) {return 1;}
+		if (block == curr_ptr)
+		{
+			true = 1;
+		}
 		curr_ptr = (void*)GET_NEXT_PTR(curr_ptr);
 	}
 
-	return 0;
+	return true;
 }
 
 void remove_from_seglist(void * free_block)
 {
 	assert (free_block != NULL);
 	assert (!GET_ALLOC(free_block));
-	assert (is_block_in_free_list(free_block));
+	assert (is_block_in_free_list(free_block) == 1);
 
 
     printf("Invoking remove from seglist\n");
@@ -248,8 +252,8 @@ void *coalesce(void *bp)
     void *curr_header = HDRP(bp);
     void *next_header = HDRP(NEXT_BLKP(bp));
 
-    //Let's calculate the footer pointer of al three blocks
-    void *prev_footer = FTRP(PREV_BLKP(bp));
+    //Let's calculate the footer pointer of all three blocks
+    // void *prev_footer = FTRP(PREV_BLKP(bp));
     void *curr_footer = FTRP(bp);
     void *next_footer = FTRP(NEXT_BLKP(bp));
  
