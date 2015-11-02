@@ -1,0 +1,15 @@
+
+
+                  LAB 2 Report - ECE454 Fall 2015
+
+                  by:
+                      Suhaib Ahmed (999054062) (suhaib.ahmed@mail.utoronto.ca)
+                      Aldrich Wingsiong (998735775) (aldrich.wingsiong@mail.utoronto.ca)
+                      Team name: team_almost_there
+
+
+Our solution involves the concept of tiling where we aim to maximize the amount of data that’s accessed from the cache block before it is replaced by another block of data. This is because cache access is very fast while the performance penalty of having to continuously read from memory becomes expensive. The algorithm involves traversing the two dimensional array containing the rotating image in square blocks of 1024 Pixels (32x32), a fraction of the array size. Furthermore, the algorithm sweeps each block of 1024 in the source array by column using two for loops, while outer nested for loops traverse through all blocks by row major order. The objective of this is to access just the right amount of neighbouring Pixel objects that will most likely exist in the cache (temporal locality). This results in the highest percentage of cache hits because the underlying cache architecture has the ability to store all 32 rows within each block, and moving to the adjacent block to the right increases the probability of neighbouring data still existing within the block before it is replaced. Also having single strides within each block maximizes spatial locality.
+
+Using a block size of 32 was identified to have the maximum cache hits after analyzing the perf tool output and recording the amount of cache misses while varying the block size. A multiple of 8 for the block size was critical in order to have aligned data access since all the test cases are multiples of 8.
+
+We also did loop unrolling inside the 32X32 blocks. This gave us a slight speed boost. Using loop unrolling, we avoided extra comparisons. We also set up the unrolled loop so that the instructions in the loop could be executed in parallel (no dependence between the instructions).

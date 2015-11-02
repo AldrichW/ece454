@@ -6,20 +6,20 @@
 #include <stdlib.h>
 #include "defs.h"
 
-#define BLOCK 32
+#include <string.h>
 
 /* 
  * ECE454 Students: 
  * Please fill in the following team struct 
  */
 team_t team = {
-    "WinningSqua",              /* Team name */
+    "team_almost_there",              /* Team name */
 
-    "Aldrich Wingsiong",     /* First member full name */
-    "aldrich.wingsiong@mail.utoronto.ca",  /* First member email address */
+    "Suhaib Ahmed",     /* First member full name */
+    "suhaib.ahmed@mail.utoronto.ca",  /* First member email address */
 
-    "Suhaib Ahmed",                   /* Second member full name (leave blank if none) */
-    ""                    /* Second member email addr (leave blank if none) */
+    "Aldrich Wingsiong",                   /* Second member full name (leave blank if none) */
+    "aldrich.wingsiong@mail.utoronto.ca"          /* Second member email addr (leave blank if none) */
 };
 
 /***************
@@ -39,154 +39,13 @@ void naive_rotate(int dim, pixel *src, pixel *dst)
     int i, j;
 
     for (i = 0; i < dim; i++)
-    for (j = 0; j < dim; j++)
-        dst[RIDX(dim-1-j, i, dim)] = src[RIDX(i, j, dim)];
+        for (j = 0; j < dim; j++)
+            dst[RIDX(dim-1-j, i, dim)] = src[RIDX(i, j, dim)];
 }
 
 /*
  * ECE 454 Students: Write your rotate functions here:
  */ 
-char rotate_attempt2_descr[] = "rotate attempt 2: Let's try reducing the traversal through the for loops";
-void rotate_attempt2(int dim, pixel *src, pixel *dst) {
-    int i, j;
-    int dimming = dim*dim-dim;
-    for (i = 0; i < dim; i++){
-      int dst_row = dimming+i;
-      int src_row = i*dim;
-      for(j = 0; j < dim; j++){
-	int dst_index = dst_row - (j*dim);
-	int src_index = src_row + j;
-	dst[dst_index] = src[src_index];
-      } 
-    }
-
-    //Lame, the compiler optimizes for this already.
-}
-
-char rotate_attempt3_descr[] = "rotate attempt 3: Let's try separating transpose logic from exchange rows logic. Maybe this will identify any room for optimization.";
-void rotate_attempt3(int dim, pixel *src, pixel *dst) {
-  //Transpose the array
-  int i,j;
-  for(i = 0; i < dim; ++i) {
-    int src_row = i * dim;
-    for(j = 0; j < dim; ++j) {
-      int dst_index = j * dim + i;
-      int src_index = src_row + j;
-      dst[dst_index] = src[src_index];
-    }
-  }
-
-  //Exchange rows
-  unsigned int pixelrowsize = sizeof(pixel)*dim;
-  for ( i = 0; i < dim/2; ++i){
-    pixel temp[dim];
-    int dst_row1 = i * dim;
-    int dst_row2 = (dim - 1 - i) * dim;
-    memcpy(temp, &dst[dst_row1],pixelrowsize);
-    memcpy(&dst[dst_row1], &dst[dst_row2], pixelrowsize);
-    memcpy(&dst[dst_row2], temp, pixelrowsize);
-  } 
-}
-
-char rotate_attempt4_descr[] = "rotate attempt 4. Let's try this magical thing called tiling and split the row sweep into blocks of 4.";
-void rotate_attempt4(int dim, pixel *src, pixel *dst) {
-  int i, j;
-  int dimming = dim*dim-dim;
-  for (i = 0; i < dim; i++){
-    int dst_row = dimming+i;
-    int src_row = i*dim;
-    for(j = 0; j < dim/4; j++){
-      int dst_index = dst_row - (j*dim);
-      int src_index = src_row + j;
-      dst[dst_index] = src[src_index];
-    } 
-  }
-  for (i = 0; i < dim; i++){
-    int dst_row = dimming+i;
-    int src_row = i*dim;
-    for(j = dim/4; j < dim/2; j++){
-      int dst_index = dst_row - (j*dim);
-      int src_index = src_row + j;
-      dst[dst_index] = src[src_index];
-    } 
-  }
-  for (i = 0; i < dim; i++){
-    int dst_row = dimming+i;
-    int src_row = i*dim;
-    for(j = dim/2; j < 3*dim/4; j++){
-      int dst_index = dst_row - (j*dim);
-      int src_index = src_row + j;
-      dst[dst_index] = src[src_index];
-    } 
-  }
-  for (i = 0; i < dim; i++){
-    int dst_row = dimming+i;
-    int src_row = i*dim;
-    for(j = 3*dim/4; j < dim; j++){
-      int dst_index = dst_row - (j*dim);
-      int src_index = src_row + j;
-      dst[dst_index] = src[src_index];
-    } 
-  }
-}
-
-char  rotate_attempt5_descr[] = "rotate attempt 5 - pointer arithmetic";
-
-void rotate_attempt5(int dim, pixel *src, pixel *dst) {
-    pixel *currsrc = src;
-    dst += dim*(dim-1);
-    int i, j, k ,l;
-    
-    int divideDim = dim/BLOCK;
-    int dimSquared = dim*dim;
-    int dimTimesBlock = dim*BLOCK;
-    int dimMinusBlock = dim - BLOCK;
-       
-    for(i = 0; i < divideDim; i++)
-    {
-    	for (j = 0; j < divideDim; j++)
-    	{
-	        for(k = 0; k < BLOCK; k++){   
-		        for(l = 0; l < BLOCK; l+=2){
-		           *dst = *currsrc;
-		           currsrc++;
-		           dst -= dim; 
-		           
-		           *dst = *currsrc;
-		           currsrc++;
-		           dst -= dim;
-		        }
-		        
-		        currsrc += dimMinusBlock;
-		        dst += dimTimesBlock + 1;
-	        }
-	        
-	        currsrc += -dimTimesBlock + BLOCK;
-	        dst += -dimTimesBlock - BLOCK;
-    	}
-
-    	currsrc += dimTimesBlock - dim;
-    	dst += dimSquared + BLOCK;
-    }
-}
-
-void rotate_attempt6(int dim, pixel *src, pixel *dst) {
-   
-    int i, j, k ,l;
-       
-    for(i = 0; j < dim; j+=BLOCK)
-    {
-    	for (j = 0; i < dim; i+=BLOCK)
-    	{
-	        for(k = j; (k-j) < BLOCK; k++){   
-		        for(l = i; (l-i) < BLOCK; l++){
-		          dst[RIDX(dim-1-k, l, dim)] = src[RIDX(l, k, dim)];
-		        }
-	        }
-    	}
-    } 
-}
-
 
 /* 
  * rotate - Your current working version of rotate
@@ -195,28 +54,227 @@ void rotate_attempt6(int dim, pixel *src, pixel *dst) {
 char rotate_descr[] = "rotate: Current working version";
 void rotate(int dim, pixel *src, pixel *dst) 
 {
-     rotate_attempt6(dim, src, dst);
+    int i, j, k, l;
+    int block = 32;
+
+    for (i = 0; i < dim; i+=block)
+    {
+        for (j = 0; j < dim; j+=block)
+        {
+            for (k = j; k-j < block; k++)
+            {
+                l = i;
+                int first = (dim-1-k)*dim + l;
+                int second = l*dim + k;
+                dst[first] = src[second];
+                dst[first+1] = src[second+dim];
+                dst[first+2] = src[second+dim*2];
+                dst[first+3] = src[second+dim*3];
+                dst[first+4] = src[second+dim*4];
+                dst[first+5] = src[second+dim*5];
+                dst[first+6] = src[second+dim*6];
+                dst[first+7] = src[second+dim*7];
+                dst[first+8] = src[second+dim*8];
+                dst[first+9] = src[second+dim*9];
+                dst[first+10] = src[second+dim*10];
+                dst[first+11] = src[second+dim*11];
+                dst[first+12] = src[second+dim*12];
+                dst[first+13] = src[second+dim*13];
+                dst[first+14] = src[second+dim*14];
+                dst[first+15] = src[second+dim*15];
+                dst[first+16] = src[second+dim*16];
+                dst[first+17] = src[second+dim*17];
+                dst[first+18] = src[second+dim*18];
+                dst[first+19] = src[second+dim*19];
+                dst[first+20] = src[second+dim*20];
+                dst[first+21] = src[second+dim*21];
+                dst[first+22] = src[second+dim*22];
+                dst[first+23] = src[second+dim*23];
+                dst[first+24] = src[second+dim*24];
+                dst[first+25] = src[second+dim*25];
+                dst[first+26] = src[second+dim*26];
+                dst[first+27] = src[second+dim*27];
+                dst[first+28] = src[second+dim*28];
+                dst[first+29] = src[second+dim*29];
+                dst[first+30] = src[second+dim*30];
+                dst[first+31] = src[second+dim*31];
+            }
+        }
+    }
 }
 
-/* 
- * second attempt 
-*/
+
+/* second attempt */
 char rotate_two_descr[] = "second attempt";
-void attempt_two(int dim, pixel *src, pixel *dst) 
+void attempt_two(int dim, pixel *src, pixel *dst)
 {
-    rotate_attempt2(dim, src, dst);
+    int block = 8;
+    dst += dim*(dim-1);
+    int i, j, k ,l;
+    
+    int divideDim = dim/block;
+    int dimSquared = dim*dim;
+    int dimTimesBlock = dim*block;
+    int dimMinusBlock = dim - block;
+       
+    for(i = 0; i < divideDim; i++)
+    {
+        for (j = 0; j < divideDim; j++)
+        {
+            for(k = 0; k < block; k++)
+            {
+                for(l = 0; l < block; l+=2)
+                {
+                   *dst = *src;
+                   src++;
+                   dst -= dim;
+                   
+                   *dst = *src;
+                   src++;
+                   dst -= dim;
+                }
+                
+                src += dimMinusBlock;
+                dst += dimTimesBlock + 1;
+            }
+            
+            src += -dimTimesBlock + block;
+            dst += -dimTimesBlock - block;
+        }
+
+        src += dimTimesBlock - dim;
+        dst += dimSquared + block;
+    }
 }
 
-void attempt_three(int dim, pixel *src, pixel *dst){
-  rotate_attempt3(dim,src,dst);
+
+/* third attempt */
+char rotate_three_descr[] = "third attempt: separating transpose logic from exchange rows logic";
+void attempt_three(int dim, pixel *src, pixel *dst)
+{
+    //Transpose the array
+    int i,j;
+    for(i = 0; i < dim; ++i)
+    {
+        int src_row = i * dim;
+        for(j = 0; j < dim; ++j)
+	{
+            int dst_index = j * dim + i;
+            int src_index = src_row + j;
+            dst[dst_index] = src[src_index];
+        }
+    }
+
+    //Exchange rows
+    unsigned int pixelrowsize = sizeof(pixel)*dim;
+    for ( i = 0; i < dim/2; ++i)
+    {
+        pixel temp[dim];
+        int dst_row1 = i * dim;
+        int dst_row2 = (dim - 1 - i) * dim;
+        memcpy(temp, &dst[dst_row1],pixelrowsize);
+        memcpy(&dst[dst_row1], &dst[dst_row2], pixelrowsize);
+        memcpy(&dst[dst_row2], temp, pixelrowsize);
+    } 
 }
 
-void attempt_four(int dim, pixel *src, pixel *dst){
-  rotate_attempt4(dim,src,dst);
+
+/* fourth attempt */
+char rotate_four_descr[] = "fourth attempt: Simple tiling";
+void attempt_four(int dim, pixel *src, pixel *dst)
+{
+   
+    int i, j, k ,l;
+    int block = 32;
+       
+    for(i = 0; i < dim; i+=block)
+    {
+        for (j = 0; j < dim; j+=block)
+        {
+            for(k = i; (k-i) < block; k++)
+	    {   
+                for(l = j; (l-j) < block; l++)
+		{
+                    dst[RIDX(dim-1-l, k, dim)] = src[RIDX(k, l, dim)];
+                }
+            }
+        }
+    } 
 }
 
-void attempt_five(int dim, pixel *src, pixel *dst){
-  rotate_attempt5(dim,src,dst);
+/* fifth attempt */
+char rotate_five_descr[] = "fifth attempt: Tiling with column traversal in tile (for src)";
+void attempt_five(int dim, pixel *src, pixel *dst)
+{
+    int i, j, k, l;
+    int block = 32;
+
+    for (i = 0; i < dim; i+=block)
+    {
+        for (j = 0; j < dim; j+=block)
+        {
+            for (k = j; k-j < block; k++)
+            {
+                for (l = i; l-i < block; l++)
+                {
+                    dst[(dim-1-k)*dim + l] = src[l*dim + k];
+                }
+            }
+        }
+    }
+}
+
+/* sixth attempt */
+char rotate_six_descr[] = "sixth attempt: Tiling with column traversal in tile (for src), and loop unrolling";
+void attempt_six(int dim, pixel *src, pixel *dst)
+{
+    int i, j, k, l;
+    int block = 32;
+
+    for (i = 0; i < dim; i+=block)
+    {
+        for (j = 0; j < dim; j+=block)
+        {
+            for (k = j; k-j < block; k++)
+            {
+            l = i;
+                int first = (dim-1-k)*dim + l;
+                int second = l*dim + k;
+                dst[first++] = src[second];
+                dst[first++] = src[second+=dim];
+                dst[first++] = src[second+=dim];
+                dst[first++] = src[second+=dim];
+                dst[first++] = src[second+=dim];
+                dst[first++] = src[second+=dim];
+                dst[first++] = src[second+=dim];
+                dst[first++] = src[second+=dim];
+                dst[first++] = src[second+=dim];
+                dst[first++] = src[second+=dim];
+                dst[first++] = src[second+=dim];
+                dst[first++] = src[second+=dim];
+                dst[first++] = src[second+=dim];
+                dst[first++] = src[second+=dim];
+                dst[first++] = src[second+=dim];
+                dst[first++] = src[second+=dim];
+                dst[first++] = src[second+=dim];
+                dst[first++] = src[second+=dim];
+                dst[first++] = src[second+=dim];
+                dst[first++] = src[second+=dim];
+                dst[first++] = src[second+=dim];
+                dst[first++] = src[second+=dim];
+                dst[first++] = src[second+=dim];
+                dst[first++] = src[second+=dim];
+                dst[first++] = src[second+=dim];
+                dst[first++] = src[second+=dim];
+                dst[first++] = src[second+=dim];
+                dst[first++] = src[second+=dim];
+                dst[first++] = src[second+=dim];
+                dst[first++] = src[second+=dim];
+                dst[first++] = src[second+=dim];
+                dst[first] = src[second+=dim];
+            }
+        }
+    }
 }
 
 
@@ -234,11 +292,11 @@ void register_rotate_functions()
     add_rotate_function(&naive_rotate, naive_rotate_descr);   
     add_rotate_function(&rotate, rotate_descr);   
 
-    //add_rotate_function(&attempt_two, rotate_attempt2_descr);   
-    //add_rotate_function(&attempt_three, rotate_attempt3_descr);   
-    //add_rotate_function(&attempt_four, rotate_attempt4_descr);   
-    //add_rotate_function(&attempt_five, rotate_five_descr);   
-    //add_rotate_function(&attempt_six, rotate_six_descr);   
+    add_rotate_function(&attempt_two, rotate_two_descr);   
+    add_rotate_function(&attempt_three, rotate_three_descr);   
+    add_rotate_function(&attempt_four, rotate_four_descr);   
+    add_rotate_function(&attempt_five, rotate_five_descr);   
+    add_rotate_function(&attempt_six, rotate_six_descr);   
     //add_rotate_function(&attempt_seven, rotate_seven_descr);   
     //add_rotate_function(&attempt_eight, rotate_eight_descr);   
     //add_rotate_function(&attempt_nine, rotate_nine_descr);   
