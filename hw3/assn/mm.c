@@ -192,32 +192,52 @@ int mm_init(void)
  **********************************************************/
 void *coalesce(void *bp)
 {
+    /******************************************************
+     * Steps for coalescing:
+     * 1) Check if two blocks beside current block is free
+     * 2) If there is a block to the left, update 
+     *    its header with new length
+     *       a)Otherwise, update current block's header 
+     *         with new length
+     * 3) If there is a block to the right, update its 
+     *    footer with new length
+     *       b)Otherwise, update current block's footer 
+     *         with new length
+     ******************************************************/
+    assert(!GET_ALLOC(HDRP(bp)));
+
     size_t prev_alloc = GET_ALLOC(FTRP(PREV_BLKP(bp)));
     size_t next_alloc = GET_ALLOC(HDRP(NEXT_BLKP(bp)));
     size_t size = GET_SIZE(HDRP(bp));
-
+    
     if (prev_alloc && next_alloc) {       /* Case 1 */
         return bp;
     }
 
     else if (prev_alloc && !next_alloc) { /* Case 2 */
-        // Remove prev block from the appropriate free list
+        // Remove next block from the appropriate free list
+        remove_from_seglist(HDRP(NEXT_BLKP(bp)));
 
         // Merge the prev and curr blocks
         size += GET_SIZE(HDRP(NEXT_BLKP(bp)));
+
+        void *next_block_footer = FTRP(NEXT_BLKP(bp));
+
         PUT(HDRP(bp), PACK(size, 0));
-        PUT(FTRP(bp), PACK(size, 0));
-
+        PUT(next_block_footer, PACK(size, 0));
         // Add the new block to the approproate free list
-
-
+        
+        add_to_seglist(HDRP(bp));
+        
         return (bp);
     }
 
     else if (!prev_alloc && next_alloc) { /* Case 3 */
 
         // Remove next block from the appropriate free list
-
+        remove_from_seglist(HDRP(PREV_BLKP(bp)));
+        
+        void *prev_block_header = HDRP(PREV_BLKP(bp));
 
         // Merge the next and curr blocks
         size += GET_SIZE(HDRP(PREV_BLKP(bp)));
@@ -225,23 +245,28 @@ void *coalesce(void *bp)
         PUT(HDRP(PREV_BLKP(bp)), PACK(size, 0));
 
         // Add the new block to the approproate free list
-
+        add_to_seglist(prev_block_header);
 
         return (PREV_BLKP(bp));
     }
 
     else {            /* Case 4 */
         // Remove the prev and next block from the appropriate free lists
+        void *prev_block_header = HDRP(PREV_BLKP(bp));
+        void *curr_block_header = HDRP(bp);
+        void *next_block_header = HDRP(NEXT_BLKP(bp));
 
+        remove_from_seglist(prev_block_header);
+        remove_from_seglist(next_block_header);
 
         // Merge the prev, curr, and next blocks
         size += GET_SIZE(HDRP(PREV_BLKP(bp)))  +
             GET_SIZE(FTRP(NEXT_BLKP(bp)))  ;
-        PUT(HDRP(PREV_BLKP(bp)), PACK(size,0));
+        PUT(prev_block_header, PACK(size,0));
         PUT(FTRP(NEXT_BLKP(bp)), PACK(size,0));
 
         // Add the new block to the appropriate free list
-
+        add_to_seglist(prev_block_header);
 
         return (PREV_BLKP(bp));
     }
