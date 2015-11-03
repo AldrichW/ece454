@@ -509,24 +509,32 @@ void *mm_realloc(void *ptr, size_t size)
 //	printf("Calling %s \n", __FUNCTION__);
 
     /* If size == 0 then this is just free, and we return NULL. */
-    if(size == 0){
+    if(size == 0)
+    {
       mm_free(ptr);
       return NULL;
     }
     /* If oldptr is NULL, then this is just malloc. */
     if (ptr == NULL)
+    {
       return (mm_malloc(size));
+    }
 
     void *oldptr = ptr;
     void *newptr;
-    size_t copySize;
+    size_t copySize = GET_SIZE(HDRP(oldptr));
+    size_t asize = DSIZE * ((size + (DSIZE) + (DSIZE-1))/ DSIZE);
 
-    newptr = mm_malloc(size);
+    if (copySize >= asize)
+    {
+    	return oldptr;
+    }
+
+    newptr = mm_malloc(size*4);
     if (newptr == NULL)
       return NULL;
 
     /* Copy the old data. */
-    copySize = GET_SIZE(HDRP(oldptr));
     if (size < copySize)
       copySize = size;
     memcpy(newptr, oldptr, copySize);
