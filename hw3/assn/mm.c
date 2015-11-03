@@ -29,7 +29,7 @@ void * extend_heap(size_t size);
 void * find_fit(size_t asize);
 void   place(void* bp, size_t asize);
 
-int    log_hash(int key);
+int    log_hash(size_t key);
 void   add_to_seglist(void * free_block);
 void   remove_from_seglist(void * free_block);
 bool   is_block_in_seglist(void * block);
@@ -104,7 +104,7 @@ static void * segList[HASH_SIZE];
  * @return value of the hash index
  *
  **********************************************************/
-int log_hash(int key)
+int log_hash(size_t key)
 {
     int val = 0;
     while (key >>= 1)
@@ -431,15 +431,24 @@ void * find_fit(size_t asize)
 {
 //	printf("Calling %s \n", __FUNCTION__);
 
-    void *bp;
-    for (bp = heap_listp; GET_SIZE(HDRP(bp)) > 0; bp = NEXT_BLKP(bp))
-    {
-        if (!GET_ALLOC(HDRP(bp)) && (asize <= GET_SIZE(HDRP(bp))))
-        {
-            return bp;
-        }
-    }
-    return NULL;
+	int index = log_hash(asize);
+	void * list_root;
+
+	while (index < HASH_SIZE)
+	{
+		list_root = segList[index];
+		while (list_root!=NULL)
+		{
+			if (GET_SIZE(list_root) >= asize)
+			{
+				return list_root+WSIZE;
+			}
+			list_root = (void *)GET_NEXT_PTR(list_root);
+		}
+		index ++;
+	}
+
+	return NULL;
 }
 
 /**********************************************************
