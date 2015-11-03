@@ -25,7 +25,7 @@
  *
  ********************************************************/
 void * coalesce(void *bp);
-void * extend_heap(size_t words);
+void * extend_heap(size_t size);
 void * find_fit(size_t asize);
 void   place(void* bp, size_t asize);
 
@@ -93,7 +93,7 @@ team_t team = {
 #define HASH_SIZE 32
 
 void* heap_listp = NULL;
-//void* epilogue_ptr = NULL;
+void* epilogue_ptr = NULL;
 static void * segList[HASH_SIZE];
 
 /**********************************************************
@@ -229,7 +229,7 @@ int mm_init(void)
     PUT(heap_listp + (1 * WSIZE), PACK(DSIZE, 1));   // prologue header
     PUT(heap_listp + (2 * WSIZE), PACK(DSIZE, 1));   // prologue footer
     PUT(heap_listp + (3 * WSIZE), PACK(0, 1));    // epilogue header
-//    epilogue_ptr = heap_listp + (3 * WSIZE);
+    epilogue_ptr = heap_listp + (3 * WSIZE);
 
     heap_listp += DSIZE;
 
@@ -392,18 +392,18 @@ void *coalesce(void *bp)
  * requirements of course. Free the former epilogue block
  * and reallocate its new header
  **********************************************************/
-void *extend_heap(size_t words)
+void *extend_heap(size_t size)
 {
 //	printf("Calling %s \n", __FUNCTION__);
 
     char *bp;
-    size_t size;
 
-//    size_t words_prev_free = GET_SIZE(epilogue_ptr-WSIZE)/WSIZE;
-//    words -= words_prev_free;
+    // If the previous block is free, only extend the heap by (size - size_of_prev_free_block) so that you reduce external fragmentation
+    size_t size_prev_free = GET_SIZE(epilogue_ptr-WSIZE) * !GET_ALLOC(epilogue_ptr-WSIZE);
+    size -= size_prev_free;
 
-    /* Allocate an even number of words to maintain alignments */
-    size = (words % 2) ? (words+1) * WSIZE : words * WSIZE;
+    assert (size % DSIZE == 0);
+
     if ( (bp = mem_sbrk(size)) == (void *)-1 )
     {
         return NULL;
@@ -414,7 +414,7 @@ void *extend_heap(size_t words)
     PUT(FTRP(bp), PACK(size, 0));                // free block footer
     PUT(HDRP(NEXT_BLKP(bp)), PACK(0, 1));        // new epilogue header
 
-//    epilogue_ptr = HDRP(NEXT_BLKP(bp));
+    epilogue_ptr = HDRP(NEXT_BLKP(bp));
 
     /* Coalesce if the previous block was free */
     return coalesce(bp);
@@ -511,7 +511,7 @@ void *mm_malloc(size_t size)
 
     /* No fit found. Get more memory and place the block */
     extendsize = MAX(asize, CHUNKSIZE);
-    if ((bp = extend_heap(extendsize/WSIZE)) == NULL)
+    if ((bp = extend_heap(extendsize)) == NULL)
         return NULL;
     place(bp, asize);
     return bp;
