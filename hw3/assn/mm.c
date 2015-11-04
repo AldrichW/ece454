@@ -91,9 +91,9 @@ team_t team = {
 
 #define HASH_SIZE 64
 
-void* heap_listp = NULL;
 void* epilogue_ptr = NULL;
 static void * segList[HASH_SIZE];
+bool dont_coalesce = false;
 
 /**********************************************************
  * Hashing function that just calculates the log of 'key'
@@ -228,6 +228,7 @@ int mm_init(void)
 {
 //	printf("Calling %s \n", __FUNCTION__);
 
+    void* heap_listp;
     if ((heap_listp = mem_sbrk(4*WSIZE)) == (void *)-1)
         {return -1;}
     PUT(heap_listp, 0);                         // alignment padding
@@ -459,7 +460,7 @@ void mm_free(void *bp)
     size_t size = GET_SIZE(HDRP(bp));
     PUT(HDRP(bp), PACK(size,0));
     PUT(FTRP(bp), PACK(size,0));
-    bp = coalesce(bp);
+    if (!dont_coalesce) { bp = coalesce(bp); }
     add_to_seglist(HDRP(bp));
 }
 
@@ -528,12 +529,29 @@ void *mm_realloc(void *ptr, size_t size)
     size_t copySize = GET_SIZE(HDRP(oldptr));
     size_t asize = DSIZE * ((size + (DSIZE) + (DSIZE-1))/ DSIZE);
 
+    /* If the size is big enough, return as is */
     if (copySize >= asize)
     {
     	return oldptr;
     }
 
-    newptr = mm_malloc(size*4);
+
+    /* Free before malloc'ing to reduce fragmentation. If the free block is at the
+     * end, it will be reused with the part of the heap that we will extend. In
+     * order to preserve the data in the free block, we need to prevent it from 
+     * coalescing it with the previous block so that it is not broken up later at any
+     * arbitrary point and the data at those points overwritten by headers and footers
+     *
+     *  We also need to save the 2 words where next and previous pointers will be saved
+     */
+    uintptr_t word1 = GET(oldptr);
+    uintptr_t word2 = GET(oldptr+WSIZE);
+    
+    dont_coalesce = true;
+    mm_free(oldptr);
+    dont_coalesce = false;
+
+    newptr = mm_malloc(size*2);
     if (newptr == NULL)
     {
         return NULL;
@@ -545,7 +563,10 @@ void *mm_realloc(void *ptr, size_t size)
         copySize = size;
     }
     memcpy(newptr, oldptr, copySize);
-    mm_free(oldptr);
+
+    /* Write back the 2 words that were overwritten by next and previous pointers */
+    PUT(newptr, word1);
+    PUT(newptr+WSIZE, word2);
     return newptr;
 }
 
