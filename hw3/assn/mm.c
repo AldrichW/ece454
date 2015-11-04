@@ -59,7 +59,6 @@ team_t team = {
 *************************************************************************/
 #define WSIZE       sizeof(void *)            /* word size (bytes) */
 #define DSIZE       (2 * WSIZE)            /* doubleword size (bytes) */
-#define CHUNKSIZE   (1<<7)      /* initial heap size (bytes) */
 
 #define MAX(x,y) ((x) > (y)?(x) :(y))
 
@@ -104,7 +103,7 @@ static void * segList[HASH_SIZE];
  * @return value of the hash index
  *
  **********************************************************/
-int log_hash(size_t key)
+inline int log_hash(size_t key)
 {
     int val = 0;
     while (key >>= 1)
@@ -144,9 +143,9 @@ void add_to_seglist(void * free_block)
 {
 //	printf("Calling %s \n", __FUNCTION__);
 
-	assert (free_block != NULL);
-	assert (!GET_ALLOC(free_block));
-	assert (is_block_in_seglist(free_block) == false);
+//	assert (free_block != NULL);
+//	assert (!GET_ALLOC(free_block));
+//	assert (is_block_in_seglist(free_block) == false);
 
 	int index = log_hash(GET_SIZE(free_block));
 	void* old_first_block = segList[index];
@@ -188,9 +187,9 @@ void remove_from_seglist(void * free_block)
 {
 //	printf("Calling %s \n", __FUNCTION__);
 
-	assert (free_block != NULL);
-	assert (!GET_ALLOC(free_block));
-	assert(is_block_in_freelist(free_block) == true);
+//	assert (free_block != NULL);
+//	assert (!GET_ALLOC(free_block));
+//	assert(is_block_in_freelist(free_block) == true);
 
 	uintptr_t next = GET_NEXT_PTR(free_block); // next pointer
 	uintptr_t prev = GET_PREV_PTR(free_block); // prev pointer
@@ -207,7 +206,7 @@ void remove_from_seglist(void * free_block)
 	else
 	{
 		int index = log_hash(GET_SIZE(free_block));
-		assert (segList[index] ==  free_block);
+//		assert (segList[index] ==  free_block);
 		segList[index] = (void *)next;
 	}
 
@@ -472,7 +471,6 @@ void *mm_malloc(size_t size)
 //	printf("Calling %s \n", __FUNCTION__);
 
     size_t asize; /* adjusted block size */
-    size_t extendsize; /* amount to extend heap if no fit */
     char * bp;
 
     /* Ignore spurious requests */
@@ -492,8 +490,7 @@ void *mm_malloc(size_t size)
     }
 
     /* No fit found. Get more memory and place the block */
-    extendsize = MAX(asize, CHUNKSIZE);
-    if ((bp = extend_heap(extendsize)) == NULL)
+    if ((bp = extend_heap(asize)) == NULL)
         return NULL;
     place(bp, asize);
     return bp;
@@ -532,11 +529,15 @@ void *mm_realloc(void *ptr, size_t size)
 
     newptr = mm_malloc(size*4);
     if (newptr == NULL)
-      return NULL;
+    {
+        return NULL;
+    }
 
     /* Copy the old data. */
     if (size < copySize)
-      copySize = size;
+    {
+        copySize = size;
+    }
     memcpy(newptr, oldptr, copySize);
     mm_free(oldptr);
     return newptr;
