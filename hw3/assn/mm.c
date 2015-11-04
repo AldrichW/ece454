@@ -29,7 +29,7 @@ void * extend_heap(size_t size);
 void * get_fit(size_t asize);
 void   place(void* bp, size_t asize);
 
-int    log_hash(size_t key);
+size_t    log_hash(size_t key);
 void   add_to_seglist(void * free_block);
 void   remove_from_seglist(void * free_block);
 bool   is_block_in_seglist(void * block);
@@ -89,7 +89,7 @@ team_t team = {
 #define NEXT_BLKP(bp) ((char *)(bp) + GET_SIZE(((char *)(bp) - WSIZE)))
 #define PREV_BLKP(bp) ((char *)(bp) - GET_SIZE(((char *)(bp) - DSIZE)))
 
-#define HASH_SIZE 32
+#define HASH_SIZE 64
 
 void* heap_listp = NULL;
 void* epilogue_ptr = NULL;
@@ -103,15 +103,21 @@ static void * segList[HASH_SIZE];
  * @return value of the hash index
  *
  **********************************************************/
-inline int log_hash(size_t key)
+size_t log_hash(size_t key)
 {
-    int val = 0;
-    while (key >>= 1)
-    {
-        val+=1;
-    }
+//	printf("Calling %s \n", __FUNCTION__);
 
-    return val;
+    size_t index=0;
+    int val = 1;
+    for (index = 0 ; index < HASH_SIZE ; index++)
+    {
+        if (key <= val)
+        {
+        	break;
+        }
+        val<<=1;
+    }
+    return index;
 }
 
 bool is_block_in_seglist(void * block)
@@ -120,7 +126,7 @@ bool is_block_in_seglist(void * block)
 
 	assert (block != NULL);
 
-	int index = 0;
+	size_t index = 0;
 
 	while (index < HASH_SIZE)
 	{
@@ -147,7 +153,7 @@ void add_to_seglist(void * free_block)
 //	assert (!GET_ALLOC(free_block));
 //	assert (is_block_in_seglist(free_block) == false);
 
-	int index = log_hash(GET_SIZE(free_block));
+	size_t index = log_hash(GET_SIZE(free_block));
 	void* old_first_block = segList[index];
 	segList[index] = free_block;
 
@@ -168,7 +174,7 @@ bool is_block_in_freelist(void * block)
 
 	assert (block != NULL);
 
-	int index = log_hash(GET_SIZE(block));
+	size_t index = log_hash(GET_SIZE(block));
 	void * list_root = segList[index];
 
 	while (list_root!=NULL)
