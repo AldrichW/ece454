@@ -1,16 +1,4 @@
 /*
- * Things in my control:
- *     - The size of internal fragmentation
- *     - The size of memory increase (sbrk call)
- *     - The number of segregated free lists and their values
- *     - Last In First Out and First Fit - for free list
- *     - If no free block of appropriate size is found, check if
- *       the last block in the heap is free, and coalesce with newly
- *       requested memory to increase memory utilization
- *
- */
-
-/*
  * This implementation replicates the implicit list implementation
  * provided in the textbook
  * "Computer Systems - A Programmer's Perspective"
@@ -26,17 +14,26 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdint.h>
+#include <stdbool.h>
 
 #include "mm.h"
 #include "memlib.h"
 
-/*
+/*********************************************************
  *
  * Function Declarations
  *
- * */
+ ********************************************************/
+void * coalesce(void *bp);
+void * extend_heap(size_t size);
+void * get_fit(size_t asize);
+void   place(void* bp, size_t asize);
 
-void *coalesce(void *bp);
+size_t    log_hash(size_t key);
+void   add_to_seglist(void * free_block);
+void   remove_from_seglist(void * free_block);
+bool   is_block_in_seglist(void * block);
+bool   is_block_in_freelist(void * block);
 
 
 /*********************************************************
@@ -62,7 +59,6 @@ team_t team = {
 *************************************************************************/
 #define WSIZE       sizeof(void *)            /* word size (bytes) */
 #define DSIZE       (2 * WSIZE)            /* doubleword size (bytes) */
-#define CHUNKSIZE   (1<<7)      /* initial heap size (bytes) */
 
 #define MAX(x,y) ((x) > (y)?(x) :(y))
 
@@ -93,10 +89,11 @@ team_t team = {
 #define NEXT_BLKP(bp) ((char *)(bp) + GET_SIZE(((char *)(bp) - WSIZE)))
 #define PREV_BLKP(bp) ((char *)(bp) - GET_SIZE(((char *)(bp) - DSIZE)))
 
-#define HASH_SIZE 32
+#define HASH_SIZE 64
 
-void* heap_listp = NULL;
+void* epilogue_ptr = NULL;
 static void * segList[HASH_SIZE];
+bool dont_coalesce = false;
 
 /**********************************************************
  * Hashing function that just calculates the log of 'key'
@@ -106,15 +103,46 @@ static void * segList[HASH_SIZE];
  * @return value of the hash index
  *
  **********************************************************/
-int log_hash(int key)
+size_t log_hash(size_t key)
 {
-    int val = 0;
-    while (key >>= 1)
-    {
-        val+=1;
-    }
+//	printf("Calling %s \n", __FUNCTION__);
 
-    return val;
+    size_t index=0;
+    int val = 1;
+    for (index = 0 ; index < HASH_SIZE ; index++)
+    {
+        if (key <= val)
+        {
+        	break;
+        }
+        val<<=1;
+    }
+    return index;
+}
+
+bool is_block_in_seglist(void * block)
+{
+//	printf("Calling %s \n", __FUNCTION__);
+
+	assert (block != NULL);
+
+	size_t index = 0;
+
+	while (index < HASH_SIZE)
+	{
+		void * list_root = segList[index];
+		while (list_root!=NULL)
+		{
+			if (block == list_root)
+			{
+				return true;
+			}
+			list_root = (void *)GET_NEXT_PTR(list_root);
+		}
+		index ++;
+	}
+
+	return false;
 }
 
 void print_segList(){
@@ -143,10 +171,13 @@ void print_segList(){
 
 void add_to_seglist(void * free_block)
 {
-	assert (free_block != NULL);
-	assert (!GET_ALLOC(free_block));
+//	printf("Calling %s \n", __FUNCTION__);
 
-	int index = log_hash(GET_SIZE(free_block));
+//	assert (free_block != NULL);
+//	assert (!GET_ALLOC(free_block));
+//	assert (is_block_in_seglist(free_block) == false);
+
+	size_t index = log_hash(GET_SIZE(free_block));
 	void* old_first_block = segList[index];
 	segList[index] = free_block;
 
@@ -161,47 +192,56 @@ void add_to_seglist(void * free_block)
 	return;
 }
 
-int is_block_in_free_list(void * block)
+bool is_block_in_freelist(void * block)
 {
+//	printf("Calling %s \n", __FUNCTION__);
+
 	assert (block != NULL);
 
-	int index = log_hash(GET_SIZE(block));
-	int m_true = 0;
+	size_t index = log_hash(GET_SIZE(block));
 	void * list_root = segList[index];
 
 	while (list_root!=NULL)
 	{
 		if (block == list_root)
 		{
-			m_true = 1;
+			return true;
 		}
 		list_root = (void *)GET_NEXT_PTR(list_root);
 	}
 
-	return m_true;
+	return false;
 }
 
 void remove_from_seglist(void * free_block)
 {
-	assert (free_block != NULL);
-	assert (!GET_ALLOC(free_block));
-	assert (is_block_in_free_list(free_block) == 1);
+//	printf("Calling %s \n", __FUNCTION__);
+
+//	assert (free_block != NULL);
+//	assert (!GET_ALLOC(free_block));
+//	assert(is_block_in_freelist(free_block) == true);
 
 	int index = log_hash(GET_SIZE(free_block));
 	
     uintptr_t next = GET_NEXT_PTR(free_block); // next pointer
 	uintptr_t prev = GET_PREV_PTR(free_block); // prev pointer
-    
-    if(next){
-	    SET_PREV_PTR(next, prev); // next's prev = prev
-    }
-    if(prev){
-	    SET_NEXT_PTR(prev, next); // prev's next = next
-    }
-    else{
-        segList[index] = (void*)next;
-    }
-    printf("Finished remove from seg list\n");
+
+	if (next)
+	{
+		SET_PREV_PTR(next, prev); // next's prev = prev
+	}
+
+	if (prev)
+	{
+		SET_NEXT_PTR(prev, next); // prev's next = next
+	}
+	else
+	{
+		int index = log_hash(GET_SIZE(free_block));
+//		assert (segList[index] ==  free_block);
+		segList[index] = (void *)next;
+	}
+
 	return;
 }
 
@@ -210,67 +250,26 @@ void remove_from_seglist(void * free_block)
  * Initialize the heap, including "allocation" of the
  * prologue and epilogue
  **********************************************************/
-//int mm_init(void)
-//{
-//    if ((heap_listp = mem_sbrk(4*WSIZE)) == (void *)-1)
-//        {return -1;}
-//    PUT(heap_listp, 0);                         // alignment padding
-//    PUT(heap_listp + (1 * WSIZE), PACK(DSIZE, 1));   // prologue header
-//    PUT(heap_listp + (2 * WSIZE), PACK(DSIZE, 1));   // prologue footer
-//    PUT(heap_listp + (3 * WSIZE), PACK(0, 1));    // epilogue header
-//    heap_listp += DSIZE;
-//
-//    int itr=0;
-//    for(; itr<HASH_SIZE; itr++)
-//    {
-//    	segList[itr] = (void *)NULL;
-//    }
-//
-//    return 0;
-//}
-
 int mm_init(void)
 {
-    if ((heap_listp = mem_sbrk(24*WSIZE)) == (void *)-1)
+//	printf("Calling %s \n", __FUNCTION__);
+
+    void* heap_listp;
+    if ((heap_listp = mem_sbrk(4*WSIZE)) == (void *)-1)
         {return -1;}
     PUT(heap_listp, 0);                         // alignment padding
-	PUT(heap_listp + (1 * WSIZE), PACK(DSIZE, 1));   // prologue header
-	PUT(heap_listp + (2 * WSIZE), PACK(DSIZE, 1));   // prologue footer
-	PUT(heap_listp + (19 * WSIZE), PACK(0, 1));    // epilogue header
+    PUT(heap_listp + (1 * WSIZE), PACK(DSIZE, 1));   // prologue header
+    PUT(heap_listp + (2 * WSIZE), PACK(DSIZE, 1));   // prologue footer
+    PUT(heap_listp + (3 * WSIZE), PACK(0, 1));    // epilogue header
+    epilogue_ptr = heap_listp + (3 * WSIZE);
 
-    PUT(heap_listp + (3 * WSIZE), PACK(4 * WSIZE, 0));
-    PUT(heap_listp + (4 * WSIZE), 0xaa00aa);
-    PUT(heap_listp + (5 * WSIZE), 0x00aa00);
-    PUT(heap_listp + (6 * WSIZE), PACK(4 * WSIZE, 0));
-    add_to_seglist(heap_listp + (3 * WSIZE));
+    heap_listp += DSIZE;
 
-    PUT(heap_listp + (7 * WSIZE), PACK(4 * WSIZE, 1));
-    PUT(heap_listp + (8 * WSIZE), 0xbb00bb);
-    PUT(heap_listp + (9 * WSIZE), 0x00bb00);
-    PUT(heap_listp + (10 * WSIZE), PACK(4 * WSIZE, 1));
-    // add_to_seglist(heap_listp + (7 * WSIZE));
-
-    PUT(heap_listp + (11 * WSIZE), PACK(4 * WSIZE, 0));
-    PUT(heap_listp + (12 * WSIZE), 0xcc00cc);
-    PUT(heap_listp + (13 * WSIZE), 0x00cc00);
-    PUT(heap_listp + (14 * WSIZE), PACK(4 * WSIZE, 0));
-    add_to_seglist(heap_listp + (11 * WSIZE));
-
-    PUT(heap_listp + (15 * WSIZE), PACK(4 * WSIZE, 0));
-    PUT(heap_listp + (16 * WSIZE), 0xdd00dd);
-    PUT(heap_listp + (17 * WSIZE), 0x00dd00);
-    PUT(heap_listp + (18 * WSIZE), PACK(4 * WSIZE, 0));
-    add_to_seglist(heap_listp + (15 * WSIZE));
-
-//    PUT(heap_listp + (19 * WSIZE), PACK(4 * WSIZE, 0));
-//    PUT(heap_listp + (20 * WSIZE), 0xee00ee);
-//    PUT(heap_listp + (21 * WSIZE), 0x00ee00);
-//    PUT(heap_listp + (22 * WSIZE), PACK(4 * WSIZE, 0));
-//    add_to_seglist(heap_listp + (19 * WSIZE));
-
-    remove_from_seglist(heap_listp + (11 * WSIZE));
-
-    coalesce(heap_listp + (12 * WSIZE));
+    int itr=0;
+    for(; itr<HASH_SIZE; itr++)
+    {
+    	segList[itr] = (void *)NULL;
+    }
 
     return 0;
 }
@@ -285,6 +284,8 @@ int mm_init(void)
  **********************************************************/
 void *coalesce(void *bp)
 {
+//	printf("Calling %s \n", __FUNCTION__);
+
     /******************************************************
      * Steps for coalescing:
      * 1) Check if two blocks beside current block is free
@@ -318,15 +319,14 @@ void *coalesce(void *bp)
     // void *prev_footer = FTRP(PREV_BLKP(bp));
     void *curr_footer = FTRP(bp);
     void *next_footer = FTRP(NEXT_BLKP(bp));
- 
-    if (prev_alloc && next_alloc) {       /* Case 1 */
-        printf("Case 1 tripped.\n");
-        
-        return bp;
+    
+    if (prev_alloc && next_alloc)              /* Case 1 */
+    {
+    	return bp;
     }
 
-    else if (prev_alloc && !next_alloc) { /* Case 2 */
-        printf("Case 2 tripped.\n");
+    else if (prev_alloc && !next_alloc)        /* Case 2 */
+    {
         // Remove next block from the appropriate free list
         remove_from_seglist(next_header);
 
@@ -335,15 +335,12 @@ void *coalesce(void *bp)
 
         PUT(curr_header, PACK(size, 0));
         PUT(next_footer, PACK(size, 0));
-        // Add the new block to the approproate free list
-        
-        add_to_seglist(curr_header);
         
         return (bp);
     }
 
-    else if (!prev_alloc && next_alloc) { /* Case 3 */
-        printf("Case 3 tripped.\n");
+    else if (!prev_alloc && next_alloc)       /* Case 3 */
+    {
         // Remove next block from the appropriate free list
         remove_from_seglist(prev_header);
         
@@ -352,14 +349,11 @@ void *coalesce(void *bp)
         PUT(curr_footer, PACK(size, 0));
         PUT(prev_header, PACK(size, 0));
 
-        // Add the new block to the approproate free list
-        add_to_seglist(prev_header);
-
         return (PREV_BLKP(bp));
     }
 
-    else {            /* Case 4 */
-        printf("Case 4 tripped.\n");
+    else            /* Case 4 */
+    {
         // Remove the prev and next block from the appropriate free lists
         remove_from_seglist(prev_header);
         remove_from_seglist(next_header);
@@ -370,13 +364,10 @@ void *coalesce(void *bp)
         PUT(prev_header, PACK(size,0));
         PUT(next_footer, PACK(size,0));
 
-        // Add the new block to the appropriate free list
-        add_to_seglist(prev_header);
-
         return (PREV_BLKP(bp));
     }
 }
-
+/*
 int mm_init(void)
 {
     if ((heap_listp = mem_sbrk(20*WSIZE)) == (void *)-1)
@@ -418,32 +409,66 @@ int mm_init(void)
 
     return 0;
 }
-
+*/
 /**********************************************************
  * extend_heap
  * Extend the heap by "words" words, maintaining alignment
  * requirements of course. Free the former epilogue block
  * and reallocate its new header
  **********************************************************/
-void *extend_heap(size_t words)
+void *extend_heap(size_t size)
 {
-    char *bp;
-    size_t size;
+//	printf("Calling %s \n", __FUNCTION__);
 
-    /* Allocate an even number of words to maintain alignments */
-    size = (words % 2) ? (words+1) * WSIZE : words * WSIZE;
+    char *bp;
+
+    // If the previous block is free, only extend the heap by (size - size_of_prev_free_block) so that you reduce external fragmentation
+    size_t size_prev_free = GET_SIZE(epilogue_ptr-WSIZE) * !GET_ALLOC(epilogue_ptr-WSIZE);
+    size -= size_prev_free;
+
+    assert (size % DSIZE == 0);
+
     if ( (bp = mem_sbrk(size)) == (void *)-1 )
+    {
         return NULL;
+    }
 
     /* Initialize free block header/footer and the epilogue header */
     PUT(HDRP(bp), PACK(size, 0));                // free block header
     PUT(FTRP(bp), PACK(size, 0));                // free block footer
     PUT(HDRP(NEXT_BLKP(bp)), PACK(0, 1));        // new epilogue header
 
+    epilogue_ptr = HDRP(NEXT_BLKP(bp));
+
     /* Coalesce if the previous block was free */
     return coalesce(bp);
 }
 
+
+void * break_block_and_return_bp(void * block, size_t asize)
+{
+	size_t block_size = GET_SIZE(block);
+	remove_from_seglist(block);
+
+	size_t fragment_size = block_size - asize;
+
+	// If fragment is the minimum size of a free block (4 words), break it up
+	if (fragment_size >= WSIZE*4)
+	{
+		// Create a block of asize
+		PUT(block, PACK(asize,0));
+		PUT(block+asize-WSIZE, PACK(asize,0));
+
+		// Create a block of fragment_size
+		PUT(block+asize, PACK(fragment_size,0));
+		PUT(block+block_size-WSIZE, PACK(fragment_size,0));
+
+		// Add the new fragment to the segList
+		add_to_seglist(block+asize);
+	}
+
+	return block+WSIZE;
+}
 
 /**********************************************************
  * find_fit
@@ -451,17 +476,28 @@ void *extend_heap(size_t words)
  * Return NULL if no free blocks can handle that size
  * Assumed that asize is aligned
  **********************************************************/
-void * find_fit(size_t asize)
+void * get_fit(size_t asize)
 {
-    void *bp;
-    for (bp = heap_listp; GET_SIZE(HDRP(bp)) > 0; bp = NEXT_BLKP(bp))
-    {
-        if (!GET_ALLOC(HDRP(bp)) && (asize <= GET_SIZE(HDRP(bp))))
-        {
-            return bp;
-        }
-    }
-    return NULL;
+//	printf("Calling %s \n", __FUNCTION__);
+
+	int index = log_hash(asize);
+	void * list_itr;
+
+	while (index < HASH_SIZE)
+	{
+		list_itr = segList[index];
+		while (list_itr!=NULL)
+		{
+			if (GET_SIZE(list_itr) >= asize)
+			{
+				return break_block_and_return_bp(list_itr, asize);
+			}
+			list_itr = (void *)GET_NEXT_PTR(list_itr);
+		}
+		index ++;
+	}
+
+	return NULL;
 }
 
 /**********************************************************
@@ -470,11 +506,13 @@ void * find_fit(size_t asize)
  **********************************************************/
 void place(void* bp, size_t asize)
 {
-  /* Get the current block size */
-  size_t bsize = GET_SIZE(HDRP(bp));
+//	printf("Calling %s \n", __FUNCTION__);
 
-  PUT(HDRP(bp), PACK(bsize, 1));
-  PUT(FTRP(bp), PACK(bsize, 1));
+    /* Get the current block size */
+    size_t bsize = GET_SIZE(HDRP(bp));
+
+    PUT(HDRP(bp), PACK(bsize, 1));
+    PUT(FTRP(bp), PACK(bsize, 1));
 }
 
 /**********************************************************
@@ -483,13 +521,16 @@ void place(void* bp, size_t asize)
  **********************************************************/
 void mm_free(void *bp)
 {
+//	printf("Calling %s \n", __FUNCTION__);
+
     if(bp == NULL){
       return;
     }
     size_t size = GET_SIZE(HDRP(bp));
     PUT(HDRP(bp), PACK(size,0));
     PUT(FTRP(bp), PACK(size,0));
-    coalesce(bp);
+    if (!dont_coalesce) { bp = coalesce(bp); }
+    add_to_seglist(HDRP(bp));
 }
 
 
@@ -503,8 +544,9 @@ void mm_free(void *bp)
  **********************************************************/
 void *mm_malloc(size_t size)
 {
+//	printf("Calling %s \n", __FUNCTION__);
+
     size_t asize; /* adjusted block size */
-    size_t extendsize; /* amount to extend heap if no fit */
     char * bp;
 
     /* Ignore spurious requests */
@@ -518,14 +560,13 @@ void *mm_malloc(size_t size)
         asize = DSIZE * ((size + (DSIZE) + (DSIZE-1))/ DSIZE);
 
     /* Search the free list for a fit */
-    if ((bp = find_fit(asize)) != NULL) {
+    if ((bp = get_fit(asize)) != NULL) {
         place(bp, asize);
         return bp;
     }
 
     /* No fit found. Get more memory and place the block */
-    extendsize = MAX(asize, CHUNKSIZE);
-    if ((bp = extend_heap(extendsize/WSIZE)) == NULL)
+    if ((bp = extend_heap(asize)) == NULL)
         return NULL;
     place(bp, asize);
     return bp;
@@ -538,29 +579,63 @@ void *mm_malloc(size_t size)
  *********************************************************/
 void *mm_realloc(void *ptr, size_t size)
 {
+//	printf("Calling %s \n", __FUNCTION__);
+
     /* If size == 0 then this is just free, and we return NULL. */
-    if(size == 0){
+    if(size == 0)
+    {
       mm_free(ptr);
       return NULL;
     }
     /* If oldptr is NULL, then this is just malloc. */
     if (ptr == NULL)
+    {
       return (mm_malloc(size));
+    }
 
     void *oldptr = ptr;
     void *newptr;
-    size_t copySize;
+    size_t copySize = GET_SIZE(HDRP(oldptr));
+    size_t asize = DSIZE * ((size + (DSIZE) + (DSIZE-1))/ DSIZE);
 
-    newptr = mm_malloc(size);
+    /* If the size is big enough, return as is */
+    if (copySize >= asize)
+    {
+    	return oldptr;
+    }
+
+
+    /* Free before malloc'ing to reduce fragmentation. If the free block is at the
+     * end, it will be reused with the part of the heap that we will extend. In
+     * order to preserve the data in the free block, we need to prevent it from 
+     * coalescing it with the previous block so that it is not broken up later at any
+     * arbitrary point and the data at those points overwritten by headers and footers
+     *
+     *  We also need to save the 2 words where next and previous pointers will be saved
+     */
+    uintptr_t word1 = GET(oldptr);
+    uintptr_t word2 = GET(oldptr+WSIZE);
+    
+    dont_coalesce = true;
+    mm_free(oldptr);
+    dont_coalesce = false;
+
+    newptr = mm_malloc(size*2);
     if (newptr == NULL)
-      return NULL;
+    {
+        return NULL;
+    }
 
     /* Copy the old data. */
-    copySize = GET_SIZE(HDRP(oldptr));
     if (size < copySize)
-      copySize = size;
+    {
+        copySize = size;
+    }
     memcpy(newptr, oldptr, copySize);
-    mm_free(oldptr);
+
+    /* Write back the 2 words that were overwritten by next and previous pointers */
+    PUT(newptr, word1);
+    PUT(newptr+WSIZE, word2);
     return newptr;
 }
 
@@ -569,6 +644,9 @@ void *mm_realloc(void *ptr, size_t size)
  * Check the consistency of the memory heap
  * Return nonzero if the heap is consistant.
  *********************************************************/
-int mm_check(void){
+int mm_check(void)
+{
+//	printf("Calling %s \n", __FUNCTION__);
+
     return 1;
 }
