@@ -121,7 +121,8 @@ team_t team = {
 
 #define HASH_SIZE 64
 
-void* epilogue_ptr = NULL;
+void* prologue_ptr = NULL; //pointer to the prologue block
+void* epilogue_ptr = NULL; //pointer to the epilogue block
 static void * segList[HASH_SIZE];
 bool dont_coalesce = false;
 
@@ -321,6 +322,7 @@ int mm_init(void)
     PUT(heap_listp + (1 * WSIZE), PACK(DSIZE, 1));   // prologue header
     PUT(heap_listp + (2 * WSIZE), PACK(DSIZE, 1));   // prologue footer
     PUT(heap_listp + (3 * WSIZE), PACK(0, 1));    // epilogue header
+    prologue_ptr = heap_listp + (1 * WSIZE);
     epilogue_ptr = heap_listp + (3 * WSIZE);
 
     heap_listp += DSIZE;
@@ -429,49 +431,7 @@ void *coalesce(void *bp)
         return (PREV_BLKP(bp));
     }
 }
-/*
-int mm_init(void)
-{
-    if ((heap_listp = mem_sbrk(20*WSIZE)) == (void *)-1)
-        {return -1;}
-    PUT(heap_listp, PACK(4 * WSIZE, 0));
-    PUT(heap_listp + (1 * WSIZE), 0xaa00aa);
-    add_to_seglist(heap_listp);
 
-    print_segList();
-
-    PUT(heap_listp + (4 * WSIZE), PACK(4 * WSIZE, 0));
-    PUT(heap_listp + (5 * WSIZE), 0xbb00bb);
-    add_to_seglist(heap_listp + (4 * WSIZE));
-
-    print_segList();
-
-    PUT(heap_listp + (8 * WSIZE), PACK(4 * WSIZE, 0));
-    PUT(heap_listp + (9 * WSIZE), 0xcc00cc);
-    add_to_seglist(heap_listp + (8 * WSIZE));
-
-    print_segList();
-
-    PUT(heap_listp + (12 * WSIZE), PACK(4 * WSIZE, 0));
-    PUT(heap_listp + (13 * WSIZE), 0xdd00dd);
-    add_to_seglist(heap_listp + (12 * WSIZE));
-
-    print_segList();
-
-    PUT(heap_listp + (16 * WSIZE), PACK(4 * WSIZE, 0));
-    PUT(heap_listp + (17 * WSIZE), 0xdd00ee);
-    add_to_seglist(heap_listp + (16 * WSIZE));
-    
-    print_segList();
-   
-    remove_from_seglist(heap_listp);
-
-    print_segList();
-    coalesce(heap_listp);
-
-    return 0;
-}
-*/
 /**********************************************************
  * extend_heap
  * Extend the heap by "words" words, maintaining alignment
@@ -674,7 +634,6 @@ void *mm_realloc(void *ptr, size_t size)
     	return oldptr;
     }
 
-
     /* Free before a dynamic allocation to reduce fragmentation. If the free block 
      * is at the end, it will be reused with the part of the heap that we will extend. In
      * order to preserve the data in the free block, we need to prevent it from 
@@ -709,6 +668,16 @@ void *mm_realloc(void *ptr, size_t size)
     return newptr;
 }
 
+int powerOfTwo(int exponent){
+    int product = 1;
+    int i;
+    for(i = 0; i < exponent; i++){
+        product *= 2;
+    }
+
+    return product;
+}
+
 /**********************************************************
  * mm_check
  * Check the consistency of the memory heap
@@ -716,17 +685,56 @@ void *mm_realloc(void *ptr, size_t size)
  *********************************************************/
 int mm_check(void)
 {
-//	printf("Calling %s \n", __FUNCTION__);
+	printf("Calling %s \n", __FUNCTION__);
     // Is every block in the free list marked as free?
-        //Iterate through all indices and go through linked list. If a block is not set to free, output error log￼￼￼￼￼￼￼￼￼￼￼￼￼￼
+    int itr;
+    //Iterate through all indices in the hash table.
+    for(itr = 0; itr < HASH_SIZE; itr++){
+        void *currNode = segList[itr];
+        //Iterate through the list of free blocks within the index
+        while(currNode){
+            //If a block is allocated in the list, this is an error.
+            if(GET_ALLOC(currNode)){
+                fprintf(stderr, "[mm_check Error] a block in the seglist is still allocated\n");
+            }
+            currNode = (void*) GET_NEXT_PTR(currNode);
+        }   
+    }
     // Are there any contiguous free blocks that somehow escaped coalescing? 
-    // 
-    // Is every free block actually in the free list?
-    // 
-    // Do the pointers in the free list point to valid free blocks?
-    // 
-    // Do any allocated blocks overlap?
-    // 
-    // Do the pointers in a heap block point to valid heap addresses?
+    int currAlloc = 0;
+    void *itr_pointer = prologue_ptr + DSIZE;
+
+    while(itr_pointer){
+        if(!currAlloc && !GET_ALLOC(HDRP(itr_pointer))){
+            fprintf(stderr, "[mm_check Error] two contiguous blocks missed coalescing.\n");
+        }
+        if(!GET_ALLOC(HDRP(itr_pointer)) && !is_block_in_seglist(HDRP(itr_pointer))){
+                fprintf(stderr, "[mm_check Error] Free block is not in segregated list \n");
+        }
+        itr_pointer = NEXT_BLKP(itr_pointer);
+        currAlloc = GET_ALLOC(itr_pointer);
+    }
+
+    //Are the list of blocks in each index of the hash table fit the corresponding size class?
+    //blocks in index 0 are between 1byte (2^0) and 2bytes(2^1), index 1 are between sizes 2bytes 
+    //and 4bytes... index 5 are between size 32(2^5) and size 64 (2^6)
+    
+    //Iterate through hash_table from 0 to 32 (2^32 is MAXINT)
+    for(itr = 0; itr < 32; itr++){
+        int minSize = powerOfTwo(itr);
+        int maxSize = powerOfTwo(itr+1);
+        void *currNode = segList[itr];
+        //Iterate through the list of free blocks within the index
+        while(currNode){
+            //If a block is outside the size class range, it's an error.
+            if(GET_SIZE(currNode) < minSize &&
+                GET_SIZE(currNode) >= maxSize){
+                fprintf(stderr, "[mm_check Error] This block is outside its size class range\n");
+            }
+            currNode = (void*) GET_NEXT_PTR(currNode);
+        }   
+    }
+
     return 1;
+
 }
