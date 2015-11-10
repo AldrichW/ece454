@@ -1,13 +1,43 @@
-/*
- * This implementation replicates the implicit list implementation
- * provided in the textbook
- * "Computer Systems - A Programmer's Perspective"
- * Blocks are never coalesced or reused.
- * Realloc is implemented directly using mm_malloc and mm_free.
+/* mm.c
+ * This allocator implements a segregated free list to
+ * manage all the free blocks based on size classes. 
+ * Each index in the hash table represents the size of
+ * the block as a power of 2 with a max size of 64. 
+ * 
+ * Allocated blocks contain an 8 byte header and a 
+ * minimum of 24 bytes for the payload. The lowest
+ * bit of the header indicates whether the block 
+ * is allocated (1) or free (0). In this case, 
+ * the bit is set to 1. The rest of the 61 bits 
+ * are used for the size since each block is 
+ * a multiple of 8.
  *
- * NOTE TO STUDENTS: Replace this header comment with your own header
- * comment that gives a high level description of your solution.
+ * Freed blocks contain an 8 byte header and 8 byte 
+ * footer which contain the size and the allocated bit
+ * as the lowest bit. In this case it will be set to 0.
+ * In addition, freed blocks will store the pointer to the
+ * next block's header within the word following its own
+ * header. A pointer to the previous block's header is stored
+ * in the next word after.
+ *
+ * When a block is freed, the allocator bit is set to 0 and
+ * goes through coalesce process. The block is then 
+ * added to the segregated free list. The block is hashed 
+ * using its block size and added to the front of
+ * the linked list of blocks.
+ *
+ * When malloc and realloc are called, the hash table is accessed
+ * based on the size argument passed in (minimum being 32 bytes).
+ * From there the first block is taken from the linked list.
+ *
+ * Blocks are coalesced when a block is free'd or when
+ * an edge case is encountered where the last block of the
+ * heap is free and the heap needs to be extended. In this 
+ * case, the new block will be composed of the existing free
+ * block and a new heap extension with size being the difference
+ * between the size argument and the free block available.
  */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
@@ -24,17 +54,16 @@
  * Function Declarations
  *
  ********************************************************/
-void * coalesce(void *bp);
-void * extend_heap(size_t size);
-void * get_fit(size_t asize);
-void   place(void* bp, size_t asize);
+void * coalesce(void *bp);                      //coalesces the block pointed at by bp. Checks all four cases.
+void * extend_heap(size_t size);                //Extends the heap utilizing the free blocks in the segregated list. Keeps current contents.
+void * get_fit(size_t asize);                   //Defines the policy for finding a free block that fits the size argument.
+void   place(void* bp, size_t asize);           //Marks the header and footer of the block as allocated with the size argument. 
 
-size_t    log_hash(size_t key);
-void   add_to_seglist(void * free_block);
-void   remove_from_seglist(void * free_block);
-bool   is_block_in_seglist(void * block);
-bool   is_block_in_freelist(void * block);
-
+size_t    log_hash(size_t key);                 //Hashes the key and converts it to an index for the segregated free list hash table
+void   add_to_seglist(void * free_block);       //Adds the free block to the segregated list
+void   remove_from_seglist(void * free_block);  //Removes a free block from the segregated list
+bool   is_block_in_seglist(void * block);       //Quick check to see if a block is in the segregated list.
+bool   is_block_in_freelist(void * block);      //Quick check to see if a block is in the free list.
 
 /*********************************************************
  * NOTE TO STUDENTS: Before you do anything else, please
@@ -91,7 +120,8 @@ team_t team = {
 
 #define HASH_SIZE 64
 
-void* epilogue_ptr = NULL;
+void* prologue_ptr = NULL; //pointer to the prologue block
+void* epilogue_ptr = NULL; //pointer to the epilogue block
 static void * segList[HASH_SIZE];
 bool dont_coalesce = false;
 
@@ -105,8 +135,6 @@ bool dont_coalesce = false;
  **********************************************************/
 size_t log_hash(size_t key)
 {
-//	printf("Calling %s \n", __FUNCTION__);
-
     size_t index=0;
     int val = 1;
     for (index = 0 ; index < HASH_SIZE ; index++)
@@ -120,20 +148,27 @@ size_t log_hash(size_t key)
     return index;
 }
 
+/**********************************************************
+ * is_block_in_seglist
+ * Checks to see if a block exists in the segregated list.
+ *
+ * @param block - the block pointer in question
+ *
+ * @return bool - true if the block is in the list. 
+ *                False otherwise.
+ *
+ **********************************************************/
 bool is_block_in_seglist(void * block)
 {
-//	printf("Calling %s \n", __FUNCTION__);
-
-	assert (block != NULL);
-
 	size_t index = 0;
-
+    
+    //Traverse entire segregated list
 	while (index < HASH_SIZE)
 	{
 		void * list_root = segList[index];
 		while (list_root!=NULL)
 		{
-			if (block == list_root)
+			if (block == list_root) //Looks like the block pointer exists in the list
 			{
 				return true;
 			}
@@ -145,14 +180,19 @@ bool is_block_in_seglist(void * block)
 	return false;
 }
 
+/**********************************************************
+ * add_to_seglist
+ * Adds a block that has been set as free to the segregated 
+ * free list.
+ *
+ * @param free_block - a pointer to the free block being
+ *                     added.
+ *
+ * @return void
+ *
+ **********************************************************/
 void add_to_seglist(void * free_block)
 {
-//	printf("Calling %s \n", __FUNCTION__);
-
-//	assert (free_block != NULL);
-//	assert (!GET_ALLOC(free_block));
-//	assert (is_block_in_seglist(free_block) == false);
-
 	size_t index = log_hash(GET_SIZE(free_block));
 	void* old_first_block = segList[index];
 	segList[index] = free_block;
@@ -168,12 +208,18 @@ void add_to_seglist(void * free_block)
 	return;
 }
 
+/**********************************************************
+ * is_block_in_freelist
+ * Checks to see if a block exists in the free list.
+ *
+ * @param block - the block pointer in question
+ *
+ * @return bool - true if the block is in the list. 
+ *                false otherwise.
+ *
+ **********************************************************/
 bool is_block_in_freelist(void * block)
 {
-//	printf("Calling %s \n", __FUNCTION__);
-
-	assert (block != NULL);
-
 	size_t index = log_hash(GET_SIZE(block));
 	void * list_root = segList[index];
 
@@ -189,14 +235,18 @@ bool is_block_in_freelist(void * block)
 	return false;
 }
 
+/**********************************************************
+ * remove_from_seglist
+ * Removes a free block from the segregated list
+ *
+ * @param free_block - a pointer to the free block being
+ *                     being removed.
+ *
+ * @return void
+ *
+ **********************************************************/
 void remove_from_seglist(void * free_block)
 {
-//	printf("Calling %s \n", __FUNCTION__);
-
-//	assert (free_block != NULL);
-//	assert (!GET_ALLOC(free_block));
-//	assert(is_block_in_freelist(free_block) == true);
-
 	uintptr_t next = GET_NEXT_PTR(free_block); // next pointer
 	uintptr_t prev = GET_PREV_PTR(free_block); // prev pointer
 
@@ -212,7 +262,6 @@ void remove_from_seglist(void * free_block)
 	else
 	{
 		int index = log_hash(GET_SIZE(free_block));
-//		assert (segList[index] ==  free_block);
 		segList[index] = (void *)next;
 	}
 
@@ -226,8 +275,6 @@ void remove_from_seglist(void * free_block)
  **********************************************************/
 int mm_init(void)
 {
-//	printf("Calling %s \n", __FUNCTION__);
-
     void* heap_listp;
     if ((heap_listp = mem_sbrk(4*WSIZE)) == (void *)-1)
         {return -1;}
@@ -235,6 +282,7 @@ int mm_init(void)
     PUT(heap_listp + (1 * WSIZE), PACK(DSIZE, 1));   // prologue header
     PUT(heap_listp + (2 * WSIZE), PACK(DSIZE, 1));   // prologue footer
     PUT(heap_listp + (3 * WSIZE), PACK(0, 1));    // epilogue header
+    prologue_ptr = heap_listp + (1 * WSIZE);
     epilogue_ptr = heap_listp + (3 * WSIZE);
 
     heap_listp += DSIZE;
@@ -242,7 +290,7 @@ int mm_init(void)
     int itr=0;
     for(; itr<HASH_SIZE; itr++)
     {
-    	segList[itr] = (void *)NULL;
+    	segList[itr] = (void *)NULL;    //initialize each element in the segregated free list to NULL
     }
 
     return 0;
@@ -258,8 +306,6 @@ int mm_init(void)
  **********************************************************/
 void *coalesce(void *bp)
 {
-//	printf("Calling %s \n", __FUNCTION__);
-
     /******************************************************
      * Steps for coalescing:
      * 1) Check if two blocks beside current block is free
@@ -276,7 +322,6 @@ void *coalesce(void *bp)
      * never in the free list to begin with. May be worth
      * revisiting.
      ******************************************************/
-    assert(!GET_ALLOC(HDRP(bp)));
 
     size_t prev_alloc = GET_ALLOC(FTRP(PREV_BLKP(bp)));
     size_t next_alloc = GET_ALLOC(HDRP(NEXT_BLKP(bp)));
@@ -288,17 +333,16 @@ void *coalesce(void *bp)
     void *next_header = HDRP(NEXT_BLKP(bp));
 
     //Let's calculate the footer pointer of all three blocks
-    // void *prev_footer = FTRP(PREV_BLKP(bp));
     void *curr_footer = FTRP(bp);
     void *next_footer = FTRP(NEXT_BLKP(bp));
 
     
-    if (prev_alloc && next_alloc)              /* Case 1 */
+    if (prev_alloc && next_alloc)               /* Case 1 - No coalescing necessary*/
     {
     	return bp;
     }
 
-    else if (prev_alloc && !next_alloc)        /* Case 2 */
+    else if (prev_alloc && !next_alloc)        /* Case 2 - Coalesce current block with the next block */
     {
         // Remove next block from the appropriate free list
         remove_from_seglist(next_header);
@@ -312,7 +356,7 @@ void *coalesce(void *bp)
         return (bp);
     }
 
-    else if (!prev_alloc && next_alloc)       /* Case 3 */
+    else if (!prev_alloc && next_alloc)        /* Case 3 - Coalesce current block with the previous  */
     {
         // Remove next block from the appropriate free list
         remove_from_seglist(prev_header);
@@ -325,7 +369,7 @@ void *coalesce(void *bp)
         return (PREV_BLKP(bp));
     }
 
-    else            /* Case 4 */
+    else            /* Case 4 - Coalesce current block with both the previous and next block*/
     {
         // Remove the prev and next block from the appropriate free lists
         remove_from_seglist(prev_header);
@@ -349,8 +393,6 @@ void *coalesce(void *bp)
  **********************************************************/
 void *extend_heap(size_t size)
 {
-//	printf("Calling %s \n", __FUNCTION__);
-
     char *bp;
 
     // If the previous block is free, only extend the heap by (size - size_of_prev_free_block) so that you reduce external fragmentation
@@ -375,7 +417,18 @@ void *extend_heap(size_t size)
     return coalesce(bp);
 }
 
-
+/**********************************************************
+ * break_block_and_return_bp
+ * Breaks the block into two segments: one block consisting 
+ * of asize bytes and another with a size
+ * of original block size minus asize
+ *
+ * @param block - A pointer to the block
+ * @param asize - The size needed from the block
+ *
+ * @return void * the pointer to the block with size asize
+ *
+ **********************************************************/
 void * break_block_and_return_bp(void * block, size_t asize)
 {
 	size_t block_size = GET_SIZE(block);
@@ -409,8 +462,6 @@ void * break_block_and_return_bp(void * block, size_t asize)
  **********************************************************/
 void * get_fit(size_t asize)
 {
-//	printf("Calling %s \n", __FUNCTION__);
-
 	int index = log_hash(asize);
 	void * list_itr;
 
@@ -419,6 +470,10 @@ void * get_fit(size_t asize)
 		list_itr = segList[index];
 		while (list_itr!=NULL)
 		{
+            //First fit search.
+            //Split the free block and allocate the necessary bytes
+            //The half that remains free will be added to the correct 
+            //size class in the segregated list.
 			if (GET_SIZE(list_itr) >= asize)
 			{
 				return break_block_and_return_bp(list_itr, asize);
@@ -437,8 +492,6 @@ void * get_fit(size_t asize)
  **********************************************************/
 void place(void* bp, size_t asize)
 {
-//	printf("Calling %s \n", __FUNCTION__);
-
     /* Get the current block size */
     size_t bsize = GET_SIZE(HDRP(bp));
 
@@ -452,8 +505,6 @@ void place(void* bp, size_t asize)
  **********************************************************/
 void mm_free(void *bp)
 {
-//	printf("Calling %s \n", __FUNCTION__);
-
     if(bp == NULL){
       return;
     }
@@ -475,8 +526,6 @@ void mm_free(void *bp)
  **********************************************************/
 void *mm_malloc(size_t size)
 {
-//	printf("Calling %s \n", __FUNCTION__);
-
     size_t asize; /* adjusted block size */
     char * bp;
 
@@ -510,8 +559,6 @@ void *mm_malloc(size_t size)
  *********************************************************/
 void *mm_realloc(void *ptr, size_t size)
 {
-//	printf("Calling %s \n", __FUNCTION__);
-
     /* If size == 0 then this is just free, and we return NULL. */
     if(size == 0)
     {
@@ -536,11 +583,12 @@ void *mm_realloc(void *ptr, size_t size)
     }
 
 
-    /* Free before malloc'ing to reduce fragmentation. If the free block is at the
-     * end, it will be reused with the part of the heap that we will extend. In
-     * order to preserve the data in the free block, we need to prevent it from 
-     * coalescing it with the previous block so that it is not broken up later at any
-     * arbitrary point and the data at those points overwritten by headers and footers
+    /* Free before a dynamic allocation via malloc to reduce fragmentation. 
+     * If the free block is at the end, it will be reused with the part of 
+     * the heap that we will extend. In order to preserve the data in the free block,
+     * we need to prevent it from coalescing it with the previous block so that 
+     * it is not broken up later at any arbitrary point and the data at those points
+     * overwritten by headers and footers.
      *
      *  We also need to save the 2 words where next and previous pointers will be saved
      */
@@ -569,15 +617,95 @@ void *mm_realloc(void *ptr, size_t size)
     PUT(newptr+WSIZE, word2);
     return newptr;
 }
+/**********************************************************
+ * powerOfTwo
+ * Calculates the power of 2 given an exponent argument.
+ *
+ * @param exponent - The exponent for the power expression
+ * @return int - The result of the power function
+ * *********************************************************/
+int powerOfTwo(int exponent){
+    int product = 1;
+    int i;
+    for(i = 0; i < exponent; i++){
+        product *= 2;
+    }
+
+    return product;
+}
 
 /**********************************************************
  * mm_check
  * Check the consistency of the memory heap
- * Return nonzero if the heap is consistant.
+ * Return nonzero if the heap is consistent.
+ *
+ * Consistency Checks include:
+ * 1) Is every block in the free list marked as free?
+ * 2) Are there any contiguous free blocks that escaped
+ *    coalescing?
+ * 3) Are all blocks marked as free in the heap added
+ *    to the segregated list?
+ * 4) Do all blocks hashing to a certain index in the 
+ *    hash table fit within the correct size class of the
+ *    segregated free list?
+ *    
  *********************************************************/
 int mm_check(void)
 {
-//	printf("Calling %s \n", __FUNCTION__);
+    int result = 1;
+    // Is every block in the free list marked as free?
+    int itr;
+    //Iterate through all indices in the hash table.
+    for(itr = 0; itr < HASH_SIZE; itr++){
+        void *currNode = segList[itr];
+        //Iterate through the list of free blocks within the index
+        while(currNode){
+            //If a block is allocated in the list, this is an error.
+            if(GET_ALLOC(currNode)){
+                fprintf(stderr, "[mm_check Error] a block in the seglist is still allocated\n");
+                result = 0;
+            }
+            currNode = (void*) GET_NEXT_PTR(currNode);
+        }   
+    }
+    // Are there any contiguous free blocks that somehow escaped coalescing? 
+    int currAlloc = 0;
+    void *itr_pointer = prologue_ptr + DSIZE;
 
-    return 1;
+    while(itr_pointer){
+        if(!currAlloc && !GET_ALLOC(HDRP(itr_pointer))){
+            fprintf(stderr, "[mm_check Error] two contiguous blocks missed coalescing.\n");
+            result = 0;
+        }
+        if(!GET_ALLOC(HDRP(itr_pointer)) && !is_block_in_seglist(HDRP(itr_pointer))){
+            fprintf(stderr, "[mm_check Error] Free block is not in segregated list \n");
+            result = 0;
+        }
+        itr_pointer = NEXT_BLKP(itr_pointer);
+        currAlloc = GET_ALLOC(itr_pointer);
+    }
+
+    //Are the list of blocks in each index of the hash table fit the corresponding size class?
+    //blocks in index 0 are between 1byte (2^0) and 2bytes(2^1), index 1 are between sizes 2bytes 
+    //and 4bytes... index 5 are between size 32(2^5) and size 64 (2^6)
+    
+    //Iterate through hash_table from 0 to 32 (2^32 is MAXINT)
+    for(itr = 0; itr < 32; itr++){
+        int minSize = powerOfTwo(itr);
+        int maxSize = powerOfTwo(itr+1);
+        void *currNode = segList[itr];
+        //Iterate through the list of free blocks within the index
+        while(currNode){
+            //If a block is outside the size class range, it's an error.
+            if(GET_SIZE(currNode) < minSize &&
+                GET_SIZE(currNode) >= maxSize){
+                fprintf(stderr, "[mm_check Error] This block is outside its size class range\n");
+                result = 0;
+            }
+            currNode = (void*) GET_NEXT_PTR(currNode);
+        }   
+    }
+
+    return result;
+
 }
