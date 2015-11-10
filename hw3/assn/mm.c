@@ -2,13 +2,13 @@
  * This allocator implements a segregated free list to
  * manage all the free blocks based on size classes. 
  * Each index in the hash table represents the size of
- * the block as a power of 2 with a max size of 64. 
+ * the block as a power of 2 with a max size of HASH_SIZE.
  * 
- * Allocated blocks contain an 8 byte header and a 
- * minimum of 24 bytes for the payload. The lowest
+ * Allocated blocks contain an 8 byte header and footer a
+ * minimum of 16 bytes for the payload. The lowest
  * bit of the header indicates whether the block 
  * is allocated (1) or free (0). In this case, 
- * the bit is set to 1. The rest of the 61 bits 
+ * the bit is set to 1. The most significant 58 bits
  * are used for the size since each block is 
  * a multiple of 8.
  *
@@ -118,7 +118,7 @@ team_t team = {
 #define NEXT_BLKP(bp) ((char *)(bp) + GET_SIZE(((char *)(bp) - WSIZE)))
 #define PREV_BLKP(bp) ((char *)(bp) - GET_SIZE(((char *)(bp) - DSIZE)))
 
-#define HASH_SIZE 64
+#define HASH_SIZE 20
 
 void* prologue_ptr = NULL; //pointer to the prologue block
 void* epilogue_ptr = NULL; //pointer to the epilogue block
@@ -145,12 +145,12 @@ size_t log_hash(size_t key)
         }
         val<<=1;
     }
-    return index;
+    return index>HASH_SIZE-1? HASH_SIZE-1 : index;
 }
 
 /**********************************************************
  * is_block_in_seglist
- * Checks to see if a block exists in the segregated list.
+ * Checks to see if a block exists in the segregated free list.
  *
  * @param block - the block pointer in question
  *
@@ -193,6 +193,9 @@ bool is_block_in_seglist(void * block)
  **********************************************************/
 void add_to_seglist(void * free_block)
 {
+	// Make sure the block does not already exist in the segregated free list
+    //  assert(!is_block_in_seglist(free_block));
+
 	size_t index = log_hash(GET_SIZE(free_block));
 	void* old_first_block = segList[index];
 	segList[index] = free_block;
@@ -210,7 +213,7 @@ void add_to_seglist(void * free_block)
 
 /**********************************************************
  * is_block_in_freelist
- * Checks to see if a block exists in the free list.
+ * Checks to see if a block exists in its respective bin in the segregated free list.
  *
  * @param block - the block pointer in question
  *
@@ -247,6 +250,9 @@ bool is_block_in_freelist(void * block)
  **********************************************************/
 void remove_from_seglist(void * free_block)
 {
+	// Make sure the block is in the proper bin in the segregated free list
+    // assert(is_block_in_freelist(free_block));
+
 	uintptr_t next = GET_NEXT_PTR(free_block); // next pointer
 	uintptr_t prev = GET_PREV_PTR(free_block); // prev pointer
 
@@ -275,6 +281,8 @@ void remove_from_seglist(void * free_block)
  **********************************************************/
 int mm_init(void)
 {
+//	mm_check();
+
     void* heap_listp;
     if ((heap_listp = mem_sbrk(4*WSIZE)) == (void *)-1)
         {return -1;}
@@ -505,7 +513,7 @@ void place(void* bp, size_t asize)
  **********************************************************/
 void mm_free(void *bp)
 {
-    if(bp == NULL){
+	if(bp == NULL){
       return;
     }
     size_t size = GET_SIZE(HDRP(bp));
@@ -526,7 +534,7 @@ void mm_free(void *bp)
  **********************************************************/
 void *mm_malloc(size_t size)
 {
-    size_t asize; /* adjusted block size */
+	size_t asize; /* adjusted block size */
     char * bp;
 
     /* Ignore spurious requests */
@@ -617,22 +625,6 @@ void *mm_realloc(void *ptr, size_t size)
     PUT(newptr+WSIZE, word2);
     return newptr;
 }
-/**********************************************************
- * powerOfTwo
- * Calculates the power of 2 given an exponent argument.
- *
- * @param exponent - The exponent for the power expression
- * @return int - The result of the power function
- * *********************************************************/
-int powerOfTwo(int exponent){
-    int product = 1;
-    int i;
-    for(i = 0; i < exponent; i++){
-        product *= 2;
-    }
-
-    return product;
-}
 
 /**********************************************************
  * mm_check
@@ -653,52 +645,65 @@ int powerOfTwo(int exponent){
 int mm_check(void)
 {
     int result = 1;
-    // Is every block in the free list marked as free?
-    int itr;
-    //Iterate through all indices in the hash table.
-    for(itr = 0; itr < HASH_SIZE; itr++){
+    size_t itr;
+
+    /* Is every block in the free list marked as free? */
+    // Iterate through all indices in the hash table.
+    for(itr = 0; itr < HASH_SIZE; itr++)
+    {
         void *currNode = segList[itr];
         //Iterate through the list of free blocks within the index
-        while(currNode){
+        while(currNode)
+        {
             //If a block is allocated in the list, this is an error.
-            if(GET_ALLOC(currNode)){
+            if(GET_ALLOC(currNode))
+            {
                 fprintf(stderr, "[mm_check Error] a block in the seglist is still allocated\n");
                 result = 0;
             }
             currNode = (void*) GET_NEXT_PTR(currNode);
         }   
     }
-    // Are there any contiguous free blocks that somehow escaped coalescing? 
-    int currAlloc = 0;
-    void *itr_pointer = prologue_ptr + DSIZE;
 
-    while(itr_pointer){
-        if(!currAlloc && !GET_ALLOC(HDRP(itr_pointer))){
-            fprintf(stderr, "[mm_check Error] two contiguous blocks missed coalescing.\n");
+    /* Are there any contiguous free blocks that somehow escaped coalescing? */
+    void *itr_pointer = (char *)prologue_ptr + WSIZE;
+
+    while(itr_pointer != (char *)epilogue_ptr+WSIZE)
+    {
+    	bool currAlloc = GET_ALLOC(HDRP(itr_pointer));
+    	void * next_bp = NEXT_BLKP(itr_pointer);
+    	bool nextAlloc = GET_ALLOC(HDRP(next_bp));
+        if(!currAlloc && !nextAlloc)
+        {
+            fprintf(stderr, "[mm_check Error] Two contiguous blocks missed coalescing.\n");
             result = 0;
         }
-        if(!GET_ALLOC(HDRP(itr_pointer)) && !is_block_in_seglist(HDRP(itr_pointer))){
+        /* Does every free block actually exist in the free list */
+        if(!currAlloc && !is_block_in_seglist(HDRP(itr_pointer)))
+        {
             fprintf(stderr, "[mm_check Error] Free block is not in segregated list \n");
             result = 0;
         }
-        itr_pointer = NEXT_BLKP(itr_pointer);
-        currAlloc = GET_ALLOC(itr_pointer);
+        itr_pointer = next_bp;
     }
 
-    //Are the list of blocks in each index of the hash table fit the corresponding size class?
-    //blocks in index 0 are between 1byte (2^0) and 2bytes(2^1), index 1 are between sizes 2bytes 
-    //and 4bytes... index 5 are between size 32(2^5) and size 64 (2^6)
+    /* Do the list of blocks in each index of the hash table fit the corresponding size class? */
+    // Example: blocks in index 5 are between size 17-32 (2^4<SIZE<=2^5)
     
-    //Iterate through hash_table from 0 to 32 (2^32 is MAXINT)
-    for(itr = 0; itr < 32; itr++){
-        int minSize = powerOfTwo(itr);
-        int maxSize = powerOfTwo(itr+1);
+    //Iterate through hash_table from 0 to HASH_SIZE
+    for(itr = 5; itr < HASH_SIZE; itr++)
+    {
+        int minSize = 1<<(itr-1);
+        int maxSize = 1<<(itr);
         void *currNode = segList[itr];
         //Iterate through the list of free blocks within the index
-        while(currNode){
-            //If a block is outside the size class range, it's an error.
-            if(GET_SIZE(currNode) < minSize &&
-                GET_SIZE(currNode) >= maxSize){
+        while(currNode)
+        {
+            // If a block is outside the size class range, it's an error.
+        	// If its the last bucket, don't enforce max range since the last bucket
+        	// stores everything larger than it also
+            if(GET_SIZE(currNode) <= minSize || (GET_SIZE(currNode) > maxSize && itr!=HASH_SIZE-1))
+            {
                 fprintf(stderr, "[mm_check Error] This block is outside its size class range\n");
                 result = 0;
             }
