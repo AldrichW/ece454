@@ -43,8 +43,8 @@ class sample {
 };
 
 struct arg_struct {
-    int start_index;
-    int num_iterations;
+        int start_index;
+        int num_iterations;
 };
 
 // This instantiates an empty hash table
@@ -60,9 +60,6 @@ void *countSamples(void* arguments){
     sample *s;  
     struct arg_struct *args = (struct arg_struct*)arguments;
 
-    //declare and initialize pthread_mutex object
-    pthread_mutex_t mutex =  PTHREAD_MUTEX_INITIALIZER;
-
     for (i = args->start_index; i < (args->start_index + args->num_iterations); i++){
 
         rnum = i; 
@@ -76,9 +73,7 @@ void *countSamples(void* arguments){
 
             // force the sample to be within the range of 0..RAND_NUM_UPPER_BOUND-1
             key = rnum % RAND_NUM_UPPER_BOUND;
-            
-            /********* Critical Section - BEGIN ***************/
-            pthread_mutex_lock(&mutex); //Lock and serialize the access to shared hash table
+
             // if this sample has not been counted before
             if (!(s = h.lookup(key))){
 	
@@ -89,8 +84,6 @@ void *countSamples(void* arguments){
 
             // increment the count for the sample
             s->count++;
-            pthread_mutex_unlock(&mutex);   //Done accessing and modifying contents in hash table.
-            /********* Critical Section - END ***************/
         }
     }
 

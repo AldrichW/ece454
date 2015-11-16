@@ -1,7 +1,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <pthread.h>
 
 #include "defs.h"
 #include "hash.h"
@@ -42,52 +41,11 @@ class sample {
   void print(FILE *f){printf("%d %d\n",my_key,count);}
 };
 
-struct arg_struct {
-        int start_index;
-        int num_iterations;
-};
-
 // This instantiates an empty hash table
 // it is a C++ template, which means we define the types for
 // the element and key value here: element is "class sample" and
 // key value is "unsigned".  
 hash<sample,unsigned> h;
-
-void *countSamples(void* arguments){
-    int i,j,k;
-    int rnum;
-    unsigned key;
-    sample *s;  
-    struct arg_struct *args = (struct arg_struct*)arguments;
-
-    for (i = args->start_index; i < (args->start_index + args->num_iterations); i++){
-
-        rnum = i; 
-        // collect a number of samples
-        for (j=0; j<SAMPLES_TO_COLLECT; j++){
-
-            // skip a number of samples
-            for (k=0; k<samples_to_skip; k++){
-	            rnum = rand_r((unsigned int*)&rnum);
-            }
-
-            // force the sample to be within the range of 0..RAND_NUM_UPPER_BOUND-1
-            key = rnum % RAND_NUM_UPPER_BOUND;
-
-            // if this sample has not been counted before
-            if (!(s = h.lookup(key))){
-	
-	        // insert a new element for it into the hash table
-	        s = new sample(key);
-	        h.insert(s);
-            }   
-
-            // increment the count for the sample
-            s->count++;
-        }
-    }
-
-}
 
 int  
 main (int argc, char* argv[]){
@@ -119,39 +77,34 @@ main (int argc, char* argv[]){
   // initialize a 16K-entry (2**14) hash of empty lists
   h.setup(14);
 
-  //initialize pthread structure with size num_threads-1 
-  //(I technically don't need the first one since it's handled by main thread)
-  pthread_t tid[num_threads];
-
-  struct arg_struct args;
-  args.num_iterations = NUM_SEED_STREAMS/num_threads;
   // process streams starting with different initial numbers
   for (i=0; i<NUM_SEED_STREAMS; i++){
     rnum = i;
-    args.start_index = i;
-    switch(num_threads){
-        case 1:
-            if(i == 0){
-                pthread_create(&tid[i], NULL, countSamples, (void*)&args);
-            }
-            break;
-        case 2:
-            if(i == 0){  
-                pthread_create(&tid[0], NULL, countSamples, (void*)&args);
-            }
-            else if(i == 2){
-                pthread_create(&tid[1], NULL, countSamples, (void*)&args);
-            }
-        case 4:
-            pthread_create(&(tid[i]), NULL, countSamples, (void*)&args);
-            break;
-        default:
-            break;
+
+    // collect a number of samples
+    for (j=0; j<SAMPLES_TO_COLLECT; j++){
+
+      // skip a number of samples
+      for (k=0; k<samples_to_skip; k++){
+	rnum = rand_r((unsigned int*)&rnum);
+      }
+
+      // force the sample to be within the range of 0..RAND_NUM_UPPER_BOUND-1
+      key = rnum % RAND_NUM_UPPER_BOUND;
+
+      // if this sample has not been counted before
+      if (!(s = h.lookup(key))){
+	
+	// insert a new element for it into the hash table
+	s = new sample(key);
+	h.insert(s);
+      }
+
+      // increment the count for the sample
+      s->count++;
     }
   }
-  for(i=0; i < num_threads; i++){
-    pthread_join(tid[i], NULL);
-  }
+
   // print a list of the frequency of all samples
   h.print();
 }
