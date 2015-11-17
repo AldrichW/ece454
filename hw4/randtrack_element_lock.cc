@@ -10,7 +10,6 @@
 #define SAMPLES_TO_COLLECT   10000000
 #define RAND_NUM_UPPER_BOUND   100000
 #define NUM_SEED_STREAMS            4
-
 /* 
  * ECE454 Students: 
  * Please fill in the following team struct 
@@ -53,6 +52,7 @@ struct arg_struct {
 // the element and key value here: element is "class sample" and
 // key value is "unsigned".  
 hash<sample,unsigned> h;
+pthread_mutex_t mutex_arr[RAND_NUM_UPPER_BOUND];
 
 void *countSamples(void* arguments){
     int i,j,k;
@@ -72,21 +72,22 @@ void *countSamples(void* arguments){
 
             // force the sample to be within the range of 0..RAND_NUM_UPPER_BOUND-1
             key = rnum % RAND_NUM_UPPER_BOUND;
-           
-            /******** Critical Section - BEGIN *******/
-            __transaction_atomic {
 
-                // if this sample has not been counted before
-                if (!(s = h.lookup(key))){
+            /******** Critical Section - BEGIN *******/
+            pthread_mutex_lock(&mutex_arr[key]);
+
+            // if this sample has not been counted before
+            if (!(s = h.lookup(key))){
 	
 	            // insert a new element for it into the hash table
 	            s = new sample(key);
 	            h.insert(s);
-                }   
+            }   
 
-                // increment the count for the sample
-                s->count++;
-            }
+            // increment the count for the sample
+            s->count++;
+
+            pthread_mutex_unlock(&mutex_arr[key]);
             /******** Critical Section - END *******/
         }
     }
@@ -121,6 +122,13 @@ main (int argc, char* argv[]){
 
   // initialize a 16K-entry (2**14) hash of empty lists
   h.setup(14);
+  for(i = 0; i < RAND_NUM_UPPER_BOUND; i++){
+     int ret = pthread_mutex_init(&mutex_arr[i], NULL);
+     if(ret != 0){
+        printf("Failed to initilize a pthread_mutex_t object. Exiting...\n");
+        exit(1);
+     }
+  }
   
   //initialize pthread structure with size num_threads 
   pthread_t *tid = (pthread_t*)malloc(num_threads*sizeof(pthread_t));
