@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
+#include <assert.h>
 
 #include "defs.h"
 #include "hash.h"
@@ -18,7 +19,7 @@ team_t team = {
     "team_almost_there",                    /* Team name */
 
     "Suhaib Ahmed",                         /* First member full name */
-    "9999999999",                           /* First member student number */
+    "999054062",                           /* First member student number */
     "suhaib.ahmed@mail.utoronto.ca",        /* First member email address */
 
     "Aldrich Wingsiong",                    /* Second member full name */
@@ -58,10 +59,8 @@ void *countSamples(void* arguments){
     int rnum;
     unsigned key;
     sample *s;  
-    struct arg_struct *args = (struct arg_struct*)arguments;
-
-    for (i = args->start_index; i < (args->start_index + args->num_iterations); i++){
-
+    struct arg_struct args = *(struct arg_struct*)arguments;
+    for (i = args.start_index; i < (args.start_index + args.num_iterations); i++){
         rnum = i; 
         // collect a number of samples
         for (j=0; j<SAMPLES_TO_COLLECT; j++){
@@ -87,14 +86,13 @@ void *countSamples(void* arguments){
         }
     }
 
+    free(arguments);
+
 }
 
 int  
 main (int argc, char* argv[]){
-  int i,j,k;
-  int rnum;
-  unsigned key;
-  sample *s;
+  int i;
 
   // Print out team information
   printf( "Team Name: %s\n", team.team );
@@ -118,32 +116,34 @@ main (int argc, char* argv[]){
 
   // initialize a 16K-entry (2**14) hash of empty lists
   h.setup(14);
-
-  //initialize pthread structure with size num_threads-1 
-  //(I technically don't need the first one since it's handled by main thread)
-  pthread_t tid[num_threads];
-
-  struct arg_struct args;
-  args.num_iterations = NUM_SEED_STREAMS/num_threads;
+  
+  //initialize pthread structure with size num_threads 
+  pthread_t *tid = (pthread_t*)malloc(num_threads*sizeof(pthread_t));
+  int num_iterations = NUM_SEED_STREAMS/num_threads;
   // process streams starting with different initial numbers
-  for (i=0; i<NUM_SEED_STREAMS; i++){
-    args.start_index = i;
+  for (i=0; i<NUM_SEED_STREAMS;){
+    struct arg_struct *args = (struct arg_struct*)malloc(sizeof(struct arg_struct));
+    args->num_iterations = num_iterations;
+    args->start_index = i;
     switch(num_threads){
         case 1:
             if(i == 0){
-                pthread_create(&tid[i], NULL, countSamples, (void*)&args);
+                pthread_create(&tid[i], NULL, countSamples, (void*)args);
+                i+=4;
             }
             break;
         case 2:
             if(i == 0){  
-                pthread_create(&tid[0], NULL, countSamples, (void*)&args);
+                pthread_create(&tid[i], NULL, countSamples, (void*)args);
             }
             else if(i == 2){
-                pthread_create(&tid[1], NULL, countSamples, (void*)&args);
+                pthread_create(&tid[1], NULL, countSamples, (void*)args);
             }
+            i+=2;
             break;
         case 4:
-            pthread_create(&(tid[i]), NULL, countSamples, (void*)&args);
+            pthread_create(&tid[i], NULL, countSamples, (void*)args);
+            i++;
             break;
         default:
             break;
@@ -152,6 +152,8 @@ main (int argc, char* argv[]){
   for(i=0; i < num_threads; i++){
     pthread_join(tid[i], NULL);
   }
+
   // print a list of the frequency of all samples
   h.print();
+  free(tid);
 }
