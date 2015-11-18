@@ -1,0 +1,137 @@
+
+/**********************************************/
+*
+* Lab 4 - Pthreads and Synchronization Report
+*
+***********************************************/
+
+/********** 2.3 Compiling **********/
+Q1. Why is it important to #ifdef out methods and data structures that aren’t used for different versions of randtrack? 
+
+#ifdef is a conditional compile mechanism in C++. It’s important to compile methods and data structures conditionally for the right version of randtrack you’re building in order to minimize executable size and reduce latency for unnecessary data structure initialization and structure traversal. From a readability perspective, a developer trying to understand one’s code for a specific version of randtrack can be confused if data structures designed for other versions are included and unused
+methods are compiled. Lastly, the compiled code bloat and added latency can give misleading results when measuring the elapsed time of each randtrack version.
+
+/********** 3.2 Using Transactional Memory **********/
+Q2. How difficult was using TM compared to implementing global lock above? 
+
+The implementation of TM is easier compared to the global lock since it requires less setup code and knowledge of thread locking. After parallelizing the randtrack program, the only changes necessary was to add the __transaction_atomic syntax with the critical code nested inside. As long as the randtrack_tm program was compiled with the right flags to support transactional memory. Unlike the global lock, TM does not need any declaration and initialization of objects such as pthread_mutex_t.
+
+/********** 3.3 List-Level Locks **********/                   
+Q3. Can you implement this without modifying the hash class, or without knowing its internal implementation?
+
+Yes, we can utilize another hash type data structure to store a mutex instance associated with each key. Modifying the hash class is not required since a stand alone data structure is managing each instance of the mutex lock for each entry in the hash class. However, we cannot implement locks for each list without knowledge of the hash size and how the hash index is computed via the HASH_INDEX macro.
+
+Q4. Can you properly implement this solely by modifying the hash class methods lookup and insert? Explain. 
+
+Yes, you can implement the list-level locks by modifying the hash class methods. This is done by creating a new private list of pthread mutexes with the same size as the entries list. Within the lookup and insert methods, we can determine the hash index of the table using the HASH_INDEX macro. Before accessing the list of samples within a specific entry, we invoke pthread_mutex_lock using the mutex in the same hash_index of the new mutex list.  We unlock the mutex at the
+end of both the lookup and insert function.
+
+Q5. Can you implement this by adding to the hash class a new function lookup and insert if absent? Explain.
+
+Yes, we can add a new function to hash class that takes care of both lookup and insert if the key does not exist yet. Similar to Q4, we can add a new private list of mutexes, with a size that matches the entries list of the hash class. In a new function called LookupAndInsert(Keytype key), we determine that hash index using the provided HASH_INDEX macro. This will provide a hash_index for both the entries list and the mutex list. Lock the specific mutex in the list that
+maps to the hash index before performing the initial lookup iteration. If the key for a sample is not found, insert a new Ele object setting its key to the Keytype argument. Otherwise return the sample that was found back to the calling function.
+
+Q6. Can you implement it by adding new methods to the hash class lock list and unlock list? Explain.
+
+Yes, we can implement list-level locking by adding lock_list(list<Ele,Keytype> *l) and unlock_list(list<Ele,Keytype> *l) methods to the hash class. This is achieved by passing in a pointer to the list that needs to be accessed or written to. In addition, a new hash list needs to be added to the hash class which uses the list pointer as a key and the pthread mutex as the value. Therefore, lookup and insert function can call lock_list and unlock_list passing in the pointer to
+the list they are accessing. Each function then obtains the mutex object that maps to the list pointer and lock/unlock the mutex object depending on which of the two functions were called. This requires lookup and insert to invoke lock_list (l) before performing the lookup/insert operation and unlock_list(l) after the operations have been completed.
+
+Q7. How difficult was using TM compared to implementing list locking above? 
+
+Compared to implementing list locking, using TM is very easy since knowledge of the underlying logic within the hash template is not required. In order to dedicate a pthread_mutex_t instance for each entry in the hash table, I had to analyze hash.h and figure out how each key was hashed to a table index. Based on that logic, I was able to populate another data structure with the same size as the global hash table with a mutex lock for each entry. Transactional memory only
+needs to know about the part of the code that’s considered a critical section in order to nest that section within the __transaction_atomic directive.
+
+/********** 3.5 Reduction Version **********/
+Q8. What are the pros and cons of this approach?
+
+Pros:
+- No need to lock access to the critical section of code that reads and writes to the hash table (reduces latency)
+- Threads can operate and perform independently with a local hash table. Systems with large amounts of memory can utilize local hash tables for each thread and not have to share dedicated mutexes between each other.
+- Less work on the developer’s end to initialize mutex objects and manage their state throughout the program.
+- Less work on the developer to identify critical sections of code within the program (sections where shared memory is accessed) and ensure that it is properly wrapped with a pthread_mutex_lock and pthread_mutex_unlock combination.
+- Code is more scalable and less prone to human error should a developer choose to extend the program and add more data accesses to the hash table. If they forget to utilize mutex locks for this new code, unexpected inaccuracies will result in the data being stored.
+
+Cons:
+- Significant memory overhead if multiple threads are spawned (more than 4 threads). If each hash table contains 2^14 entries, The amount of memory needed to store the hash data structure is doubled with two threads and quadrupled with four threads.
+- Program Binary bloat - Array of local hash tables are declared as global variables and must exist until all local hash tables can be combined with the global hash_table.
+- Run-time latencies occur when ALL local hash tables need to be combined after the threaded function has finished executing. This latency becomes magnified as more threads are spawned and the number of local hash tables multiply.
+
+/********** 4.2 - Timing Experiments to Run **********/
+Elapsed Time in seconds w/ samples_to_skip set to 50
+randtrack (original benchmark)
+1thread - 0:10.35
+2thread - 0:10.35
+4thread - 0:10.35
+randtrack_global_lock
+1thread - 0:10.52
+2thread - 0:06.44
+4thread - 0:05.27
+randtrack_tm
+1thread - 0:11.24
+2thread - 0:09.48
+4thread - 0:05.59
+randtrack_list_lock
+1thread - 0:10.69
+2thread - 0:05.58
+4thread - 0:03.07
+randtrack_element_lock
+1thread - 0:10.69
+2thread - 0:05.55
+4thread - 0:03.15
+randtrack_reduction
+1thread - 0:10.36
+2thread - 0:05.25
+4thread - 0:02.76
+
+
+Q9. For samples to skip set to 50, what is the overhead for each parallelization approach? Report this as the runtime of the parallel version with one thread divided by the runtime of the single-threaded version.
+
+Parallelization Overhead
+randtrack_global_lock = 10.52/10.35 = 1.016
+randtrack_tm = 11.24/10.35 = 1.086
+randtrack_list_lock = 10.69/10.35 = 1.033
+randtrack_element_lock = 10.69/10.35 = 1.033
+randtrack_reduction =  10.36/10.35 = 1.0009
+
+Q10. How does each approach perform as the number of threads increases? If performance gets worse for a certain case, explain why that may have happened.
+
+As the number of threads increase, the elapsed time for the entire program execution generally decreases. Significant improvements are observed when the randtrack program is ran with two threads compared to only one. Furthermore, running the executable with 4 threads reduced the elapsed time by 55-60% for most synchronization techniques compared to the elapsed time of two-thread execution. There were no cases where a synchronization
+technique became worse as the number of threads increased. These timed measurements are accurate since each synchronization approach and thread configuration were executed 5 times and an average was calculated for each of them.
+
+Q11. Repeat the data collection above with samples to skip set to 100 and give the table. How does this change impact the results compared with when set to 50? Why?
+
+Elapsed Time in seconds w/ samples_to_skip set to 100
+randtrack (original benchmark)
+1thread - 0:20.50
+2thread - 0:20.50
+4thread - 0:20.50
+randtrack_global_lock
+1thread - 0:20.63
+2thread - 0:11.30
+4thread - 0:07.21
+randtrack_tm
+1thread - 0:21.37
+2thread - 0:14.58
+4thread - 0:08.22
+randtrack_list_lock
+1thread - 0:20.84
+2thread - 0:10.65
+4thread - 0:05.82
+randtrack_element_lock
+1thread - 0:20.84
+2thread - 0:10.62
+4thread - 0:05.74
+randtrack_reduction
+1thread - 0:20.48
+2thread - 0:10.32
+4thread - 0:05.44
+
+Looking at the results above, changing the samples to skip parameter from 50 to 100 generally doubled the elapsed time for 1-thread and 2-thread execution. However, for 4-thread execution, the elapsed time only increased by approx. 55%. This increase in execution time occurred because of how the samples_to_skip parameter is utilized in the core for loop of the program. For each seed stream, a for loop repeats ten million
+times which represents the number of samples to collect. Nested within that for loop is another for loop that repeats the same amount of times as the samples_to_skip parameter. In the first case, the total number of iterations is 500 million, while the second case (samples_to_skip set to 100) has 1 billion total iterations. Even with parallelization, each thread executes the nested for loop synchronously. Therefore, the
+execution time doubles.
+
+Q12. Which approach should OptsRus ship? Keep in mind that some customers might be using multicores with more than 4 cores, while others might have only one or two cores. 
+
+Looking at all the synchronization approaches, I would recommend using the reduction version of randtrack. This is because it has the smallest elapsed time compared to other approaches across the different thread configurations. With one thread, most approaches had parallelization overhead resulting in higher execution times compared to the original randtrack program. However, the reduction approach was almost equal to the
+elapsed time of the original version with one thread, and has quadruple the speed up when using four threads. Its closest competition is the randtrack element-level lock. But even with this approach, the reduction version has better performance (3-5% increase) across all thread configurations.
+
