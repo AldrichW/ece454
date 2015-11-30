@@ -5,6 +5,7 @@ include Makefile.include
 
 LDFLAGS += -lm 
 CPPFLAGS += "-DCOMPILER=\"$(CC)\"" "-DFLAGS=\"$(COPTFLAGS)\""
+CFLAGS += -fopenmp
 
 #
 # Include the realtime clock library, if required.
@@ -27,7 +28,7 @@ EXES = $(GOL_EXE) $(BITBOARD_EXE)
 OBJS = $(GOL_OBJS) $(BITBOARD_OBJS)
 
 
-all: $(GOL_EXE) $(BITBOARD_EXE)
+all: $(GOL_EXE) $(BITBOARD_EXE) $(GOL_VERIFY_EXE)
 
 $(GOL_EXE): $(GOL_OBJS) 
 	$(LINKER) $(CFLAGS) $(LDFLAGS) $(GOL_OBJS) -o $@ 
