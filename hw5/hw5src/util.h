@@ -12,14 +12,17 @@ static inline int
 mod (int x, int m)
 {
     if( x < 0 ){
-        return (x%m) +m;
+        //Since the boards are continuous, this ensures that a value of -1 for x 
+        //resolves to the last row or column in the board
+        return (x%m) +m;    
     }
 
     if( x >= m )
     {
+        //This ensures that any value of x greater than m-1 resolves to the beginning of the row or column
 	    return x%m;
     }
-
+    // x falls within the range of [0, m-1] inclusive, which is a valid value. Just return x.
     return x;
 }
 
